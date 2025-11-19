@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">             
+    <h3 class="title">DEXT5 Editor :: NewDocumentResetAll</h3>
+    <p class="ttl">
+        XML : &#60;new_document_reset_all&#62;.....&#60;/new_document_reset_all&#62;, Script : NewDocumentResetAll<br />
+    </p>
+    <p class="txt">
+        <b>Config 설정이 우선 적용됩니다.</b><br />
+        새 문서 동작 시 추가된 css, js, title 의 초기화 여부를 설정합니다.
+    </p> 
+    <p class="mttl01">remarks</p>
+    <span class="txt">
+        기본값은 "0"이고 "1"로 설정 시 새 문서 동작 때 추가된 css, js, title 도 모두 초기화됩니다.<br />
+    </span>
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+<b>새 문서 동작 시 추가된 css, js, title 도 모두 초기화되도록 설정합니다.</b>
+
+<b>XML</b>
+
+.....
+&#60;setting&#62;
+    .....
+    &#60;new_document_reset_all&#62;1&#60;/new_document_reset_all&#62;
+    .....
+&#60;/setting&#62;
+.....
+
+<b>Config</b>
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;	
+    
+&#60;!-- ..... 생략 ..... --&#62;
+    
+&#60;div style="width:900px;height:550px"&#62;    
+    &#60;script type="text/javascript"&#62;
+
+        DEXT5.config.NewDocumentResetAll = "1";
+
+        new Dext5editor("editor1");
+
+    &#60;/script&#62;       
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

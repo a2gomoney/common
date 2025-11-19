@@ -1,0 +1,1 @@
+(function(){var a={title:"Image Slider",icon:{p_zoomslider:"Image Slider"}};try{G_DEPlugin&&(G_DEPlugin.zoomslider.lang=a,dext5_lang.plugins.zoomslider=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&RAONWIZDLW&&RAONWIZDLW()}})();

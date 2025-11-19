@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenName="mocacoMermaid">
+    	<w2:type>COMPONENT</w2:type>
+    	<w2:buildDate />
+    	<w2:MSA />
+    	<xf:model>
+    		<w2:dataCollection baseNode="map">
+    			<w2:dataMap baseNode="map" id="dma_dataMap1" style="">
+    				<w2:keyInfo>
+    					<w2:key dataType="text" id="key1" name=""></w2:key>
+    					<w2:key dataType="text" id="key2" name=""></w2:key>
+    				</w2:keyInfo>
+    				<w2:data use="true">
+    					<desc><![CDATA[
+<pre class="textNor" style="">
+<div class="etcbox">본 화면은 화면전환시 넘겨받은 Parameter Setting 방법을 제공한다. 
+com.data.getParameter 를 이용하여 넘겨받은 Parameter를 받아올 수 있다.
+</div>
+<div class="etc_tit">1. 사용제약</div>
+  - HTML5의 브라우저 객체를 이용하므로, ie6, 7 브라우저에서는 사용이 불가하다.
+<div class="etc_tit">2. Parameter 처리 방법</div>
+  - com.data.getParameter 라는 API를 이용하여 넘겨받은 Parameter를 받아온다.
+  - 예시
+  com.data.getParameter("CODE");
+						]]></desc>
+    					<test><![CDATA[
+<pre class="textNor" style="">						
+<div class="etc_tit">1. 과정</div>
+  - 이전화면인 [url 방식]화면에서 값을 입력 후 [url] 혹은 [newTab] 버튼을 클릭한다.
+</div>
+<div class="etc_tit">2. 결과</div>
+  - 화면이 전환되면서 이전화면에서 넘겨준 Parameter값이 자동으로 setting됨을 확인한다.
+</pre>
+						]]></test>
+    				</w2:data>
+    			</w2:dataMap>
+    		</w2:dataCollection>
+    		<w2:workflowCollection />
+    	</xf:model>
+    	<w2:layoutInfo />
+    	<w2:publicInfo method="" />
+        <script cache="true" scopeExternal="false" src="/common/ttc/monaco-editor/bundle.js" type="text/javascript"></script>
+        <script src="/common/ttc/pako/pako.min.js" cache="true" scopeExternal="false"></script>
+        <!--<script type="text/javascript" src="/cm/monaco-editor/min/vs/loader.js"></script>-->
+    	<script lazy="false" type="text/javascript"><![CDATA[
+scwin.encode64 = function(data) {
+    const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_";
+    let result = '';
+    let i = 0;
+    while (i < data.length) {
+        let b1 = data[i++];
+        let b2 = i < data.length ? data[i++] : 0;
+        let b3 = i < data.length ? data[i++] : 0;
+        result += chars[b1 >> 2];
+        result += chars[((b1 & 3) << 4) | (b2 >> 4)];
+        result += chars[((b2 & 15) << 2) | (b3 >> 6)];
+        result += chars[b3 & 63];
+    }
+    return result;
+};
+
+scwin.encodePlantUML = function(text) {
+    const deflated = window.pako.deflate(unescape(encodeURIComponent(text)), { level: 9 });
+    return scwin.encode64(deflated);
+};
+
+scwin.downloadSVG = function(url) {
+    fetch(url)
+    .then(response => response.blob())
+    .then(blob => {
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'diagram.svg';
+        link.click();
+        URL.revokeObjectURL(link.href);
+    });
+};
+
+function setupEditors(monaco) {
+    if (!monaco.languages.getLanguages().some(lang => lang.id === 'plantuml')) {
+    monaco.languages.register({ id: 'plantuml' });
+    monaco.languages.setMonarchTokensProvider('plantuml', {
+        tokenizer: {
+        root: [
+            [/\bstartuml\b/, 'keyword'],
+            [/\benduml\b/, 'keyword'],
+            [/\bparticipant\b.*$/, 'type'],
+            [/\b(actor|participant|boundary|control|entity)\b/, 'keyword'],
+            [/--?>>|->>|-->|->/, 'operator'],
+            [/[:]/, 'delimiter'],
+            [/".*?"/, 'string']
+        ]
+        }
+    });
+    }
+
+    scwin.editor = monaco.editor.create(document.getElementById(monacoEditor.render.id), {
+        value:'',
+        language: 'plantuml',
+        theme: 'vs-dark',
+        automaticLayout: true
+      });
+
+      scwin.editor.onDidChangeModelContent(() => {
+        scwin.renderPlantUML();
+      });
+
+      scwin.renderPlantUML();
+
+}
+
+scwin.onpageload = function() {    
+    if (window.monaco)
+        setupEditors(window.monaco);
+};
+
+scwin.renderPlantUML = function() {
+    const code = scwin.editor.getValue();
+    const encoded = scwin.encodePlantUML(code);
+    const url = `https://www.plantuml.com/plantuml/svg/~1${encoded}`;
+    document.getElementById(umlImage.render.id).src = url;
+    document.getElementById(umlImage.render.id).setAttribute('data-url', url);
+};
+
+scwin.textbox1_onclick = function (e) {
+    var str ="@startuml";
+    str = str +"\nactor User";
+    str = str +"\nparticipant \"Web App\" as WA";
+    str = str +"\nparticipant Server";
+    str = str +"\n\nUser -> WA : Request Page";
+    str = str +"\nWA -> Server : Get Data";
+    str = str +"\nServer --> WA : JSON Data";
+    str = str +"\nWA --> User : Render Page";
+    str = str +"\n@enduml";
+    scwin.editor.setValue(str);
+};
+
+scwin.textbox2_onclick = function (e) {
+    const img = document.getElementById(umlImage.render.id);
+    const url = img.getAttribute('data-url');
+    if (url) scwin.downloadSVG(url);
+};
+
+scwin.textbox3_onclick = function (e) {
+    var str ="@startuml";
+    str = str +"\nautoactivate on";
+    str = str +"\nalice -> bob : hello";
+    str = str +"\nbob -> bob : self call";
+    str = str +"\nbill -> bob #005500 : hello from thread 2";
+    str = str +"\nbob -> george ** : create";
+    str = str +"\nreturn done in thread 2";
+    str = str +"\nreturn rc";
+    str = str +"\nbob -> george !! : delete";
+    str = str +"\nreturn success";
+    str = str +"\n@enduml";
+
+    scwin.editor.setValue(str);
+};
+
+scwin.onbeforepageunload = function () {
+    if (scwin.editor){        
+        scwin.editor.dispose();
+        scwin.editor = null;
+    }
+};
+]]></script>
+    	<style type="text/css">
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+      font-family: sans-serif;
+    }
+    .tt_container {
+      display: flex;
+      height: 100vh;
+    }
+    .monacoEditor{
+      width: 50%;
+      height: 100%;
+      border-right: 2px solid #ddd;
+    }    
+    .preview {
+      width: 50%;
+      padding: 20px;
+      overflow: auto;
+      background-color: white;
+    }
+    .toolbar {
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      background: #f5f5f5;
+    }
+</style>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onbeforepageunload="scwin.onbeforepageunload">
+    	<xf:group class="sub_contents" id="" meta_snippetCategory="00_화면시작" meta_snippetKeyComponent="true" meta_snippetName="0_01 페이지시작"
+    		style="">
+    		<w2:pageFrame src="/common/xml/contentHeader.xml" style="" id="pfm_contentHeader"></w2:pageFrame>
+    		<w2:pageFrame id="pfm_contentDesc" src="/common/xml/contentDesc.xml" style=""></w2:pageFrame>
+            
+            <xf:group style="left:70px" id="monacoEcontainerditor" class="tt_container">
+                <xf:group id="toolbar" class="toolbar" style="">
+                    <w2:textbox style="width:150px; height:23px; " id="textbox1" label="불러오기1" ev:onclick="scwin.textbox1_onclick"></w2:textbox>
+                    <w2:textbox style="width:150px; height:23px; " id="textbox3" label="불러오기2" ev:onclick="scwin.textbox3_onclick"></w2:textbox>
+                    <w2:textbox style="width:150px; height:23px; " id="textbox2" label="svg다운로드" ev:onclick="scwin.textbox2_onclick"></w2:textbox>
+                </xf:group>
+                
+                <xf:group style="" id="monacoEditor" class="monacoEditor"></xf:group>
+                <xf:group id="preview" class="preview">
+                    <xf:image id="umlImage" src="" alt="UML Diagram" />
+                </xf:group>
+            </xf:group>
+        </xf:group>
+    </body>
+
+</html>

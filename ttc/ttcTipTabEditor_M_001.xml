@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/common/ttc/tiptab/tiptapStyle.css" type="text/css"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenName="Tiptab연동샘플">
+        <w2:type>COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataMap baseNode="map" id="dma_fileDesc" style="">
+            		<w2:keyInfo>
+            			<w2:key dataType="text" id="key1" name=""></w2:key>
+            			<w2:key dataType="text" id="key2" name=""></w2:key>
+            		</w2:keyInfo>
+            		<w2:data use="true">
+            			<desc><![CDATA[
+<pre class="textNor">
+<div class="etcbox">
+TipTap 에디터 기본 사용법
+   - 원하는 영역을 드래그한 뒤 툴바 버튼을 클릭하면 서식이 적용됩니다.
+   - Bold, Italic, Underline, Strike, Highlight, Color 등 다양한 서식 지원
+   - H1~H6 제목, List, Table, Image 등 다양한 블록 지원
+   - Undo/Redo로 작업 취소/복구, Clear marks/nodes로 서식/블록 초기화
+</div> 
+</pre>
+						]]></desc>
+            		</w2:data>
+            	</w2:dataMap>
+            </w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method=""/>
+        <script cache="true" scopeExternal="false" src="/common/ttc/tiptab/tiptap-bundle.js" scopeVariable="" type="text/javascript"></script>
+        <script lazy="false" type="text/javascript"><![CDATA[
+scwin.sampleContents = [{
+        "type": "doc",
+        "content": [
+            {
+            "type": "heading",
+            "attrs": { "level": 1 },
+            "content": [{ "type": "text", "text": "Tiptap 샘플 콘텐츠" }]
+            },
+            {
+            "type": "paragraph",
+            "content": [
+                { "type": "text", "text": "이것은 " },
+                { "type": "text", "marks": [{ "type": "bold" }], "text": "굵은 텍스트" },
+                { "type": "text", "text": ", " },
+                { "type": "text", "marks": [{ "type": "italic" }], "text": "기울임 텍스트" },
+                { "type": "text", "text": ", " },
+                { "type": "text", "marks": [{ "type": "underline" }], "text": "밑줄 텍스트" },
+                { "type": "text", "text": ", " },
+                { "type": "text", "marks": [{ "type": "strike" }], "text": "취소선 텍스트" },
+                { "type": "text", "text": " 예시입니다." }
+            ]
+            },
+            {
+            "type": "paragraph",
+            "content": [
+                { "type": "text", "text": "링크 예시: " },
+                {
+                "type": "text",
+                "marks": [
+                    {
+                    "type": "link",
+                    "attrs": {
+                        "href": "https://tiptap.dev",
+                        "target": "_blank",
+                        "rel": "noopener noreferrer"
+                    }
+                    }
+                ],
+                "text": "Tiptap 공식 사이트"
+                }
+            ]
+            },
+            {
+            "type": "blockquote",
+            "content": [
+                {
+                "type": "paragraph",
+                "content": [{ "type": "text", "text": "이것은 인용문입니다." }]
+                }
+            ]
+            },
+            {
+            "type": "bulletList",
+            "content": [
+                {
+                "type": "listItem",
+                "content": [
+                    { "type": "paragraph", "content": [{ "type": "text", "text": "첫 번째 항목" }] }
+                ]
+                },
+                {
+                "type": "listItem",
+                "content": [
+                    { "type": "paragraph", "content": [{ "type": "text", "text": "두 번째 항목" }] }
+                ]
+                }
+            ]
+            },
+            {
+            "type": "orderedList",
+            "attrs": { "start": 1 },
+            "content": [
+                {
+                "type": "listItem",
+                "content": [
+                    { "type": "paragraph", "content": [{ "type": "text", "text": "첫 번째" }] }
+                ]
+                },
+                {
+                "type": "listItem",
+                "content": [
+                    { "type": "paragraph", "content": [{ "type": "text", "text": "두 번째" }] }
+                ]
+                }
+            ]
+            },
+            {
+            "type": "codeBlock",
+            "attrs": { "language": "javascript" },
+            "content": [
+                {
+                "type": "text",
+                "text": "function hello() {\n  console.log(\"Hello, Tiptap!\");\n}"
+                }
+            ]
+            }
+        ]
+    }, {
+  "type": "doc",
+  "content": [
+    {
+      "type": "heading",
+      "attrs": { "level": 2 },
+      "content": [{ "type": "text", "text": "[공지] 시스템 점검 안내" }]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "작성일: " },
+        { "type": "text", "marks": [{ "type": "underline" }], "text": "2025-06-20" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "안녕하세요, 운영팀입니다." }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "보다 안정적인 서비스 제공을 위하여 다음과 같이 시스템 점검을 진행할 예정입니다." }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "■ 점검 일시" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "2025년 6월 22일(일) 00:00 ~ 06:00 (총 6시간)" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "■ 점검 대상" }
+      ]
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            { "type": "paragraph", "content": [{ "type": "text", "text": "사내 그룹웨어 시스템" }] }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            { "type": "paragraph", "content": [{ "type": "text", "text": "ERP / 인사 시스템" }] }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            { "type": "paragraph", "content": [{ "type": "text", "text": "메일 서비스" }] }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "marks": [{ "type": "bold" }], "text": "■ 유의 사항" }
+      ]
+    },
+    {
+      "type": "orderedList",
+      "attrs": { "start": 1 },
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                { "type": "text", "text": "점검 시간 중 해당 서비스 접속 불가" }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                { "type": "text", "text": "작업 종료 후 자동 복구 예정" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "개발 환경에서 사용 중인 시스템에 대해서는 아래와 같은 조치를 권장합니다." }
+      ]
+    },
+    {
+      "type": "codeBlock",
+      "attrs": { "language": "bash" },
+      "content": [
+        { "type": "text", "text": "# 서버 백업 권장\nrsync -avz /data /backup" }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "점검에 따른 불편을 최소화하도록 최선을 다하겠습니다." }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "marks": [{ "type": "italic" }],
+          "text": "문의: help@company.co.kr / 내선번호 1234"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        { "type": "text", "text": "감사합니다." }
+      ]
+    }
+  ]
+}, 
+]
+
+/**
+ * 페이지 로드 시 실행되는 초기화 함수
+ * Tiptap 에디터를 초기화하고 샘플 콘텐츠를 설정합니다.
+ */
+scwin.onpageload = function() {
+    let options = {
+        element :grp_tiptabContainer.render,
+        toolbarElement:grb_toolbar.render,
+        content:scwin.sampleContents[0]
+    };
+    scwin.tiptapManager.init(options);
+
+    ta_set.setValue(JSON.stringify(scwin.sampleContents[1], null, 2));
+};
+
+/**
+ * Tiptap 에디터 관리자 객체
+ * 에디터의 초기화, 데이터 조작, 툴바 관리 등의 기능을 제공합니다.
+ */
+scwin.tiptapManager = {
+  editor: null,
+  toolbarElement: null,
+
+  /**
+   * Tiptap 에디터를 초기화합니다.
+   * @param {Object} options - 초기화 옵션
+   * @param {string|Element} options.element - 에디터가 렌더링될 요소
+   * @param {string|Element} options.toolbarElement - 툴바가 렌더링될 요소
+   * @param {Object} options.content - 초기 콘텐츠 (JSON 형태)
+   */
+   init(options = {}) {
+    const element = options.element || '#editor';
+    const content = options.content || null;
+    const toolbarElement = options.toolbarElement || '#toolbar';
+    if (this.editor) {
+      this.editor.destroy();
+      this.editor = null;
+    }
+    this.toolbarElement = typeof toolbarElement === 'string' ? document.querySelector(toolbarElement) : toolbarElement;
+    const { Editor, StarterKit, Link, Image, Underline, Highlight, Color, TextAlign, Table, TableRow, TableCell, TableHeader, Subscript, Superscript, TaskList, TaskItem, CharacterCount, TextStyle } = window.Tiptap;
+    this.editor = new Editor({
+      element: typeof element === 'string' ? document.querySelector(element) : element,
+      extensions: [
+        StarterKit, Link, Image, Underline, Highlight, Color, TextStyle, TextAlign,
+        Table, TableRow, TableCell, TableHeader, Subscript, Superscript, TaskList, TaskItem,
+        CharacterCount.configure({ limit: 10000 })
+      ],
+      content: content || {
+        type: 'doc',
+        content: [
+          { type: 'heading', attrs: { level: 2 }, content: [{ type: 'text', text: 'Tiptap 샘플 에디터' }] },
+          { type: 'paragraph', content: [
+            { type: 'text', text: '이것은 ' },
+            { type: 'text', marks: [{ type: 'bold' }], text: '굵은 텍스트' },
+            { type: 'text', text: '와 ' },
+            { type: 'text', marks: [{ type: 'italic' }], text: '기울임 텍스트' },
+            { type: 'text', text: ' 예시입니다.' }
+          ] },
+          { type: 'bulletList', content: [
+            { type: 'listItem', content: [{ type: 'paragraph', content: [{ type: 'text', text: '첫 번째 항목' }] }] },
+            { type: 'listItem', content: [{ type: 'paragraph', content: [{ type: 'text', text: '두 번째 항목' }] }] }
+          ] },
+          { type: 'paragraph', content: [
+            { type: 'text', text: '링크: ' },
+            { type: 'text', marks: [{ type: 'link', attrs: { href: 'https://tiptap.dev', target: '_blank' } }], text: 'Tiptap 공식사이트' }
+          ] },
+          { type: 'codeBlock', content: [
+            { type: 'text', text: 'console.log("Hello, Tiptap!");' }
+          ] }
+        ]
+      },
+      onUpdate: ({ editor }) => {        
+        this.updateToolbarActive();
+      },
+      onSelectionUpdate: () => this.updateToolbarActive(),
+    });
+    this.createToolbar();
+  },
+
+  /**
+   * 에디터의 현재 콘텐츠를 JSON 형태로 반환합니다.
+   * @returns {Object} 에디터 콘텐츠의 JSON 객체
+   */
+  getData() {
+    if (this.editor) {
+        return this.editor.getJSON();
+    }
+
+    return;
+  },
+
+  /**
+   * 에디터에 JSON 형태의 콘텐츠를 설정합니다.
+   * @param {string} data - JSON 문자열 형태의 콘텐츠
+   */
+  setData(data) {
+    if (this.editor) {
+      const input = data;
+      try {
+        const json = JSON.parse(input);
+        this.editor.commands.setContent(json);
+      } catch (e) {
+        console.warn('유효하지 않은 JSON입니다.');
+      }
+    }
+  },
+
+  /**
+   * 에디터의 현재 글자 수를 알림창으로 표시합니다.
+   */
+  getCharCount() {
+    if (this.editor) {
+      const count = this.editor.storage.characterCount.characters();
+      alert(`글자수: ${count}`);
+    }
+  },
+
+  /**
+   * 에디터 툴바를 생성하고 버튼들을 추가합니다.
+   * 각 버튼은 해당하는 에디터 명령을 실행합니다.
+   */
+  createToolbar() {
+    const toolbar = this.toolbarElement || document.getElementById('toolbar');
+    toolbar.innerHTML = '';
+    const editor = this.editor;
+    const buttons = [
+      { label: 'Bold', command: () => editor.chain().focus().toggleBold().run(), isActive: () => editor.isActive('bold') },
+      { label: 'Italic', command: () => editor.chain().focus().toggleItalic().run(), isActive: () => editor.isActive('italic') },
+      { label: 'Underline', command: () => editor.chain().focus().toggleUnderline().run(), isActive: () => editor.isActive('underline') },
+      { label: 'Strike', command: () => editor.chain().focus().toggleStrike().run(), isActive: () => editor.isActive('strike') },
+      { label: 'Highlight', command: () => editor.chain().focus().toggleHighlight().run(), isActive: () => editor.isActive('highlight') },
+      { label: 'Color(Red)', command: () => editor.chain().focus().setColor('#e11d48').run(), isActive: () => editor.isActive('textStyle', { color: '#e11d48' }) },
+      { label: 'Color(Blue)', command: () => editor.chain().focus().setColor('#2563eb').run(), isActive: () => editor.isActive('textStyle', { color: '#2563eb' }) },
+      { label: 'Clear marks', command: () => editor.chain().focus().unsetAllMarks().run(), isActive: () => false },
+      { label: 'Clear nodes', command: () => editor.chain().focus().clearNodes().run(), isActive: () => false },
+      { label: 'Paragraph', command: () => editor.chain().focus().setParagraph().run(), isActive: () => editor.isActive('paragraph') },
+      ...[1,2,3,4,5,6].map(lvl => ({
+        label: `H${lvl}`,
+        command: () => editor.chain().focus().toggleHeading({ level: lvl }).run(),
+        isActive: () => editor.isActive('heading', { level: lvl })
+      })),
+      { label: 'Bullet list', command: () => editor.chain().focus().toggleBulletList().run(), isActive: () => editor.isActive('bulletList') },
+      { label: 'Ordered list', command: () => editor.chain().focus().toggleOrderedList().run(), isActive: () => editor.isActive('orderedList') },
+      { label: 'Task list', command: () => editor.chain().focus().toggleTaskList().run(), isActive: () => editor.isActive('taskList') },
+      { label: 'Code', command: () => editor.chain().focus().toggleCode().run(), isActive: () => editor.isActive('code') },
+      { label: 'Code block', command: () => editor.chain().focus().toggleCodeBlock().run(), isActive: () => editor.isActive('codeBlock') },
+      { label: 'Blockquote', command: () => editor.chain().focus().toggleBlockquote().run(), isActive: () => editor.isActive('blockquote') },
+      { label: 'Horizontal rule', command: () => editor.chain().focus().setHorizontalRule().run(), isActive: () => false },
+      { label: 'Hard break', command: () => editor.chain().focus().setHardBreak().run(), isActive: () => false },
+      { label: 'Sub', command: () => editor.chain().focus().toggleSubscript().run(), isActive: () => editor.isActive('subscript') },
+      { label: 'Super', command: () => editor.chain().focus().toggleSuperscript().run(), isActive: () => editor.isActive('superscript') },
+      { label: 'Left', command: () => editor.chain().focus().setTextAlign('left').run(), isActive: () => editor.isActive({ textAlign: 'left' }) },
+      { label: 'Center', command: () => editor.chain().focus().setTextAlign('center').run(), isActive: () => editor.isActive({ textAlign: 'center' }) },
+      { label: 'Right', command: () => editor.chain().focus().setTextAlign('right').run(), isActive: () => editor.isActive({ textAlign: 'right' }) },
+      { label: 'Justify', command: () => editor.chain().focus().setTextAlign('justify').run(), isActive: () => editor.isActive({ textAlign: 'justify' }) },
+      { label: 'Image', command: () => {
+        const url = prompt('이미지 URL 입력:');
+        if (url) editor.chain().focus().setImage({ src: url }).run();
+      }, isActive: () => editor.isActive('image') },
+      { label: 'Table', command: () => editor.chain().focus().insertTable({ rows: 3, cols: 3, withHeaderRow: true }).run(), isActive: () => editor.isActive('table') },
+      { label: 'Undo', command: () => editor.chain().focus().undo().run(), isActive: () => false },
+      { label: 'Redo', command: () => editor.chain().focus().redo().run(), isActive: () => false },
+      { label: 'Purple', command: () => alert('커스텀 명령!'), isActive: () => false },
+    ];
+    buttons.forEach(btn => {
+      const button = document.createElement('button');
+      button.textContent = btn.label;
+      button.onclick = btn.command;
+      button.type = 'button';
+      if (btn.isActive()) button.classList.add('active');
+      toolbar.appendChild(button);
+    });
+  },
+
+  /**
+   * 현재 선택된 텍스트나 커서 위치에 따라 툴바 버튼의 활성화 상태를 업데이트합니다.
+   * 활성화된 서식에 해당하는 버튼에 'active' 클래스를 추가합니다.
+   */
+  updateToolbarActive() {
+    const toolbar = this.toolbarElement || document.getElementById('toolbar');
+    if (!toolbar) return;
+    const editor = this.editor;
+    const buttons = [
+      { isActive: () => editor.isActive('bold') },
+      { isActive: () => editor.isActive('italic') },
+      { isActive: () => editor.isActive('underline') },
+      { isActive: () => editor.isActive('strike') },
+      { isActive: () => editor.isActive('highlight') },
+      { isActive: () => editor.isActive('textStyle', { color: '#e11d48' }) },
+      { isActive: () => editor.isActive('textStyle', { color: '#2563eb' }) },
+      { isActive: () => false },
+      { isActive: () => false },
+      { isActive: () => editor.isActive('paragraph') },
+      ...[1,2,3,4,5,6].map(lvl => ({ isActive: () => editor.isActive('heading', { level: lvl }) })),
+      { isActive: () => editor.isActive('bulletList') },
+      { isActive: () => editor.isActive('orderedList') },
+      { isActive: () => editor.isActive('taskList') },
+      { isActive: () => editor.isActive('code') },
+      { isActive: () => editor.isActive('codeBlock') },
+      { isActive: () => editor.isActive('blockquote') },
+      { isActive: () => false },
+      { isActive: () => false },
+      { isActive: () => editor.isActive('subscript') },
+      { isActive: () => editor.isActive('superscript') },
+      { isActive: () => editor.isActive({ textAlign: 'left' }) },
+      { isActive: () => editor.isActive({ textAlign: 'center' }) },
+      { isActive: () => editor.isActive({ textAlign: 'right' }) },
+      { isActive: () => editor.isActive({ textAlign: 'justify' }) },
+      { isActive: () => editor.isActive('image') },
+      { isActive: () => editor.isActive('table') },
+      { isActive: () => false },
+      { isActive: () => false },
+      { isActive: () => false },
+    ];
+    Array.from(toolbar.children).forEach((button, idx) => {
+      if (buttons[idx] && buttons[idx].isActive()) {
+        button.classList.add('active');
+      } else {
+        button.classList.remove('active');
+      }
+    });
+  },
+
+  /**
+   * 에디터 인스턴스를 파괴하고 메모리를 정리합니다.
+   */
+  destroy() {
+    if (this.editor) {
+      this.editor.destroy();
+      this.editor = null;
+    }
+  }
+};
+
+/**
+ * 'Tiptab content 가져오기' 버튼 클릭 이벤트 핸들러
+ * 현재 에디터의 콘텐츠를 JSON 형태로 가져와서 ta_get 텍스트 영역에 표시합니다.
+ * @param {Event} e - 클릭 이벤트 객체
+ */
+scwin.btn_get_onclick = function (e) {
+    let str = "";
+    try{
+        str = JSON.stringify(scwin.tiptapManager.getData(), null, 2);
+    } catch(e){
+        str = "";
+    }
+    
+    ta_get.setValue(str);
+};
+
+/**
+ * 'Tiptab content 설정하기' 버튼 클릭 이벤트 핸들러
+ * ta_set 텍스트 영역의 JSON 콘텐츠를 에디터에 설정합니다.
+ * @param {Event} e - 클릭 이벤트 객체
+ */
+scwin.btn_set_onclick = function (e) {
+    scwin.tiptapManager.setData(ta_set.getValue());
+};
+
+/**
+ * 페이지 언로드 시 실행되는 함수
+ * Tiptap 에디터를 제거합니다.
+ */
+scwin.onbeforepageunload = function () {
+    scwin.tiptapManager.destroy();
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload" ev:onbeforepageunload="scwin.onbeforepageunload">
+    	<xf:group class="sub_contents" id="" meta_snippetCategory="00_화면시작" meta_snippetKeyComponent="true" meta_snippetName="0_01 페이지시작"
+    		style="">
+    		<w2:pageFrame src="/common/xml/contentHeader.xml" style="" id="pfm_contentHeader"></w2:pageFrame>
+    		<w2:pageFrame id="pfm_contentDesc" src="/common/xml/contentDesc.xml" style=""></w2:pageFrame>
+    		<xf:group meta_snippetCategory="02_타이틀" meta_snippetName="2_01 페이지타이틀" meta_snippetKeyComponent="true" style="" id=""
+    			class="pgtbox">
+    			<w2:textbox tagname="" style="" id="" label="Tiptab 연동 샘플" class="pgt_tit"></w2:textbox>
+    		</xf:group>
+    		<xf:group style="" id="grb_guide">
+    			<w2:textbox id=""
+    				label='&lt;b&gt;TipTap 에디터 기본 사용법&lt;/b&gt;&lt;br/&gt;&lt;br/&gt; &amp;nbsp; &amp;nbsp;- 원하는 영역을 드래그한 뒤 툴바 버튼을 클릭하면 서식이 적용됩니다.&lt;br/&gt;&lt;br/&gt; &amp;nbsp; &amp;nbsp;- &lt;b&gt;Bold&lt;/b&gt;, &lt;i&gt;Italic&lt;/i&gt;, &lt;u&gt;Underline&lt;/u&gt;, &lt;span style="text-decoration:line-through"&gt;Strike&lt;/span&gt;, &lt;span style="background:yellow"&gt;Highlight&lt;/span&gt;, &lt;span style="color:#e11d48"&gt;Color&lt;/span&gt; 등 다양한 서식 지원&lt;br/&gt;&lt;br/&gt; &amp;nbsp; &amp;nbsp;- &lt;b&gt;H1~H6&lt;/b&gt; 제목, &lt;b&gt;List&lt;/b&gt;, &lt;b&gt;Table&lt;/b&gt;, &lt;b&gt;Image&lt;/b&gt; 등 다양한 블록 지원&lt;br/&gt;&lt;br/&gt; &amp;nbsp; &amp;nbsp;- &lt;b&gt;Undo/Redo&lt;/b&gt;로 작업 취소/복구, &lt;b&gt;Clear marks/nodes&lt;/b&gt;로 서식/블록 초기화&lt;br/&gt;'
+    				style="margin-bottom: 20px;" escape="false">
+    			</w2:textbox>
+    		</xf:group>
+    		<xf:group id="" style="border: 2px solid red;">
+    			<xf:group style="background-color: lightgray;" id="grb_toolbar" class="tiptab-toolbar"></xf:group>
+    			<xf:group style="" id="grp_tiptabContainer" class="tiptab-editor"></xf:group>
+    		</xf:group>
+    		<xf:group class="lybox" id="" meta_snippetCategory="01_화면분할" meta_snippetKeyComponent="true" meta_snippetName="1_01 가변 2단 분할"
+    			style="margin-top: 20px;">
+    			<xf:group adaptiveThreshold="" class=" col_5" id="" style="">
+    				<w2:button style="width: 100%;height: 30px;" id="btn_get" label="Tiptab content 가져오기"
+    					ev:onclick="scwin.btn_get_onclick">
+    				</w2:button>
+    				<xf:textarea id="ta_get" style="width : 100%;height: 300px;"></xf:textarea>
+    			</xf:group>
+    			<xf:group class=" col_5" id="" style="">
+    				<w2:button id="btn_set" label="Tiptab content 설정하기" style="width: 100%;height: 30px;"
+    					ev:onclick="scwin.btn_set_onclick">
+    				</w2:button>
+    				<xf:textarea id="ta_set" style="width : 100%;height: 300px;"></xf:textarea>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    </body>
+</html>

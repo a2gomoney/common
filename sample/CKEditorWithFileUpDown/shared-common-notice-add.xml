@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+    	<w2:type>COMPONENT</w2:type>
+    	<w2:buildDate />
+    	<w2:MSA />
+    	<xf:model>
+    		<w2:dataCollection baseNode="map"></w2:dataCollection>
+    		<w2:workflowCollection />
+    	</xf:model>
+    	<w2:layoutInfo />
+    	<w2:publicInfo method="" />
+    	<script lazy="false" type="text/javascript"><![CDATA[/**
+ * 화면 내 전역 변수 선언
+ */
+scwin.HOST = "http://localhost:8080";
+scwin.BASE_URL = scwin.HOST + "/api/files";
+scwin.fileType = "host"; // 현재는 host 만, 추후 s3 가능하도록 옵션 추가 
+scwin.rowIdx = 0;
+// scwin.readOnly = true; // 현재는 사용 안함
+
+scwin.sampleContents = [];
+scwin.sampleContents[0] = `<h1>CKEditor 샘플 콘텐츠</h1>
+<p>이것은 <strong>굵은 텍스트</strong>, <em>기울임 텍스트</em>, <u>밑줄 텍스트</u>, <s>취소선 텍스트</s> 예시입니다.</p>
+<p>링크 예시: <a href="https://wtech.inswave.kr" target="_blank">인스웨이브 개발자포털</a></p>
+<blockquote><p>이것은 인용문입니다.</p></blockquote>
+<ul>
+<li>첫 번째 항목</li>
+<li>두 번째 항목</li>
+</ul>
+<ol>
+<li>첫 번째</li>
+<li>두 번째</li>
+</ol>
+<pre style="background-color:black;color:white;"><code class="language-javascript">function hello() {
+  console.log("Hello, CKEditor!");
+}</code></pre>`;
+
+scwin.sampleContents[1] = `<h2>[공지] 시스템 점검 안내</h2>
+    <p>작성일: <u>2025-06-20</u></p>
+    <p>안녕하세요, 운영팀입니다.</p>
+    <p>보다 안정적인 서비스 제공을 위하여 다음과 같이 시스템 점검을 진행할 예정입니다.</p>
+    <p><strong>■ 점검 일시</strong></p>
+    <p>2025년 6월 22일(일) 00:00 ~ 06:00 (총 6시간)</p>
+    <p><strong>■ 점검 대상</strong></p>
+    <ul>
+    <li>사내 그룹웨어 시스템</li>
+    <li>ERP / 인사 시스템</li>
+    <li>메일 서비스</li>
+    </ul>
+    <p><strong>■ 유의 사항</strong></p>
+    <ol>
+    <li>점검 시간 중 해당 서비스 접속 불가</li>
+    <li>작업 종료 후 자동 복구 예정</li>
+    </ol>
+    <p>개발 환경에서 사용 중인 시스템에 대해서는 아래와 같은 조치를 권장합니다.</p>
+    <pre style="background-color:black;color:white;"><code class="language-bash"># 서버 백업 권장
+    rsync -avz /data /backup</code></pre>
+    <p>점검에 따른 불편을 최소화하도록 최선을 다하겠습니다.</p>
+    <p><em>문의: help@company.co.kr / 내선번호 1234</em></p>
+    <p>감사합니다.</p>`;
+
+scwin.onpageload = function() {
+    edt_content.setHTML(scwin.sampleContents[0]);
+};
+
+scwin.fileSerchComplete = function (msg) {
+    if(!$c.util.isEmpty(msg)) {
+        $c.win.alert(msg);
+    }
+};
+
+/**
+ * udc 컴포넌트의 로딩이 완료된 후 서버로부터 파일 리스트를 가져온다. 
+ * udc_fileUplaod 컴포넌트의 onLoadComplete 이벤트에 아래 함수를 등록한다. 
+ * @date 2025. 09. 08
+ * @memberOf 
+ * @param 
+ * @returns  
+ * @author P206070
+ * @example
+ * @since
+*/ 
+scwin.getDownloadList = function () {
+
+};
+
+//파일을 저장하기 위한 정보
+
+scwin.btn_save_onclick = function (e) {
+    let html = edt_content.getHTML();
+    let fileInfo = file_upload.getFilesInfo();
+    console.log(html);
+    console.log(fileInfo);
+    console.log(file_download.getFilesInfo());
+};
+
+scwin.btn_search_onclick = function (e) {
+    file_download.searchFileList();
+};
+]]></script>
+    	<w2:require as="udc_fileUpDown" type="page" variableClone="" src="/common/udc/fileUpDown.xml"></w2:require>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group class="sub_contents" id="" meta_snippetCategory="00_화면시작" meta_snippetKeyComponent="true" meta_snippetName="0_01 페이지시작"
+    		style="">
+    		<!-- <xf:group adaptiveThreshold="" class="" id="" style="float: right;">
+    			<w2:button ev:onclick="scwin.openFileDialog" style="width:80px; height:23px; " id="btn_fileUpload" label="파일선택"></w2:button>
+    			<w2:textbox style="" id="spn_size" label="" class=""></w2:textbox>
+    			</xf:group> -->
+    		<!-- 임시 : E -->
+    		<w2:pageFrame id="pfm_contentHeader" src="/common/xml/contentHeader.xml" style=""></w2:pageFrame>
+    		<xf:group class="tblbox" id="" meta_snippetCategory="05_입출력테이블" meta_snippetKeyComponent="true" meta_snippetName="5_01 1단테이블"
+    			style="">
+    			<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tbl" id="" style="" tagname="table">
+    				<w2:attributes>
+    					<w2:summary></w2:summary>
+    				</w2:attributes>
+    				<xf:group tagname="colgroup">
+    					<xf:group style="width:222px;" tagname="col"></xf:group>
+    					<xf:group tagname="col"></xf:group>
+    					<xf:group style="width:150.00px;" tagname="col"></xf:group>
+    					<xf:group tagname="col"></xf:group>
+    					<xf:group style="width:150px;" tagname="col"></xf:group>
+    					<xf:group style="" tagname="col"></xf:group>
+    				</xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="req" id="" label="요구사항 ID" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" tagname="td">
+    						<w2:attributes></w2:attributes>
+    						<xf:input class="error" id="" meta_snippetCategory="10_입력폼" meta_snippetKeyComponent="true"
+    							meta_snippetName="10_01 InputBox" placeholder="입력" style="width:100%;">
+    						</xf:input>
+    						<w2:textbox class="txt_errow" id="" label="중복된 ID 입니다." style=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_th" tagname="th">
+    						<w2:attributes>
+    							<w2:scope>row</w2:scope>
+    						</w2:attributes>
+    						<w2:textbox class="req" id="" label="과제" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" tagname="td">
+    						<w2:attributes></w2:attributes>
+    						<xf:select1 allOption="" appearance="minimal" chooseOption="true" chooseOptionLabel="" class="" direction="auto"
+    							disabled="false" disabledClass="w2selectbox_disabled" id="" meta_snippetCategory="10_입력폼" meta_snippetKeyComponent="true"
+    							meta_snippetName="10_02 SelectBox" ref="" renderType="" style="width:100%;" submenuSize="auto">
+    							<xf:choices></xf:choices>
+    						</xf:select1>
+    					</xf:group>
+    					<xf:group class="w2tb_th" tagname="th">
+    						<w2:attributes>
+    							<w2:scope>row</w2:scope>
+    						</w2:attributes>
+    						<w2:textbox class="req" id="" label="완료 요청일" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<w2:inputCalendar calendarValueType="yearMonthDate" focusOnDateSelect="false" footerDiv="true" id=""
+    							meta_snippetCategory="10_입력폼" meta_snippetKeyComponent="true" meta_snippetName="10_11 기간조회" renderDiv="true" renderType=""
+    							rightAlign="false" style="width:100%;">
+    						</w2:inputCalendar>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group tagname="tr">
+    					<xf:group class="w2tb_th " tagname="th">
+    						<w2:attributes>
+    							<w2:scope>row</w2:scope>
+    						</w2:attributes>
+    						<w2:textbox class="req" id="" label="요구사항 명" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" tagname="td">
+    						<w2:attributes>
+    							<w2:colspan>5</w2:colspan>
+    							<w2:rowspan>1</w2:rowspan>
+    						</w2:attributes>
+    						<xf:input class="" id="ibx_reqTitle" meta_snippetCategory="10_입력폼" meta_snippetKeyComponent="true"
+    							meta_snippetName="10_01 InputBox" placeholder="요구사항 명 입력" style="width:100%;">
+    						</xf:input>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group tagname="tr">
+    					<xf:group class="w2tb_td nopd" tagname="td">
+    						<w2:attributes>
+    							<w2:scope>row</w2:scope>
+    							<w2:colspan>6</w2:colspan>
+    							<w2:rowspan>1</w2:rowspan>
+    						</w2:attributes>
+    						<w2:editor id="edt_content" menubar="simple" style="width:100%;height:500px;" version="5.44" pasteBase64="true" resizable="false"></w2:editor>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th " tagname="th">
+    						<w2:attributes>
+    							<w2:scope>row</w2:scope>
+    						</w2:attributes>
+    						<w2:textbox class="" id="" label="첨부파일 UDC 다운로드" ref="" style="" userData2=""></w2:textbox>
+    						<xf:trigger id="btn_search" style="width:40px;height:100%;" type="button" class="btn_cm" ev:onclick="scwin.btn_search_onclick">
+    							<xf:label><![CDATA[조회]]></xf:label>
+    						</xf:trigger>
+    					</xf:group>
+    					
+    					<xf:group class="w2tb_td" tagname="td" style="">
+    						<w2:attributes>
+    							<w2:colspan>5</w2:colspan>
+    							<w2:rowspan>1</w2:rowspan>
+    						</w2:attributes>
+
+    						<w2:udc_fileUpDown mode="download" maxFileCount="10" style="width:100%; height:100% ;"
+    							totalFileSize="2009715200" maxFileSize="536870912" id="file_download">
+    						</w2:udc_fileUpDown>
+    					</xf:group>
+    				</xf:group>
+    				<xf:group tagname="tr"></xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th " tagname="th">
+    						<w2:attributes>
+    							<w2:scope>row</w2:scope>
+    						</w2:attributes>
+    						<w2:textbox class="" id="" label="첨부파일 UDC 업로드" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" tagname="td">
+    						<w2:attributes>
+    							<w2:colspan>5</w2:colspan>
+    							<w2:rowspan>1</w2:rowspan>
+    						</w2:attributes>
+
+    						<w2:udc_fileUpDown mode="upload" maxFileCount="10" style="width:100%; height:100%;"
+    							totalFileSize="2009715200" maxFileSize="536870912">
+    						</w2:udc_fileUpDown>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    	<xf:group class="btnbox" id="" style="">
+    		<xf:group class="rt" id="" style="">
+    			<xf:trigger class="btn_cm pt" ev:onclick="scwin.btn_save_onclick" id="btn_save" nextTabID="" style="" type="button">
+    				<xf:label><![CDATA[저장]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+    	</xf:group>
+    </body>
+</html>

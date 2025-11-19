@@ -1,0 +1,1 @@
+(function(){var a={icon:{p_convertimage:"Save as Image"},topmenu:{p_convertimage:"Save as Image"},message:{empty:"There is nothing written.",error:"An error occurred while converting image."}};try{G_DEPlugin&&(G_DEPlugin.convertimage.lang=a,dext5_lang.plugins.convertimage=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&RAONWIZDLW&&RAONWIZDLW()}})();

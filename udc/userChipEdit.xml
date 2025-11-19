@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="userChipEdit" meta_screenName="userChipEdit">
+        <w2:type palette="support">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataList baseNode="list" repeatNode="map" id="dlt_userChip">
+            		<w2:columnInfo>
+            			<w2:column id="userId" name="ID" dataType="text"></w2:column>
+            			<w2:column id="name" name="이름" dataType="text"></w2:column>
+            			<w2:column id="team" name="팀명" dataType="text"></w2:column>
+            			<w2:column id="pic" name="사진이미지" dataType="text"></w2:column>
+            		</w2:columnInfo>
+            		<w2:data use="false">
+            			<w2:row>
+            				<userId><![CDATA[user1]]></userId>
+            				<name><![CDATA[최창현]]></name>
+            				<team><![CDATA[NOVA 추진팀]]></team>
+            				<pic><![CDATA[http://localhost/common/pic/p204595.jpg]]></pic>
+            			</w2:row>
+            			<w2:row>
+            				<userId><![CDATA[user2]]></userId>
+            				<name><![CDATA[김성재]]></name>
+            				<team><![CDATA[IT 기획팀]]></team>
+            				<pic><![CDATA[http://localhost/common/pic/p204595.jpg]]></pic>
+            			</w2:row>
+            		</w2:data>
+            	</w2:dataList>
+            </w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setReloadData,scwin.getData,scwin.setLoadData"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_userChipEdit
+ * @pluginName 
+ * @company
+ * @developer
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+scwin.onpageload = function() {
+	
+    // 삭제 기능 추가 시 필요
+    scwin.dataKey = 'data-key'; // 가변 input index를 확인 할 key
+	
+};
+scwin.setUI = function () {
+    const chipList = dlt_userChip.getAllJSON();
+    // console.log('chipList', chipList)
+    if (chipList.length) {
+        chipList.forEach((list, index) => {
+            userChip_gen.insertChild(index);
+            const name = userChip_gen.getChild(index, "name");
+            const team = userChip_gen.getChild(index, "team");
+            name.setLabel(list.name);
+            team.setLabel(list.team);
+        });
+        scwin.setGroupAttrDataKey();
+    }
+}
+scwin.setGroupAttrDataKey = function () {
+    const groupList = document.querySelectorAll(`#${userChip_gen.getID()} .chip_wrap_group`);
+    let c = 0;
+    groupList.forEach((gl) => {
+        gl.setAttribute(scwin.dataKey, c);
+        gl.lastChild.setAttribute(scwin.dataKey, c);
+        c++;
+    })
+}
+
+scwin.chip_del_onclick = function (e) {
+    const childIndex = parseInt(e.target.getAttribute(scwin.dataKey));
+    const chipList = scwin.getData();
+	userChip_gen.removeChild(childIndex);
+    chipList.splice(childIndex, 1);
+    dlt_userChip.setJSON(chipList);
+    scwin.setGroupAttrDataKey();
+};
+
+/**
+ * @method
+ * @name setReloadData
+ * @description 데이터가 있는 화면(수정, 상세)에서 Data를 주입 시
+ * @param {array} chipList 배열 데이터
+ *  * ex) [
+ *  * {
+ *  * id: 'p204595',
+ *  * name: '홍길동',
+ *  * pic: 'http://localhost/common/pic/p204595.jpg',
+ *  * team: 'NOVA 추진팀',
+ *  * }
+ *  * ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setReloadData = function (chipList) {
+    dlt_userChip.setJSON(chipList);
+    scwin.setUI();
+};
+
+/**
+ * @method
+ * @name getData
+ * @description 데이터 반환 (Array)
+ * @param
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.getData = function () {
+    const chipList = dlt_userChip.getAllJSON();
+    if (!chipList.length) return [];
+    return chipList;	
+};
+
+/**
+ * @method
+ * @name setLoadData
+ * @description 최초 접속 시 DataCollection setting
+ * @param {array} chipList 배열 데이터
+ * ex) [
+ * {
+ *  id: 'p204595',
+ *  name: '홍길동',
+ *  pic: 'http://localhost/common/pic/p204595.jpg',
+ *  team: 'NOVA 추진팀',
+ *  }
+ *  ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setLoadData = async function (chipList) {
+    await dlt_userChip.setJSON(chipList);
+    scwin.setUI();
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<w2:generator style="" id="userChip_gen" tagname="ul" class="">
+    		<xf:group style="" id="" class="user_item chip_wrap_group" tagname="li">
+    			<w2:textbox style="" id="name" label="" class="name"></w2:textbox>
+    			<w2:textbox style="" id="team" label="" class="team"></w2:textbox>
+    			<xf:trigger meta_snippetCategory="10_입력폼" meta_snippetName="10_10 InputBox_조회버튼" style="" id="chip_del" type="button"
+    				class="del" ev:onclick="scwin.chip_del_onclick">
+    				<xf:label><![CDATA[삭제]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+    	</w2:generator>
+    </body>
+</html>

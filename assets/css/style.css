@@ -1,0 +1,162 @@
+/* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styles */
+.header {
+    text-align: center;
+    padding: 30px 0;
+    border-bottom: 3px solid #667eea;
+    margin-bottom: 40px;
+}
+
+.header h1 {
+    color: #2c3e50;
+    font-size: 2.5em;
+    font-weight: bold;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Main Content Styles */
+.main-content {
+    padding: 20px 0;
+}
+
+.welcome-section {
+    text-align: center;
+    margin-bottom: 40px;
+    padding: 30px;
+    background: linear-gradient(45deg, #f8f9fa, #e9ecef);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 15px;
+}
+
+.welcome-section p {
+    color: #666;
+    font-size: 1.2em;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.info-section {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 40px;
+}
+
+.info-section h3 {
+    color: #2c3e50;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.info-section ul {
+    list-style: none;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.info-section li {
+    background: #667eea;
+    color: white;
+    padding: 12px 20px;
+    margin: 10px 0;
+    border-radius: 25px;
+    text-align: center;
+    font-weight: 500;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.info-section li:hover {
+    transform: translateY(-2px);
+    background: #764ba2;
+}
+
+/* Navigation Styles */
+.navigation {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 25px;
+    margin: 0 10px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+/* Footer Styles */
+.footer {
+    text-align: center;
+    padding: 30px 0;
+    border-top: 2px solid #eee;
+    margin-top: 50px;
+    color: #666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .welcome-section {
+        padding: 20px;
+    }
+    
+    .info-section {
+        padding: 20px;
+    }
+    
+    .btn {
+        display: block;
+        margin: 10px auto;
+        max-width: 200px;
+    }
+}

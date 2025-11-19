@@ -1,0 +1,1070 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="SKNC001" meta_screenName="REST API" meta_desc="domain-controller-base-rest" meta_author="김경회" meta_date="2025.07.21" meta_type="메인">
+    	<w2:type>COMPONENT</w2:type>
+    	<w2:buildDate />
+    	<w2:MSA />
+    	<xf:model>
+    		<w2:dataCollection baseNode="map">
+    			<w2:dataList baseNode="list" id="dlt_domain" repeatNode="map" saveRemovedData="true" style="">
+    				<w2:columnInfo>
+    					<w2:column dataType="text" id="id" name="id"></w2:column>
+    					<w2:column dataType="text" id="name" name="name"></w2:column>
+    					<w2:column dataType="text" id="abbreviation" name="abbreviation"></w2:column>
+    					<w2:column dataType="text" id="krName" name="krName"></w2:column>
+    					<w2:column id="description" name="description" dataType="text"></w2:column>
+    					<w2:column dataType="text" defaultValue="false" id="useYn" name="useYn"></w2:column>
+    					<w2:column dataType="text" id="dispOrd" name="dispOrd"></w2:column>
+    					<w2:column id="note" name="note" dataType="text"></w2:column>
+
+    				</w2:columnInfo>
+    				<w2:data use="false">
+    					<w2:row>
+    						<name><![CDATA[Billing]]></name>
+
+    						<GeneralReference><![CDATA[MNO,MVNO,구독,유선]]></GeneralReference>
+    						<domainId><![CDATA[DMN001]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Converged Charging]]></name>
+
+    						<domainId><![CDATA[DMN002]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[CRM]]></name>
+
+    						<GeneralReference><![CDATA[MNO,MVNO,구독,유선]]></GeneralReference>
+    						<domainId><![CDATA[DMN003]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Enterprise Product Catalog]]></name>
+    						<GeneralReference><![CDATA[MNO,MVNO,구독,유선]]></GeneralReference>
+
+    						<domainId><![CDATA[DMN004]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Marketing & Offering]]></name>
+
+    						<GeneralReference><![CDATA[Swing 중 마케팅 일부, TOS 영역]]></GeneralReference>
+    						<domainId><![CDATA[DMN005]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Partner]]></name>
+
+    						<GeneralReference><![CDATA[MNO,MVNO,구독,유선]]></GeneralReference>
+    						<domainId><![CDATA[DMN006]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Party]]></name>
+
+    						<domainId><![CDATA[DMN007]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Product Order]]></name>
+
+    						<domainId><![CDATA[DMN008]]></domainId>
+    					</w2:row>
+    					<w2:row>
+
+    						<name><![CDATA[Resource Order & Fulfillment]]></name>
+    						<domainId><![CDATA[DMN009]]></domainId>
+    					</w2:row>
+    					<w2:row>
+
+    						<name><![CDATA[Service Order]]></name>
+    						<domainId><![CDATA[DMN010]]></domainId>
+    					</w2:row>
+    					<w2:row>
+
+    						<name><![CDATA[Shared Biz. Service]]></name>
+    						<domainId><![CDATA[DMN011]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[AI & Data]]></name>
+    						<domainId><![CDATA[DMN012]]></domainId>
+    					</w2:row>
+    					<w2:row>
+    						<name><![CDATA[Enterprise Integration]]></name>
+    						<domainId><![CDATA[DMN013]]></domainId>
+    					</w2:row>
+    				</w2:data>
+    			</w2:dataList>
+    			<w2:dataList baseNode="list" repeatNode="map" id="dlt_biz">
+    				<w2:columnInfo>
+    					<w2:column id="id" name="id" dataType="text"></w2:column>
+    					<w2:column id="businessId" name="businessId" dataType="text"></w2:column>
+    					<w2:column id="name" name="name" dataType="text"></w2:column>
+    					<w2:column id="description" name="description" dataType="text"></w2:column>
+    					<w2:column id="useYn" name="useYn" dataType="text"></w2:column>
+
+
+    					<w2:column id="dispOrd" name="dispOrd" dataType="text"></w2:column>
+    					<w2:column id="note" name="note" dataType="text"></w2:column>
+    					<w2:column id="componentId" name="componentId" dataType="text"></w2:column>
+    				</w2:columnInfo>
+    			</w2:dataList>
+    			<w2:dataList baseNode="list" repeatNode="map" id="dlt_component">
+    				<w2:columnInfo>
+    					<w2:column id="id" name="id" dataType="text"></w2:column>
+    					<w2:column id="componentId" name="componentId" dataType="text"></w2:column>
+    					<w2:column id="name" name="name" dataType="text"></w2:column>
+    					<w2:column id="krName" name="krName" dataType="text"></w2:column>
+
+    					<w2:column id="description" name="description" dataType="text"></w2:column>
+    					<w2:column id="useYn" name="useYn" dataType="text"></w2:column>
+    					<w2:column id="dispOrd" name="dispOrd" dataType="text"></w2:column>
+    					<w2:column id="note" name="note" dataType="text"></w2:column>
+    					<w2:column id="domainId" name="domainId" dataType="text"></w2:column>
+    					<w2:column id="domainResult" name="domainResult" dataType="text"></w2:column>
+    				</w2:columnInfo>
+    			</w2:dataList>
+    			<w2:dataList baseNode="list" repeatNode="map" id="dlt_function">
+    				<w2:columnInfo>
+    					<w2:column id="id" name="id" dataType="text"></w2:column>
+    					<w2:column id="functionId" name="functionId" dataType="text"></w2:column>
+    					<w2:column id="name" name="name" dataType="text"></w2:column>
+    					
+    					<w2:column id="krName" name="krName" dataType="text"></w2:column>
+    					<w2:column id="description" name="description" dataType="text"></w2:column>
+    					<w2:column id="useYn" name="useYn" dataType="text"></w2:column>
+    					<w2:column id="dispOrd" name="dispOrd" dataType="text"></w2:column>
+    					<w2:column id="note" name="note" dataType="text"></w2:column>
+    				<w2:column id="componentId" name="componentId" dataType="text"></w2:column></w2:columnInfo>
+    			</w2:dataList>
+    		</w2:dataCollection>
+    		<w2:workflowCollection />
+    	</xf:model>
+    	<w2:layoutInfo />
+    	<w2:publicInfo method="" />
+    	<script lazy="false" type="text/javascript"><![CDATA[
+scwin.onpageload = function() {
+    requestBody.setValue(scwin.getSample());
+    requestBody.hide();
+};
+
+/**
+ * @method
+ * @name sbm_commonCode_submitdone
+ * @description 공통코드 리스트 조회 submitdone이벤트 리스트 조회후 건수를 셋팅한다.
+ * @param {Object} e submission 결과를 담은 객체
+ * @hidden N
+ * @exception 
+ */
+scwin.sbm_commonCode_submitdone = function (e) {
+    const res = e.responseJSON;
+    console.log("res", res)
+    console.log("sbm_commonCode_submitdone", grd_requirement.getAllJSON())
+    grd_requirement.refreshColumnItemset("rqStatus");
+    // grd_requirement.re
+    // if ($c.sbm.getResultCode(e) == $c.sbm.getMessageCode('STATUS_SUCCESS')) {
+    //     // spn_codeCnt.setValue(dlt_commonCode.getRowCount());
+    // }
+};
+scwin.sbm_rqRegAuthMembers_submitdone = function (e) {
+    // console.log("dlt_rqAuthMembers", dlt_rqAuthMembers.getAllJSON())
+    const res = e.responseJSON;
+    const originList = res.dlt_rqAuthMembers;
+    const filtered = originList.filter(item => item.AUTHORITY_CD !== "10100");
+    // dlt_rqRegAuthMembers.setData(filtered); // 데이터는 들어감 (보이지 않음)
+    dlt_rqRegAuthMembers.setJSON(filtered); // UI 반영 (보이게 됨)
+};
+/**
+ * 도메인 목록 조회 로직
+ */
+scwin.tmp_getMergeLocalDomainMap = async function (responseJSON) {
+    const menuCd = "003001001";    
+    const pageInfoStr = WebSquare.localStorage.getItem('PAGE_INFO');
+    const pageInfo = pageInfoStr ? JSON.parse(pageInfoStr) : {};
+    const localMap = pageInfo[menuCd] ?? null;
+   
+    if (localMap) {
+        // 로컬 데이터 존재: 서버 데이터를 기준으로 필요한 필드만 덮어쓰기
+        const mergedList = responseJSON.map(serverItem => {
+            const localItem = localMap[serverItem.id] ?? localMap[serverItem.name]; // 신규 입력시에는 도메인명으로 키를 잡아야 함,.
+            const merged = { ...serverItem };
+            // console.log("localItem.sortNum", localItem.sortNum);
+
+            if (localItem) {
+                // id를 제외한 필드에 대해서만 덮어쓰기
+                Object.keys(merged).forEach(field => {
+                    if (field !== 'id' && localItem[field] !== undefined) {
+                        merged[field] = localItem[field];
+                    }
+                });
+                merged.shortName = localItem.shortName ?? "";
+                merged.isUse = localItem.isUse ?? "N";
+                merged.sortNum = localItem.sortNum ?? "0";
+                // console.log("merged.sortNum", merged.sortNum);
+            }
+            return merged;
+        });
+        return mergedList.sort((a, b) => {
+            return Number(a.sortNum) - Number(b.sortNum);
+        });
+        // return mergedList;
+        // return mergedList.sort("sortNum", "asc");
+
+    } else {
+        // 로컬에 메뉴가 없을 경우: 서버 데이터를 초기값으로 등록
+        const newMap = {};
+
+        responseJSON.forEach(item => {
+            const itemCopy = { ...item, isUse: 'Y' };
+            newMap[item.id] = itemCopy;
+        });
+        pageInfo[menuCd] = newMap;
+        WebSquare.localStorage.setItem('PAGE_INFO', JSON.stringify(pageInfo));
+        return Object.values(newMap); // 배열로 반환
+    }
+}
+
+/**
+ * @event
+ * @name sbx_domainBox_onviewchange
+ * @param {object} info 데이터 객체
+ * @description 검색항목(selectBox)의 내용이 변경되었을 때 실행된다
+ */
+scwin.sbx_domainBox_onviewchange = function (info) {
+    // console.log(info);
+    
+    // if ($c.data.isModified(dlt_component)) {
+    //     if (await $c.win.confirm($c.data.getMessage("MSG_CM_00052"))) {
+    //         $c.data.undoAll(dlt_component);
+    //         grd_component.setFocusedCell(0, "name", false);
+    //     };
+    // };
+
+    scwin.selectedDomain = info.newValue;
+    scwin.searchMain();
+    // if (info.newValue == "GRP_CD") {
+    //     acb_autoChoiceBox.hide();
+    //     sbx_grpCd.show("");
+    // } else if (info.newValue == "GRP_NM") {
+    //     acb_autoChoiceBox.setNodeSet("data:dlt_commonSearchItem", "GRP_NM", "GRP_NM");
+    //     sbx_grpCd.hide();
+    //     acb_autoChoiceBox.show("");
+    // } else if (info.newValue == "NOTE") {
+    //     acb_autoChoiceBox.setNodeSet("data:dlt_commonSearchItem", "NOTE", "NOTE");
+    //     sbx_grpCd.hide();
+    //     acb_autoChoiceBox.show("");
+    // }
+};
+
+/**
+ * @method
+ * @name searchInit
+ * @description 첫 번째 페이지를 조회하는 함수
+ * @hidden N
+ * @exception 
+ */
+scwin.searchInit = function () {
+    scwin.modifyNum = 0;
+    scwin.modifyDoneNum = 0;
+    scwin.searchMain();
+};
+
+/**
+ * @method
+ * @name searchMain
+ * @description 목록을 조회한다.
+ * @exception 
+ * @example ${example}
+ */
+scwin.searchMain = function () {
+    // $c.sbm.execute(sbm_component);
+    scwin.sbm_component_submitdone();
+};
+
+/**
+ * @method
+ * @name sbm_component_submitdone
+ * @description 통신 정상 콜백 - dlt_component 게시판을 생성한다.
+ * @param {Object} e Submission 결과를 담은 객체
+ * @hidden N
+ * @exception 
+ */
+scwin.sbm_component_submitdone = async function (e) {
+
+    // scwin.originComponentList = await scwin.tmp_getMergeLocalComponentMap();
+    // const resArray = scwin.filterComponentList() ?? [];
+    // console.log(resArray);
+    // // dlt_component.setData(resArray); // 데이터는 들어감 (보이지 않음)
+    // dlt_component.setJSON(resArray); // UI 반영 (보이게 됨)
+    // grd_component.setFocusedCell(0, "name", false);
+};
+/**
+ * 임시 조회 로직
+ */
+scwin.tmp_getMergeLocalComponentMap = async function () {
+    const menuCd = $c.util.getParameter("menuCd");    
+    const pageInfoStr = WebSquare.localStorage.getItem('PAGE_INFO');
+    const pageInfo = pageInfoStr ? JSON.parse(pageInfoStr) : {};
+    const localMap = pageInfo[menuCd] ?? {};
+    
+    if (localMap) {
+        const columns = dlt_component.cellIdList;
+        const list = Object.values(localMap).map(item => {
+            const mapped = {};
+            columns.forEach(col => {
+                mapped[col] = item[col] ?? null; // 값이 없으면 null로 처리
+            });
+            return mapped;
+        });
+        return list.sort((a, b) => {
+            return Number(a.sortNum) - Number(b.sortNum);
+        });
+    } else {
+        return [];
+    }
+}
+/**
+ * @method 임시 검색 필터링 함수
+ * @name scwin.filterComponentList
+ * @description isUse 조건으로 필터링된 도메인 목록 반환
+ * @param {Array} componentList 전체 도메인 목록
+ * @returns {Array} 필터링된 목록
+ */
+scwin.filterComponentList = function () {
+    const componentList = scwin.originComponentList;
+    // console.log(componentList);
+    // const searchObj = dma_componentSearch.getJSON();
+    
+    // const shouldFilter = (searchObj.isUseFilter ?? "").trim() !== "";
+
+    // if (!shouldFilter) {
+    //     return componentList;
+    // }
+
+    // return componentList.filter(item => {
+    //     return item.isUse === searchObj.isUseFilter;
+    // });
+    
+    const { nameFilter = "", krNameFilter = "", isUseFilter = "", descriptionFilter = "" } = dma_componentSearch.getJSON();
+
+    const domainf = scwin.selectedDomain.trim().toLowerCase();
+    const nf = nameFilter.trim().toLowerCase();
+    const knf = krNameFilter.trim().toLowerCase();
+    const df = descriptionFilter.trim().toLowerCase();
+    const uf = isUseFilter.trim();
+
+    const hasFilter = domainf !== "" || nf !== "" || knf !== "" || df !== "" || uf !== "";
+
+    if (!hasFilter) {
+        return componentList; // 조건 없으면 원본 그대로 반환
+    }
+
+    return componentList.filter(item => {
+        const domainMatch = df === "" || item.domainId === domainf;
+        const nameMatch = item.name?.toLowerCase().includes(nf);
+        const krNameMatch = item.krName?.toLowerCase().includes(knf);
+        const descriptionMatch = item.description?.toLowerCase().includes(df);
+        const isUseMatch = uf === "" || item.isUse === uf;
+        return domainMatch && nameMatch && krNameMatch && descriptionMatch && isUseMatch;
+    });
+};
+
+
+
+/**
+ * @event
+ * @name btn_cancel_onclick
+ * @description 리스트에서 취소 버튼 클릭 시 데이터를 이전 상태로 바꾸고 추가된 것들은 삭제한다.
+ */
+scwin.btn_cancel_onclick = async function () {
+    if ($c.data.isModified(dlt_component)) {
+        if (await $c.win.confirm($c.data.getMessage("MSG_CM_00052"))) {
+            $c.data.undoAll(dlt_component);
+            grd_component.setFocusedCell(0, "name", false);
+        };
+    };
+};
+
+/**
+ * @event
+ * @name btn_add_onclick
+ * @description 추가버튼 클릭 시 하나의 row를 추가한다.
+ */
+scwin.btn_add_onclick = async function () {
+    // sbx_domainBox
+    // console.log("btn_add_onclick", scwin.selectedDomain);
+    if (!scwin.selectedDomain) {
+        return $c.win.alert($c.data.getMessage("MSG_BI_00001"));;
+    }
+
+    // 도메인 초기값 설정
+    
+    const componentList = dlt_component.getAllJSON();
+
+    // 현재 sortNum 중 가장 큰 값 찾기
+    const maxSortNum = componentList.reduce((max, item) => {
+        const current = parseInt(item.sortNum, 10) || 0;
+        return Math.max(max, current);
+    }, 0);
+
+    dlt_component.insertRow(0);
+    dlt_component.setCellData(0, "domainId", scwin.selectedDomain); // 방금 추가한 row의 순서 데이터 설정
+    dlt_component.setCellData(0, "sortNum", maxSortNum + 1); // 방금 추가한 row의 순서 데이터 설정
+    grd_component.setFocusedCell(0, 0);
+    // sbx_domainId.setValue(scwin.selectedDomain);
+    rdo_isUse.setValue("N");
+    // ibx_name.setDisabled(false);
+    ibx_name.focus();
+};
+
+/**
+ * @event
+ * @name btn_save_onclick
+ * @description 컴포넌트 정보를 저장한다.
+ */
+scwin.btn_save_onclick = async function () {
+    if ($c.data.isModified(dlt_component) === false) {
+        return $c.win.alert($c.data.getMessage("MSG_CM_00032"));
+    }
+
+    const valMenuInfo = [{ id: "domainId", mandatory: true }, { id: "name", mandatory: true }, { id: "description", mandatory: true }];
+    if ($c.data.validateGridView(grd_component, valMenuInfo)) {
+        if (await $c.win.confirm($c.data.getMessage("MSG_CM_00031"))) {
+            scwin.saveComponentData();
+        }
+    }
+};
+
+/**
+ * @method
+ * @name saveComponentData
+ * @description Domain 정보를 저장한다.
+ * @hidden N
+ * @exception 
+ */
+scwin.saveComponentData = async function () {
+    await scwin.tmpsaveComponentData();
+    scwin.searchInit();
+    // const insertedJSON = dlt_component.getInsertedJSON()
+    //     .map(({ name, description }) => ({ name, description }));
+
+    // scwin.modifyNum = insertedJSON.length;
+    // insertedJSON.forEach(param=>{
+    //     $c.sbm.execute(sbm_saveDomain, param);
+    // })
+};
+/** 임시 저장 로직 */
+scwin.tmpsaveComponentData = async function () {
+    const menuCd = $c.util.getParameter("menuCd");
+    const pageInfoStr = WebSquare.localStorage.getItem("PAGE_INFO");
+    const pageInfo = pageInfoStr ? JSON.parse(pageInfoStr) : {};
+    const componentList = dlt_component.getAllJSON();
+
+    const newMap = {};
+    componentList.forEach(item => {
+        const key = item.id || item.name;
+        newMap[key] = {
+            ...item,
+            isUse: item.isUse ?? "N"
+        };
+    });
+
+    // 그냥 덮어쓰기
+    // TODO 기존값과 merge
+    pageInfo[menuCd] = Object.assign(pageInfo[menuCd] ?? {}, newMap);
+    WebSquare.localStorage.setItem("PAGE_INFO", JSON.stringify(pageInfo));
+};
+
+/**
+ * @method
+ * @name sbm_saveDomain_submitdone
+ * @description 저장 후 콜백 함수
+ * @param {Object} e Submission 결과를 담은 객체
+ * @exception 
+ */
+scwin.sbm_saveDomain_submitdone = function (e) {
+    // ++scwin.modifyDoneNum ;
+    // if (scwin.modifyNum === scwin.modifyDoneNum) {
+    //     scwin.searchInit();
+    // }
+};
+/**
+ * @event
+ * @name btn_search_onclick
+ * @description 조회버튼 클릭시 조건에 따른 도메인 리스트를 가져온다.
+ */
+
+// scwin.btn_search_onclick = function (e) {
+//     const searchObj = dma_componentSearch.getJSON();
+
+//     // 파라미터 필터링 및 동적 쿼리스트링 생성
+//     const params = Object.entries({
+//         name: searchObj.nameFilter,
+//         krName: searchObj.krNameFilter,
+//         description: searchObj.descriptionFilter
+//     }).filter(([_, value]) => value) // 값이 있는 것만 남김
+//       .map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+//       .join("&");
+
+//     const paramStr = params ? "?" + params : "";
+
+//     const searchdomain = {
+//         id : "sbm_searchComponentList",
+//         action : "http://localhost:10001/masterdata/ssf/domain"+paramStr,
+//         method:"get", // 없으면 default "post"
+//         submitDoneHandler : scwin.sbm_domain_submitdone,
+//         isProcessMsg : false
+//     };
+//     $c.sbm.executeDynamic(searchdomain);
+// };
+
+// /**
+//  * @method
+//  * @name sbm_component_submitdone
+//  * @description 통신 정상 콜백 - dlt_component 게시판을 생성한다.
+//  * @param {Object} e Submission 결과를 담은 객체
+//  * @hidden N
+//  * @exception 
+//  */
+// scwin.sbm_component_submitdone = async function (e) {
+//     scwin.searchMain();
+//     // scwin.originComponentList = await scwin.tmp_getMergeLocalComponentMap(e.responseJSON);
+//     // const resArray = scwin.filterComponentList();
+//     // dlt_component.setData(resArray); // 데이터는 들어감 (보이지 않음)
+//     // dlt_component.setJSON(resArray); // UI 반영 (보이게 됨)
+//     // grd_component.setFocusedCell(0, "name", false);
+// };
+
+
+
+
+/**
+ * 요구사항 등록 모달
+ */
+scwin.openPopup_rqReg_onclick = function(e) {
+
+    const options = {
+        id: "RQ010P01",
+        popupName: "BIZ 요구사항 등록",
+        width: 1000, height: 850
+    };
+    const popupUrl = "/ui/RQ/RQ010P01.xml";
+
+    $c.win.openPopup(popupUrl, options, {});
+
+    
+
+    // requires("uiplugin.popup", e); 
+    // var winWid = $(window).width();
+    // var winHei = $(window).height();
+    // var popWid = 1000;
+    // var popHei = 1800;//820; // winHei - 80;
+    // var sumLeft = (winWid - popWid) / 2;
+    // var sumTop = (winHei - popHei) / 2;
+    
+    // var opts = {
+    // "id" : "popup_window_wframe",
+    // "type" : "litewindow",
+    // "width" : popWid + "px",
+    // "height" : popHei + "px",
+    // "top" : sumTop, 
+    // "left" : sumLeft,
+    // "popupName" : "BIZ 요구사항 등록",
+    // "modal" : true, 
+    // "useIFrame" : false,
+    // "title" : "focusTest",
+    // "useATagBtn" : true,
+    // "frameMode" : "wframe"
+    // };
+    // $p.openPopup("/ui/RQ/RQ010P01.xml", opts);
+    // // $p.openPopup("/cm/template/page/02_Multi/2_01 search_grid.xml", opts);
+};
+
+scwin.BTN_SEARCH_onclick = function (e) {
+    const lang = $c.util.isEmpty($p, $c.win.getLanguage($p)) ? "ko" : $c.win.getLanguage($p);
+
+    let base = sbx_baserest.getValue();
+    let ver = sbx_version.getValue();
+    let method = (sbx_method.getValue() || "GET").toUpperCase();
+    let type =  sbx_type.getValue();
+
+    if($c.util.isEmpty(base) || $c.util.isEmpty(ver)) {
+        console.warn("base or ver 값이 비어 있습니다");
+        return;
+    }
+
+    const parts = [ver, "masterdata", "ssf", base];
+    if(!$c.util.isEmpty(type)) {
+        parts.push(type);
+    }
+
+    const query = "?page=0&size=5";
+    
+    const action = "http://localhost:8080/" + parts.map(encodeURIComponent).join("/") + query;
+    const option = {
+        id: `sbm_${method.toLowerCase()}_${base}`,
+        action,
+        //method: `${method}`,
+        method,
+        submitDoneHandler: "scwin.callbackDomain",
+        submitFailHandler: "scwin.callbackDomainFail",
+        submitErrorHandler: "scwin.callbackDomainError",
+        isProcessMsg: false
+    };
+
+    scwin.callRestApi(option)
+};
+
+scwin.callRestApi = function(option) {
+    
+    $c.sbm.executeDynamic($p, option);
+};
+
+scwin.callbackDomain = function (resJson) {
+   console.log(resJson);
+   const data = resJson && resJson.responseJSON;
+
+   if(!$c.util.isEmpty(data)) {
+        
+        let id = resJson.id || "";
+        const index = id.lastIndexOf("_");
+        let base = id.substring(index+1, id.length);
+
+        const datasetMap = {
+            domain: dlt_domain,
+            business: dlt_biz,
+            component: dlt_component,
+            function: dlt_function
+        };
+
+        const ds = datasetMap[base];
+
+        if(!$c.util.isEmpty(data.content)) {
+            ds.removeAll();
+            ds.setJSON(data.content);
+        } else {
+           //단건
+           console.log(data);
+        }
+
+
+        //{content: Array(13), totalCount: 13, pageNumber: 0, pageSize: 20}
+        console.log(resJson.responseJSON.totalCount);
+        console.log(resJson.responseJSON.pageNumber);
+        console.log(resJson.responseJSON.pageSize);
+        let idx = 0;
+        switch(base) {
+            case 'domain' : 
+                idx = 0;
+                break;
+            case 'business':
+                idx = 1;
+                break;
+            case 'component':
+                idx = 2 ;
+                break;
+            case 'function':
+                idx = 3;
+                break;
+            default:
+                break;
+        }
+
+        tac1.setSelectedTabIndex(idx);
+   }
+
+};
+
+scwin.callbackDomainFail = function (err) {
+    console.log("****************");
+    console.error(err);
+    scwin.showMessage("error", msg);
+};
+
+scwin.callbackDomainError = function(err) {
+    console.log("ddddd");
+    console.log(err);
+};
+
+scwin.grd_domain_oncellclick = function (rowIndex, columnIndex, columnId) {
+
+    const rowJSON = dlt_domain.getRowJSON(rowIndex);
+    const method = "GET";
+    let id = rowJSON.id;
+    const parts = ["v1", "masterdata", "ssf", "domain", id];
+    const action = "http://localhost:8080/" + parts.map(encodeURIComponent).join("/");
+    const option = {
+        id: `sbm_${method.toLowerCase()}_domain`,
+        action,
+        method,
+        submitDoneHandler: "scwin.callbackDomain",
+        submitFailHandler: "scwin.callbackDomainFail",
+        submitErrorHandler: "scwin.callbackDomainError",
+        isProcessMsg: false
+    };
+
+    scwin.callRestApi(option)    
+};
+
+
+scwin.getSample = function() {
+    let query = {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "name": "string",
+    "abbreviation": "string",
+    "krName": "string",
+    "description": "string",
+    "useYn": true,
+    "dispOrd": 0,
+    "note": "string"
+    };
+};
+
+scwin.sbx_method_onchange = function (info) {
+    //if(info.newValue === "POST")
+};
+]]></script>
+    	<w2:require as="udc_fileMultiUpload" type="page" variableClone="true" src="/common/udc/fileMultiUpload.xml"></w2:require>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group class="sub_contents flex_cont" id="" style="">
+    		<w2:pageFrame src="/common/xml/contentHeader.xml" style="" id="pfm_contentHeader"></w2:pageFrame>
+    		<xf:group style="" id="" class="schbox">
+    			<xf:group style="" id="tbl_search" class="schbox_inner">
+    				<xf:group adaptive="layout" adaptiveThreshold="768" tagname="table" style="width:100%;" id="" class="w2tb tbl">
+    					<w2:attributes>
+    						<w2:summary></w2:summary>
+    					</w2:attributes>
+    					<xf:group tagname="colgroup">
+    						<xf:group tagname="col" style=""></xf:group>
+    						<xf:group tagname="col" style=""></xf:group>
+    						<xf:group tagname="col" style=""></xf:group>
+    						<xf:group tagname="col" style=""></xf:group>
+    						<xf:group tagname="col" style=""></xf:group>
+    						<xf:group tagname="col" style=""></xf:group>
+    					</xf:group>
+    					<xf:group tagname="tr" style=""></xf:group>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group class="tblbox" id="" meta_snippetCategory="05_입출력테이블" meta_snippetKeyComponent="true"
+    				meta_snippetName="5_04 4단테이블" style="">
+    				<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tbl" id="" style="" tagname="table">
+    					<w2:attributes>
+    						<w2:summary></w2:summary>
+    					</w2:attributes>
+    					<xf:group tagname="colgroup">
+    						<xf:group style="width:100px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    						<xf:group style="width:100px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    						<xf:group style="width:100px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    						<xf:group style="width:100px;" tagname="col"></xf:group>
+    						<xf:group style="" tagname="col"></xf:group>
+    					</xf:group>
+    					<xf:group style="" tagname="tr">
+    						<xf:group class="w2tb_th" style="" tagname="th">
+    							<w2:textbox class="" id="" label="Base" ref="" style="" userData2=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" style="" tagname="td">
+    							<xf:select1 allOption="" appearance="minimal" chooseOption="true" chooseOptionLabel="" direction="auto"
+    								disabled="false" disabledClass="w2selectbox_disabled" id="sbx_baserest" ref="" style="" submenuSize="auto" textAlign="left">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[domain]]></xf:label>
+    										<xf:value><![CDATA[domain]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[business]]></xf:label>
+    										<xf:value><![CDATA[business]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[component]]></xf:label>
+    										<xf:value><![CDATA[component]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[function]]></xf:label>
+    										<xf:value><![CDATA[function]]></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    						</xf:group>
+    						<xf:group class="w2tb_th " tagname="th">
+    							<w2:attributes></w2:attributes>
+    							<w2:textbox class="" id="" label="버전" ref="" style="" userData2=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" tagname="td">
+    							<w2:attributes></w2:attributes>
+    							<xf:select1 id="sbx_version" chooseOption="true" style="" submenuSize="auto" allOption="" disabled="false"
+    								direction="auto" appearance="minimal" disabledClass="w2selectbox_disabled" chooseOptionLabel="" ref="" textAlign="left">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[v1]]></xf:label>
+    										<xf:value><![CDATA[v1]]></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    						</xf:group>
+    						<xf:group class="w2tb_th " tagname="th">
+    							<w2:attributes>
+    								<w2:scope>row</w2:scope>
+    							</w2:attributes>
+    							<w2:textbox class="" id="" label="Method" ref="" style="" userData2=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" tagname="td">
+    							<w2:attributes></w2:attributes>
+    							<xf:select1 allOption="" appearance="minimal" chooseOption="true" chooseOptionLabel="" direction="auto"
+    								disabled="false" disabledClass="w2selectbox_disabled" id="sbx_method" ref="" style="" submenuSize="auto" textAlign="left" ev:onchange="scwin.sbx_method_onchange">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[GET]]></xf:label>
+    										<xf:value><![CDATA[get]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[POST]]></xf:label>
+    										<xf:value><![CDATA[post]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[DELETE]]></xf:label>
+    										<xf:value><![CDATA[delete]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[PUT]]></xf:label>
+    										<xf:value><![CDATA[put]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[PATCH]]></xf:label>
+    										<xf:value><![CDATA[patch]]></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    						</xf:group>
+    						<xf:group class="w2tb_th " tagname="th">
+    							<w2:attributes>
+    								<w2:scope>row</w2:scope>
+    							</w2:attributes>
+    							<w2:textbox class="" id="" label="type" ref="" style="" userData2=""></w2:textbox>
+    						</xf:group>
+    						<xf:group class="w2tb_td" tagname="td">
+    							<w2:attributes></w2:attributes>
+    							<xf:select1 allOption="" appearance="minimal" chooseOption="true" chooseOptionLabel="" direction="auto"
+    								disabled="false" disabledClass="w2selectbox_disabled" id="sbx_type" ref="" style="" submenuSize="auto" textAlign="left">
+    								<xf:choices>
+    									<xf:item>
+    										<xf:label><![CDATA[{id}]]></xf:label>
+    										<xf:value><![CDATA[]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[search]]></xf:label>
+    										<xf:value><![CDATA[search]]></xf:value>
+    									</xf:item>
+    									<xf:item>
+    										<xf:label><![CDATA[list]]></xf:label>
+    										<xf:value><![CDATA[list]]></xf:value>
+    									</xf:item>
+    								</xf:choices>
+    							</xf:select1>
+    						</xf:group>
+    					</xf:group>
+    					<xf:group tagname="tr"></xf:group>
+    					<xf:group tagname="tr"></xf:group>
+    				</xf:group>
+    				<xf:input id="requestBody" style="height:150px;width:100%;"></xf:input>
+    			</xf:group>
+    			<xf:group style="" id="" class="btn_schbox">
+
+    				<xf:trigger clickEventElement="outerDiv" disabled="" style="" id="BTN_SEARCH" type="button" class="btn_cm sch"
+    					ev:onclick="scwin.BTN_SEARCH_onclick">
+    					<xf:label><![CDATA[조회]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+
+
+    		</xf:group>
+    		<xf:group class="titbox" id="" style=";text-align:left;">
+    			<w2:textbox class="" id="" label="목록" style="" tagname="h3"></w2:textbox>
+    			<w2:textbox class="" id="" label="총" style=";margin-right:-3px;"></w2:textbox>
+    			<xf:group class="count" id="txt_count" style=";padding:0 3px;">
+    				<w2:textbox class="" id="" label="10" style=""></w2:textbox>
+    				<w2:textbox class="num" id="tbx_textbox1" label="" style=""></w2:textbox>
+    			</xf:group>
+    			<xf:group class="rt" id="" style="">
+    				<xf:trigger class="btn_cm download" disabled="" ev:onclick="scwin.btn_excelDownload_onclick" id="btn_trigger4" style=""
+    					type="button">
+    					<xf:label><![CDATA[엑셀다운로드]]></xf:label>
+    				</xf:trigger>
+    				<xf:trigger class="btn_cm row_add" disabled="" ev:onclick="scwin.openPopup_rqReg_onclick" id="btn_add" style=""
+    					toolTip="Biz 요구사항을 한 건 추가한다." type="button">
+    					<xf:label><![CDATA[Biz 요구사항 등록]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+    		</xf:group>
+    		<xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+    			<!-- <w2:gridView id="grd_memberBasic" style="height: 243px;" scrollByColumn="false" scrollByColumnAdaptive="false"
+    				dataList="data:dlt_memberBasic" class="gvw" rowStatusVisible="true" adaptive="" autoFit="allColumn" autoFitMinWidth="800"
+    				ignoreCellClick="false" adaptiveThreshold="" sortEvent="onclick" sortable="true" ev:oncellclick="scwin.grd_memberBasic_oncellclick"
+    				ev:oncelldblclick="scwin.grd_memberBasic_oncelldblclick" ev:onrowindexchange="scwin.grd_memberBasic_onrowindexchange" readOnly="true"
+    				keepDefaultColumnWidth="true"> -->
+    			<w2:tabControl id="tac1" alwaysDraw="true" style="">
+    				<w2:tabs disabled="false" style="height:40px;" id="tabs1" label="domain"></w2:tabs>
+    				<w2:tabs disabled="false" style="height:40px" id="tabs2" label="Biz"></w2:tabs>
+    				<w2:tabs disabled="false" style="height:40px" id="tabs3" label="Component"></w2:tabs>
+    				<w2:tabs disabled="false" style="" id="tabs4" label="Function"></w2:tabs>
+    				<w2:content alwaysDraw="false" style="" id="content1">
+    					<w2:gridView adaptive="" adaptiveThreshold="" autoFit="allColumn" autoFitCellMinWidth="120" autoFitMinWidth="800"
+    						class="gvw" dataList="data:dlt_domain" fixedColumn="3" id="grd_domain" ignoreCellClick="false" keepDefaultColumnWidth="true"
+    						readOnly="true" scrollByColumn="false" scrollByColumnAdaptive="false" showSortableImage="true" sortEvent="onclick" sortable="true"
+    						style="height:330px;" tooltipDisplay="true" visibleRowNum="10" visibleRowNumFix="true"
+    						ev:oncellclick="scwin.grd_domain_oncellclick">
+    						<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
+    						<w2:header style="" id="header1">
+    							<w2:row style="" id="row1">
+    								<w2:column width="70" inputType="text" style="" id="column8" value="id" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column7" value="name" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column6" value="abbreviation" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column5" value="krName" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column4" value="description" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column3" value="useYn" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column2" value="dispOrd" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column1" value="note" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:header>
+    						<w2:gBody style="" id="gBody1">
+    							<w2:row style="" id="row2">
+    								<w2:column width="70" inputType="text" style="" id="id" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="name" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="abbreviation" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="krName" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="description" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="select" style="" id="useYn" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="dispOrd" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="note" value="" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:gBody>
+    					</w2:gridView>
+    					<xf:group class="pglbox" id="" style="">
+    						<w2:pageList class="pgl" delimiter="" displayButtonType="display" displayFormat="#"
+    							ev:onclick="scwin.pgl_file_onclick" id="pageList1" pageSize="5" pagingType="0" style="">
+    						</w2:pageList>
+    					</xf:group>
+    				</w2:content>
+    				<w2:content alwaysDraw="false" style="" id="content2">
+    					<w2:gridView adaptive="" adaptiveThreshold="" autoFit="allColumn" autoFitCellMinWidth="120" autoFitMinWidth="800"
+    						class="gvw" dataList="data:dlt_biz" ev:oncellclick="scwin.grd_requirement_oncellclick" fixedColumn="3" id="grd_biz"
+    						ignoreCellClick="false" keepDefaultColumnWidth="true" readOnly="true" scrollByColumn="false" scrollByColumnAdaptive="false"
+    						showSortableImage="true" sortEvent="onclick" sortable="true" style="height:330px;" tooltipDisplay="true" visibleRowNum="10"
+    						visibleRowNumFix="true">
+    						<w2:caption style="" id="caption2" value="this is a grid caption."></w2:caption>
+    						<w2:header style="" id="header2">
+    							<w2:row style="" id="row3">
+    								<w2:column width="70" inputType="text" style="" id="column22" value="id" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column21" value="businessId" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column20" value="name" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column19" value="description" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column18" value="useYn" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column17" value="dispOrd" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column16" value="note" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column15" value="componentId" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:header>
+    						<w2:gBody style="" id="gBody2">
+    							<w2:row style="" id="row4">
+    								<w2:column width="70" inputType="text" style="" id="id" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="businessId" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="name" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="description" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="select" style="" id="useYn" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="dispOrd" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="note" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="componentId" value="" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:gBody>
+    					</w2:gridView>
+    					<xf:group class="pglbox" id="" style="">
+    						<w2:pageList class="pgl" delimiter="" displayButtonType="display" displayFormat="#"
+    							ev:onclick="scwin.pgl_file_onclick" id="pageList2" pageSize="5" pagingType="0" style="">
+    						</w2:pageList>
+    					</xf:group>
+    				</w2:content>
+    				<w2:content alwaysDraw="false" style="" id="content3">
+    					<w2:gridView adaptive="" adaptiveThreshold="" autoFit="allColumn" autoFitCellMinWidth="120" autoFitMinWidth="800"
+    						class="gvw" dataList="data:dlt_component" fixedColumn="3" id="grd_componet" ignoreCellClick="false" keepDefaultColumnWidth="true"
+    						readOnly="true" scrollByColumn="false" scrollByColumnAdaptive="false" showSortableImage="true" sortEvent="onclick" sortable="true"
+    						style="height:330px;" tooltipDisplay="true" visibleRowNum="10" visibleRowNumFix="true">
+    						<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
+    						<w2:header style="" id="header1">
+    							<w2:row style="" id="row1">
+    								<w2:column width="70" inputType="text" style="" id="column10" value="id" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column9" value="componentId" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column8" value="name" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column7" value="krName" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column6" value="description" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column5" value="useYn" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column4" value="dispOrd" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column3" value="note" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column2" value="domainId" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column1" value="domainResult" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:header>
+    						<w2:gBody style="" id="gBody1">
+    							<w2:row style="" id="row2">
+    								<w2:column width="70" inputType="text" style="" id="id" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="componentId" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="name" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="krName" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="description" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="select" style="" id="useYn" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="dispOrd" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="note" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="domainId" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="domainResult" value="" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:gBody>
+    					</w2:gridView>
+    					<xf:group class="pglbox" id="" style="">
+    						<w2:pageList class="pgl" delimiter="" displayButtonType="display" displayFormat="#"
+    							ev:onclick="scwin.pgl_file_onclick" id="pageList3" pageSize="5" pagingType="0" style="">
+    						</w2:pageList>
+    					</xf:group>
+    				</w2:content>
+    				<w2:content alwaysDraw="false" style="" id="content4">
+    					<w2:gridView adaptive="" adaptiveThreshold="" autoFit="allColumn" autoFitCellMinWidth="120" autoFitMinWidth="800"
+    						class="gvw" dataList="data:dlt_function" fixedColumn="3" id="grd_function" ignoreCellClick="false" keepDefaultColumnWidth="true"
+    						readOnly="true" scrollByColumn="false" scrollByColumnAdaptive="false" showSortableImage="true" sortEvent="onclick" sortable="true"
+    						style="height:330px;" tooltipDisplay="true" visibleRowNum="10" visibleRowNumFix="true"
+    						ev:oncellclick="scwin.grd_function_oncellclick">
+    						<w2:caption style="" id="caption1" value="this is a grid caption."></w2:caption>
+    						<w2:header style="" id="header1">
+    							<w2:row style="" id="row1">
+    								<w2:column width="70" inputType="text" style="" id="column9" value="id" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column8" value="functionId" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column7" value="name" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column6" value="krName" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column5" value="description" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column4" value="useYn" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column3" value="dispOrd" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column2" value="note" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="column1" value="componentId" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:header>
+    						<w2:gBody style="" id="gBody1">
+    							<w2:row style="" id="row2">
+    								<w2:column width="70" inputType="text" style="" id="id" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="functionId" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="name" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="krName" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="description" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="select" style="" id="useYn" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="dispOrd" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="note" value="" displayMode="label"></w2:column>
+    								<w2:column width="70" inputType="text" style="" id="componentId" value="" displayMode="label"></w2:column>
+    							</w2:row>
+    						</w2:gBody>
+    					</w2:gridView>
+    					<xf:group class="pglbox" id="" style="">
+    						<w2:pageList class="pgl" delimiter="" displayButtonType="display" displayFormat="#"
+    							ev:onclick="scwin.pgl_file_onclick" id="pageList4" pageSize="5" pagingType="0" style="">
+    						</w2:pageList>
+    					</xf:group>
+    				</w2:content>
+    			</w2:tabControl>
+    		</xf:group>
+    	</xf:group>
+    </body>
+</html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="gridViewExcelDownloadButton" meta_screenName="GridView Excel Download button+popup">
+        <w2:type palette="support">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map"/>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setGridView"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_gridViewExcelDownloadButton
+ * @pluginName 
+ * @company
+ * @developer
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name setTotalDataMethod
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description 엑셀 다운로드 시 전체 데이터를 dataCollection에
+ * 저장하기 위한 메소드
+ */
+
+scwin.gridView = null;
+scwin.option = null;
+scwin.onpageload = function() {
+    scwin.option = $p.getOptions({
+        setTotalDataMethod: '', // 엑셀 다운로드 시 전체 데이터를 가져오는 메소드
+    });
+};
+
+scwin.btn_excelPop_onclick = function (e) {
+
+    // console.log('btn setTotalDataMethod', option.setTotalDataMethod);
+    const gridView = $p.parent().scwin.getGridView();
+
+    const winWid = $(window).width();
+    const winHei = $(window).height();
+    const popWid = 600;
+    const popHei = 280;
+    const sumLeft = (winWid - popWid) / 2;
+    const sumTop = (winHei - popHei) / 2;
+    const jsonPopupData = {
+        "name" : "excel_param",  // 데이터를 가져오기 위한 파라미터 이름으로 팝업 화면에서 $p.getParameter("excel_param")로 추출할 수 있음
+        "data" : { 
+            gridView,
+            setTotalDataMethod: scwin.option.setTotalDataMethod
+        } // 실제 전달할 데이터
+    };
+    const opts = {
+        id : "excel_popup_window_wframe",
+        type : "litewindow",
+        width : popWid + "px",
+        height : popHei + "px",
+        top : sumTop, 
+        left : sumLeft,
+        popupName : "엑셀다운로드",
+        modal : true, 
+        useIFrame : false,
+        useATagBtn : true,
+        frameMode : "wframe",
+        // closeAction : "scwin.excel_popup_closeAction", // [선택] 팝업의 닫기 버튼을 클릭했을 때 실행할 함수명
+        dataObject : jsonPopupData
+    };
+    $p.openPopup("/ui/devOps/cmPopup/excelDownload.xml", opts);
+};
+scwin.excel_popup_closeAction = function (argRuntimeID, argJsnInfo) {
+    // argRuntimeID : 팝업의 실행 시점 아이디
+    // argJsnInfo : 팝업의 부가 정보를 담은 JSON 객체
+    // argJsnInfo.isCloseButtonClick : [true, false] 팝업의 닫기 버튼을 클릭해서 호출되었는지의 여부
+    // console.log(argJsnInfo);
+    // console.log(argJsnInfo.isCloseButtonClick);
+    return true; //팝업 닫기 (반환 값이 true인 경우만 팝업이 닫힘)
+};
+
+/**
+ * @method
+ * @name setGridView
+ * @description excel GridView setting
+ * @param {object} gridView 다운로드 될 엑셀의 데이터 원본 gridView
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setGridView = function(gridView) {
+    scwin.gridView = gridView;
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:trigger class="btn_cm download" id="btn_excelPop" style="" type="button" ev:onclick="scwin.btn_excelPop_onclick">
+    		<xf:label><![CDATA[엑셀다운로드]]></xf:label>
+    	</xf:trigger>
+    </body>
+</html>

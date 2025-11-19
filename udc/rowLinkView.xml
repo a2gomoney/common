@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="rowLinkView" meta_screenName="rowLinkView">
+        <w2:type palette="support">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataList baseNode="list" repeatNode="map" id="dlt_linkView">
+            		<w2:columnInfo>
+            			<w2:column id="linkUrl" name="Link URL" dataType="text" ignoreStatus="false"></w2:column>
+            		</w2:columnInfo>
+            		<w2:data use="false">
+            			<w2:row>
+            				<linkUrl><![CDATA[https://naver.com]]></linkUrl>
+            			</w2:row>
+            			<w2:row>
+            				<linkUrl><![CDATA[https://google.com]]></linkUrl>
+            			</w2:row>
+            		</w2:data>
+            	</w2:dataList>
+            </w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setReloadData,scwin.getData,scwin.setLoadData"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_rowLinkView
+ * @pluginName 
+ * @company
+ * @developer
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+scwin.onpageload = function() {
+    // scwin.setUI();
+};
+scwin.setUI = function () {
+    row_link_gen.removeAll();
+    const links = dlt_linkView.getAllJSON();
+    links.forEach((link, idx) => {
+        row_link_gen.insertChild(idx);
+        const genChildren = row_link_gen.getChild(idx, "link");
+        genChildren.setHref(link.linkUrl);
+        genChildren.setValue(link.linkUrl)
+    });
+}
+
+
+/**
+ * @method
+ * @name setReloadData
+ * @description 외부에서 데이터를 메소드로 수정 시 실행
+ * @param {array} linkArr Link의 배열 데이터
+ * ex) [
+ *         {
+ *             linkUrl: 'https://naver.com'
+ *         },
+ *         { 
+ *             linkUrl: 'https://google.com'
+ *         }
+ *     ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setReloadData = function (linkArr) {
+    dlt_linkView.setData(linkArr);
+    scwin.setUI();
+};
+
+/**
+ * @method
+ * @name getData
+ * @description Link 데이터 반환 (Array)
+ * @param
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.getData = function () {
+    const links = dlt_linkView.getAllJSON();
+    if (!links.length) return [];
+    return links;
+};
+
+/**
+ * @method
+ * @name setLoadData
+ * @description 데이터가 있는 페이지(수정,상세화면)에서 로드 시 실행
+ * @param {array} linkArr Link의 배열 데이터
+ * ex) [
+ *         {
+ *             linkUrl: 'https://naver.com'
+ *         },
+ *         { 
+ *             linkUrl: 'https://google.com'
+ *         }
+ *     ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setLoadData = async function (linkArr) {
+    await dlt_linkView.setJSON(linkArr);
+    scwin.setUI();
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<w2:generator style="" id="row_link_gen">
+
+    		<xf:group style="" id="" class="row">
+    			<w2:anchor outerDiv="false" style="" id="link" class="txt_link" target="_blank">
+    				<xf:label><![CDATA[https://doss.sktelecom.com/wiki2/file_wikilink01]]></xf:label>
+    			</w2:anchor>
+    		</xf:group>
+    	</w2:generator>
+    </body>
+</html>

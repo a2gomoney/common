@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenName="요구사항목록">
+        <w2:type>COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map"></w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method=""/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+scwin.onpageload = function() {
+};]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group class="sub_contents flex_cont" id="" meta_componentContainer="true" meta_snippetCategory="00_화면시작"
+    		meta_snippetKeyComponent="true" meta_snippetName="0_01 페이지시작" style="">
+    		<w2:pageFrame src="/common/xml/contentHeader.xml" style="" id="pfm_contentHeader"></w2:pageFrame>
+    		<xf:group class="tbcbox grp_flex" id="" meta_snippetCategory="04_탭" meta_snippetKeyComponent="true" meta_snippetName="4_01 탭"
+    			style="">
+    			<w2:tabControl alwaysDraw="false" class="tbc" id="" style="">
+    				<w2:tabs disabled="false" id="tabs1" label="서브탭1" style=""></w2:tabs>
+    				<w2:tabs disabled="false" id="tabs2" label="서브탭2" style=""></w2:tabs>
+    				<w2:content alwaysDraw="false" id="content1" style="">
+    					<w2:textbox id="" label="메인 화면 표시 영역"
+    						style="font-size:40px;font-weight:700;text-align:center;position:absolute;top:45%;left:0;right:0;" class="">
+    					</w2:textbox>
+    				</w2:content>
+    				<w2:content alwaysDraw="false" id="content2" style=""></w2:content>
+    			</w2:tabControl>
+    		</xf:group>
+    	</xf:group>
+    </body>
+</html>

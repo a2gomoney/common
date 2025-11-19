@@ -1,0 +1,2 @@
+(function(){var a={title:"Image Slider",icon:{p_imageslider:"Image Slider"},dialog:{slider_info:"File Information",slider_width:"Width",slider_height:"Height",dragable:"Drag Function",rewindable:"Rewind Function",use_dots:"Slide Index",use_arrows:"Arrow Buttons",slider_order:"Image Order"},context:{p_imageslider_property:"Slider Properties"},topmenu:{p_imageslider:"Image Slider"}};try{G_DEPlugin&&(G_DEPlugin.imageslider.lang=a,dext5_lang.plugins.imageslider=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&
+RAONWIZDLW&&RAONWIZDLW()}})();

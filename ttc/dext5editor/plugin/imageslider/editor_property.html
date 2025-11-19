@@ -1,0 +1,599 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Image</title>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script type="text/javascript">
+        document.write('<scr' + 'ipt src="../../config/editor_crossdomain_config.js?t=' + (new Date).getTime() + '" type="text/javascript"><\/scr' + 'ipt>');
+    </script>
+
+    <script type="text/javascript">
+        var G_UploadCompleteCallBackFn;
+        var DEXTTOP = parent;
+        var Dext5LayerFrame = DEXTTOP.DEXTDOC.getElementById("dext_frame_" + DEXTTOP.G_CURREDITOR.ID);
+        if (DEXTTOP.G_CURREDITOR.dialogWindow != null) {
+            DEXTTOP = Dext5LayerFrame.contentWindow.DEXTTOP;
+        }
+        var Dext5LayerWin = Dext5LayerFrame.contentWindow;
+
+        DEXTTOP.G_CURREDITOR._FRAMEWIN.G_DEPlugin.imageslider._POPUPWIN = this;
+        document.write('<link href="./css/dext5imageslider_popup.css?t=' + DEXTTOP.DEXT5.UrlStamp + '" rel="stylesheet" type="text/css" />');
+
+        var G_SKINNAME = Dext5LayerWin._dext_editor._config.style.skinName;
+
+        document.write('<link href="../' + Dext5LayerWin._dext_editor._config.popupCssUrl + '?t=' + DEXTTOP.DEXT5.UrlStamp + '" rel="stylesheet" type="text/css" />');
+        if (Dext5LayerWin._dext_editor._config.customCssUrlDetailApply == "1") {
+            document.write('<link href="../' + Dext5LayerWin._dext_editor._config.style.customCssUrl + "?t=" + DEXTTOP.DEXT5.UrlStamp + '" rel="stylesheet" type="text/css" />');
+        }
+        document.write('<scr' + 'ipt src="../' + Dext5LayerWin._dext_editor._config.dialogJSUrl + '?t=' + DEXTTOP.DEXT5.UrlStamp + '" type="text/javascript"><\/scr' + 'ipt>');
+
+        if (Dext5LayerWin._dext_editor._config.uploadUseHTML5 == "1") {
+            document.write('<scr' + 'ipt src="../' + Dext5LayerWin._dext_editor._config.ajaxUploadJSUrl + '?t=' + DEXTTOP.DEXT5.UrlStamp + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+
+        if (Dext5LayerWin._dext_editor._config.security.fileExtensionDetector && Dext5LayerWin._dext_editor._config.security.fileExtensionDetector != '0') {
+            document.write('<scr' + 'ipt src="../' + Dext5LayerWin._dext_editor._config.detectJSUrl + '?t=' + DEXTTOP.DEXT5.UrlStamp + '" type="text/javascript"><\/scr' + 'ipt>');
+        }
+    </script>
+
+    <style type="text/css">
+        #img_dlg_back {
+            z-index: 20;
+            background-color: white;
+            left: 0px;
+            top: 40px;
+            width: 100%;
+            height: 60px;
+            position: absolute;
+            filter: alpha(opacity=40);
+            opacity: 0.4;
+            -moz-opacity: 0.4;
+            -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
+            -khtml-opacity: 0.4;
+        }
+
+        .image-list {
+            width: 100%;
+            display: -webkit-box;
+            /*gap: 10px;*/
+            overflow-x: auto;
+        }
+
+        .image-item {
+            display: flex;
+            border: 0.2px solid rgba(0,0,0,0.50) !important;
+            padding: 5px;
+            cursor: grab;
+            width: 100px !important;
+            height: 100px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .image-item img {
+            max-width: 100px;
+            max-height: 100px;
+            width: auto;
+            height: auto;
+            display: block;
+            object-fit: contain;
+            margin: 0 auto;
+        }
+
+        .dragging {
+            opacity: 0.5;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var G_validImageFiles = [];
+
+        var G_tempTotalFileSizeForMulti = 0;
+
+        var file_field_id = LayerWin._dext_editor._config.fileFieldID;
+        var user_field_id = LayerWin._dext_editor._config.userFieldID;
+        var user_field_value = LayerWin._dext_editor._config.userFieldValue;
+        var g_initWidth = g_initHeight = '';
+
+        var G_IMAGES_ORDER = [];
+
+        var G_sliderContainer = null;
+
+        var elemModify = null;
+        try {
+            elemModify = DEXTTOP.G_SELECTED_ELEMENT;
+            if (elemModify && elemModify.tagName.toLowerCase() != "img") DEXTTOP.G_SELECTED_ELEMENT = elemModify = null;
+            if (elemModify && elemModify != null) {
+                elemModifyParent = LayerWin.GetParentbyTagName(elemModify, "figure");
+
+                if (elemModifyParent) {
+                    if (elemModifyParent.tagName.toLowerCase() != "figure")
+                        elemModifyParent = null;
+                }
+            }
+        } catch (e) {
+            elemModify = null;
+        }
+
+        function page_loaded_event() {
+            set_page_lang();
+
+            var accessibility = LayerWin._dext_editor._config.accessibility;
+            if (accessibility == "-1") {
+                if (document.getElementById("access_img")) document.getElementById("access_img").style.display = "none";
+            }
+
+            set_page();
+
+            var btn_ok_a = document.getElementById('btn_ok_a');
+            DEXTTOP.DEXT5.util.addEvent(btn_ok_a, 'click', function () {
+                const imageList = document.getElementById('imageList');
+                const imageItems = imageList.querySelectorAll('[class^="image-item-"] img');
+
+                const sliderTrack = G_sliderContainer.querySelector('.dext5-imgslider-track');
+                if (!sliderTrack) return;
+
+                const slideDivs = Array.from(sliderTrack.querySelectorAll('.dext5-imgslider-slide-div'));
+
+                const sortedSlides = [];
+
+                imageItems.forEach(img => {
+                    const src = img.src;
+
+                    const match = slideDivs.find(div => {
+                        const slideImg = div.querySelector('img');
+                        return slideImg && slideImg.src === src;
+                    });
+
+                    if (match) {
+                        sortedSlides.push(match);
+                    }
+                });
+
+                sliderTrack.innerHTML = '';
+                sortedSlides.forEach((div, index) => {
+                    const img = div.querySelector('img');
+                    if (img) img.setAttribute('data-gslide', index);
+
+                    sliderTrack.appendChild(div);
+                });
+                var widthVal = DEXTTOP.DEXT5.util.parseIntOr0(document.getElementById('slider_width').value);
+                var heightVal = DEXTTOP.DEXT5.util.parseIntOr0(document.getElementById('slider_height').value);
+                // 슬라이더 크기 조정시 width/height 값이 없을 때 slider div에서 값 참조하도록 수정 - by LimSW 25.04.11
+                if (widthVal == 0) {
+                    widthVal = sortedSlides[0].style.width;
+                }
+                if (heightVal == 0) {
+                    heightVal = sortedSlides[0].style.height;
+                }
+                resizeImageSliderSlidesByInput(widthVal, heightVal);
+                event_dext_image_upload_cancel();
+            });
+
+            if (LayerDoc.compatMode == "BackCompat") {
+                var inputs = document.getElementsByTagName('input');
+                for (var i = 0; i < inputs.length; i++) {
+                    if (inputs[i].type == 'text') {
+                        inputs[i].style.height = '20px';
+                    }
+                }
+            }
+            var first_tab_1 = document.getElementById("first_tab_1");
+            setCursorPos(first_tab_1, false, false);
+            LayerWin.setFocusFirstAndLast(document, first_tab_1);
+
+            if (elemModify == null && Dext5LayerWin._dext_editor._config.imageContinueInsertMaintainValue == "1") {
+                document.getElementById("maintain_value").checked = true;
+            }
+        }
+
+        function set_page() {
+            var enforceDocumentDomain = false;
+            try {
+                if (typeof dext5EnforceDocumentDomain != 'undefined') {
+                    enforceDocumentDomain = dext5EnforceDocumentDomain;
+                }
+            } catch (e) {
+                typeof (RAONWIZDLW) != 'undefined' && RAONWIZDLW && RAONWIZDLW();
+            }
+            var currentDocDomain = document.domain;
+            if (enforceDocumentDomain) {
+                currentDocDomain += '|';
+            }
+
+            var sliderContainer = Dext5LayerWin._dext_editor._FRAMEWIN.G_DEPlugin['imageslider'].G_contextSlider;
+            G_sliderContainer = sliderContainer;
+            var imgTags = sliderContainer.querySelectorAll('img');
+            addImageOrderFromImgTags(imgTags);
+            // 슬라이더 크기 조정시 width/height 값이 없을 때 slider div에서 값 참조하도록 수정 - by LimSW 25.04.11
+            var firstSlideDiv = sliderContainer.getElementsByClassName('dext5-imgslider-slide-div')[0];
+            var widthVal = DEXTTOP.DEXT5.util.parseIntOr0(firstSlideDiv.style.width);
+            var heightVal = DEXTTOP.DEXT5.util.parseIntOr0(firstSlideDiv.style.height);
+            document.getElementById('slider_width').value = widthVal == 0 ? "" : widthVal;
+            document.getElementById('slider_height').value = heightVal == 0 ? "" : heightVal;
+        }
+
+        function set_page_lang() {
+            var _skin_name = LayerWin._dext_editor._config.style.skinName;
+            var langObj = LayerWin._dext_editor._FRAMEWIN.G_DEPlugin.imageslider.lang;
+
+            document.getElementById("label_slider_width").innerHTML = langObj.dialog.slider_width;
+            document.getElementById("label_slider_height").innerHTML = langObj.dialog.slider_height;
+            document.getElementById("label_slider_order").innerHTML = langObj.dialog.slider_order;
+
+            document.getElementById("dext_dialog_box").className = 'DEXT_fiVe_ED_Popup_Type02 DEXT_fiVe_PUi_' + _skin_name;
+
+            document.getElementById("span_title").innerHTML = LayerWin._dext_editor._FRAMEWIN.G_DEPlugin.imageslider.lang.context.p_imageslider_property;
+
+            var header = LayerWin.getElementsByClass('EdiTor_Popup_header', document);
+            header[0].onselectstart = function () { return false; };
+        }
+
+        function popup_toggle(tapNum) {
+            var popTap = LayerWin.getElementsByClass("EdiTor_Popup_contents", document);
+            var div_tab_arr = LayerWin.getElementsByClass("con_btn", document);
+            var input_link_url = document.getElementById('link_url');
+
+            switch (tapNum) {
+                case 0:
+                    setCursorPos(document.getElementById('radio_image'), false, false);
+                    input_link_url.value = LayerWin.ReplaceAll(input_link_url.value, ' ', '');
+                    if (input_link_url.value != '') {
+                        var chkReg = new RegExp(/^(http|ftp|https|news)/);
+                        var chkVal = chkReg.test(input_link_url.value);
+                        if (input_link_url.value == LayerWin._dext_editor._config.defaultProtocolInDialog) {
+                            input_link_url.value = '';
+                        } else if (chkVal && !LayerWin.urlCheckOrPass(input_link_url.value)) {
+                            alert(LayerWin.dext5_lang.msg.alert_url);
+                            input_link_url.focus();
+                            return;
+                        }
+                    }
+                    popTap[0].className = "EdiTor_Popup_contents view";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+
+                    document.getElementById('img_dlg_back').style.display = 'none';
+
+                    LayerWin.setFocusFirstAndLast(document, div_tab_arr[0].getElementsByTagName('a')[0]);
+                    break;
+                case 1:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents view";
+                    popTap[2].className = "EdiTor_Popup_contents none";
+
+                    document.getElementById('img_dlg_back').style.display = 'none';
+
+                    if (input_link_url.value == '') {
+                        input_link_url.value = LayerWin._dext_editor._config.defaultProtocolInDialog;
+                    }
+                    setCursorPos(input_link_url, true, false);
+                    LayerWin.setFocusFirstAndLast(document, div_tab_arr[1].getElementsByTagName('a')[0]);
+                    break;
+                case 2:
+                    popTap[0].className = "EdiTor_Popup_contents none";
+                    popTap[1].className = "EdiTor_Popup_contents none";
+                    popTap[2].className = "EdiTor_Popup_contents view";
+
+                    if (document.getElementById('not_apply_border').checked) {
+                        document.getElementById('img_dlg_back').style.display = '';
+                    }
+
+                    LayerWin.setFocusFirstAndLast(document, div_tab_arr[2].getElementsByTagName('a')[0]);
+                    break;
+                default: return;
+            }
+        }
+
+        function addImageOrderFromImgTags(imgTags) {
+            const imageList = document.getElementById('imageList');
+            if (imgTags.length === 0) return;
+
+            imageList.innerHTML = '';
+
+            const dropLeft = document.createElement('div');
+            dropLeft.className = 'drop-left';
+            const dropRight = document.createElement('div');
+            dropRight.className = 'drop-right';
+            imageList.appendChild(dropLeft);
+
+            G_IMAGES_ORDER.length = 0;
+
+            imgTags.forEach((imgTag, index) => {
+                const separator = document.createElement('div');
+                separator.className = 'image-separator-' + G_SKINNAME;
+                imageList.appendChild(separator);
+
+                const listItem = document.createElement('div');
+                listItem.className = 'image-item-' + G_SKINNAME;
+                listItem.draggable = true;
+                listItem.dataset.index = index;
+
+                const newImg = document.createElement('img');
+                newImg.src = imgTag.src;
+
+                listItem.appendChild(newImg);
+                imageList.appendChild(listItem);
+
+                G_IMAGES_ORDER.push({ src: imgTag.src, index });
+            });
+
+            const lastSeparator = document.createElement('div');
+            lastSeparator.className = 'image-separator-' + G_SKINNAME;
+            imageList.appendChild(lastSeparator);
+
+            imageList.appendChild(dropRight);
+
+            enableDragAndDrop();
+        }
+
+        function enableDragAndDrop() {
+            const imageList = document.getElementById('imageList');
+            const items = document.querySelectorAll('.image-item-' + G_SKINNAME);
+            const separators = document.querySelectorAll('.image-separator-' + G_SKINNAME);
+            const dropLeft = document.querySelector('.drop-left');
+            const dropRight = document.querySelector('.drop-right');
+            let draggedItem = null;
+
+            const clearActiveSeparators = () => {
+                separators.forEach(s => s.classList.remove('active'));
+            };
+
+            dropLeft.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                clearActiveSeparators();
+                const firstSeparator = imageList.querySelector('.image-separator-' + G_SKINNAME);
+                firstSeparator?.classList.add('active');
+            });
+
+            dropRight.addEventListener('dragover', (e) => {
+                e.preventDefault();
+                clearActiveSeparators();
+                const lastSeparator = [...separators].pop();
+                lastSeparator?.classList.add('active');
+            });
+
+            dropLeft.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!draggedItem) return;
+                const firstItem = imageList.querySelector('.image-item-' + G_SKINNAME);
+                imageList.insertBefore(draggedItem, firstItem);
+                clearActiveSeparators();
+                updateImageOrder();
+            });
+
+            dropRight.addEventListener('drop', (e) => {
+                e.preventDefault();
+                if (!draggedItem) return;
+                imageList.appendChild(draggedItem);
+                clearActiveSeparators();
+                updateImageOrder();
+            });
+
+            items.forEach((item) => {
+                item.addEventListener('dragstart', () => {
+                    draggedItem = item;
+                    setTimeout(() => item.classList.add('dragging'), 0);
+                });
+
+                item.addEventListener('dragend', () => {
+                    draggedItem?.classList.remove('dragging');
+                    draggedItem = null;
+                    clearActiveSeparators();
+                });
+
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+
+                    const target = e.currentTarget;
+                    const targetRect = target.getBoundingClientRect();
+                    const offsetX = e.clientX - targetRect.left;
+                    const isLeft = offsetX < targetRect.width / 2;
+
+                    const allChildren = Array.from(imageList.children);
+                    const targetIndex = allChildren.indexOf(target);
+
+                    clearActiveSeparators();
+
+                    let separator = isLeft
+                        ? allChildren[targetIndex - 1]
+                        : allChildren[targetIndex + 1];
+
+                    if (separator?.classList.contains('image-separator-' + G_SKINNAME)) {
+                        separator.classList.add('active');
+                    }
+                });
+
+                item.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    const target = e.currentTarget;
+                    const rect = target.getBoundingClientRect();
+                    const offsetX = e.clientX - rect.left;
+                    const isLeft = offsetX < rect.width / 2;
+
+                    if (isLeft) {
+                        imageList.insertBefore(draggedItem, target);
+                    } else {
+                        imageList.insertBefore(draggedItem, target.nextSibling);
+                    }
+
+                    clearActiveSeparators();
+                    updateImageOrder();
+                });
+
+                item.addEventListener('mouseover', (e) => {
+                    let target = e.target;
+                    if (target.tagName === "IMG") target = target.parentNode;
+                    target.classList.add("on");
+                });
+
+                item.addEventListener('mouseleave', (e) => {
+                    let target = e.target;
+                    if (target.tagName === "IMG") target = target.parentNode;
+                    target.classList.remove("on");
+                });
+            });
+
+            separators.forEach((separator) => {
+                separator.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    clearActiveSeparators();
+                    separator.classList.add('active');
+                });
+
+                separator.addEventListener('dragleave', () => {
+                    separator.classList.remove('active');
+                });
+
+                separator.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    if (!draggedItem) return;
+                    imageList.insertBefore(draggedItem, separator.nextSibling);
+                    clearActiveSeparators();
+                    updateImageOrder();
+                });
+            });
+        }
+
+        function updateImageOrder() {
+            const imageList = document.getElementById("imageList");
+
+            const items = Array.from(imageList.querySelectorAll(".image-item-" + G_SKINNAME));
+
+            G_IMAGES_ORDER = items.map((item) => {
+                const index = parseInt(item.dataset.index, 10);
+                return G_IMAGES_ORDER.find((img) => img.index === index);
+            });
+
+            const separators = Array.from(imageList.querySelectorAll(".image-separator-" + G_SKINNAME));
+
+            if (separators.length === items.length + 1) {
+                const dropLeft = imageList.querySelector('.drop-left');
+                const dropRight = imageList.querySelector('.drop-right');
+                imageList.innerHTML = '';
+                imageList.appendChild(dropLeft);
+                items.forEach((item, i) => {
+                    imageList.appendChild(separators[i]);
+                    imageList.appendChild(item);
+                });
+                imageList.appendChild(separators[separators.length - 1]);
+                imageList.appendChild(dropRight);
+            }
+        }
+
+        function resizeImageSliderSlidesByInput(inputWidth, inputHeight) {
+            if (!inputWidth || inputHeight === 0) return;
+
+            inputHeight = inputHeight === 0 ? null : inputHeight;
+
+            const container = G_sliderContainer;
+            const track = container.querySelector('.dext5-imgslider-track');
+            const slideDivs = track.querySelectorAll('.dext5-imgslider-slide-div');
+
+            // 크기 조정시 아래 작성영역이 슬라이더 위로 올라가는 현상 수정 - by LimSW 25.04.10
+            container.style.width = `${inputWidth}px`;
+            if (!!inputHeight) {
+                container.style.height = (inputHeight + 20) + `px`;
+            } else {
+                container.style.height = "";
+            }
+
+            let trackWidth = 0;
+
+            slideDivs.forEach((slideDiv) => {
+                const imgWidth = parseFloat(slideDiv.style.width);
+                const imgHeight = parseFloat(slideDiv.style.height);
+
+                if (!imgWidth || !imgHeight) return;
+
+                let scale;
+
+                if (inputHeight !== null) {
+                    const widthRatio = inputWidth / imgWidth;
+                    const heightRatio = inputHeight / imgHeight;
+
+                    if (imgWidth <= inputWidth && imgHeight <= inputHeight) {
+                        scale = 1;
+                    } else {
+                        scale = Math.min(widthRatio, heightRatio, 1);
+                    }
+                } else {
+                    if (imgWidth <= inputWidth) {
+                        scale = 1;
+                    } else {
+                        scale = Math.min(inputWidth / imgWidth, 1);
+                    }
+                }
+
+                slideDiv.style.width = `${inputWidth}px`;
+                slideDiv.style.height = inputHeight !== null ? `${inputHeight}px` : 'auto';
+                slideDiv.style.display = 'flex';
+                slideDiv.style.justifyContent = 'center';
+                slideDiv.style.alignItems = 'center';
+
+                trackWidth += inputWidth;
+            });
+
+            track.style.width = `${trackWidth}px`;
+        }
+
+    </script>
+</head>
+<body style="margin:0px; padding:0px; " onload="page_loaded_event(); page_dialog_loaded_event();">
+    <div id="dext_dialog_box" class="">
+        <div id="img_dlg_back" style="display:none;"></div>
+        <!-- Header -->
+        <div class="EdiTor_Popup_header">
+            <span id="span_title" class="subject">이미지</span><span class="text"></span>
+            <div class="close">
+                <a href="javascript:event_dext_image_upload_cancel();" title="close"></a>
+            </div>
+        </div>
+        <!-- // Header -->
+        <!-- Contents / general -->
+        <div class="EdiTor_Popup_contents view" id="tab_1">
+            <form name="dext_upload_form" id="dext_upload_form" method="post" target="upload_frame" enctype="multipart/form-data" action="">
+                <div id="contents_tab_1" class="contents" style="height:163px; overflow: hidden;">
+                    <div class="speech_balloons" id="access_div" style="position:absolute; display:none; width:317px;">
+                        <span class="sp_t" style="width:300px;"><p></p></span>
+                        <span class="sp_arrow">
+                            <img src="../../images/editor/dialog/speech_arrow.gif" width="15" height="16" alt="web accessibility" />
+                        </span>
+                    </div>
+                    <div class="con border">
+                        <table cellpadding="0" cellspacing="0" style="margin-top: 5px;height:120px;">
+                            <tr>
+                                <td width="23.5%" style="margin-right:1px;"><label id="label_slider_order" for="slider_width"></label></td>
+                                <td width="75.5%" style="border: 0.5px solid rgba(0,0,0,0.25);">
+                                    <div class="image-list" id="imageList"></div>
+                                </td>
+                            </tr>
+                        </table>
+                        <table cellpadding="0" cellspacing="0" style="margin-top: 5px;">
+                            <tr>
+                                <td width="25%"><label id="label_slider_width" for="slider_width"></label></td>
+                                <td width="25%">
+                                    <input name="slider_width" id="slider_width" type="text" style="width:55px;" class="con_input" value="" />
+                                    <label style="vertical-align:middle;">px</label>
+                                </td>
+                                <td width="25%"><label id="label_slider_height" for="slider_height"></label></td>
+                                <td width="25%">
+                                    <input name="slider_height" id="slider_height" type="text" style="width:55px;" class="con_input" value="" />
+                                    <label style="vertical-align:middle;">px</label>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Footer -->
+        <div class="EdiTor_Popup_footer">
+            <span id="dext_loading" style="display:none;"><img src="../../images/editor/dialog/loading.gif" alt="working" style="vertical-align:middle; " /> Uploading... </span>
+            <a href="javascript:void(0);" class="confirm" id="btn_ok_a"><span id="btn_ok">확인</span></a>
+            <a href="javascript:event_dext_image_upload_cancel();" class="cancel" id="abtn_cancel"><span id="btn_cancel">취소</span></a>
+        </div>
+        <!-- // Footer -->
+    </div>
+</body>
+</html>

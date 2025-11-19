@@ -1,0 +1,35 @@
+﻿<!doctype html>
+<html lang="ko">
+<head>
+    <title>DEXT5 Editor Sample</title>
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+</head>
+<body>
+    <div class="btn_lst_box" style="overflow:hidden">
+    <div style="float:left;display:inline-block">
+        <button type="button" value="setHtmlValueEx" class="input_image" style="width: 130px;" onclick="fn_setHtmlValueEx('dext5editor')">SetHTMLValueEx</button>&nbsp;
+        <button type="button" value="getHtmlValueEx" class="input_image" style="width: 130px;" onclick="fn_getHtmlValueEx('dext5editor')">GetHTMLValueEx</button>&nbsp;
+    </div>      
+    <div style="float:right;display:inline-block">
+        <button type="button" value="setBodyValue" class="input_image" style="width: 120px;" onclick="fn_setBodyValue('dext5editor')">SetBodyValue</button>&nbsp;
+        <button type="button" value="getBodyValue" class="input_image" style="width: 120px;" onclick="fn_getBodyValue('dext5editor')">GetBodyValue</button>&nbsp;
+    </div>
+    </div>
+    <div class="btn_lst_box btn_lst_box2" style="position:relative;height:90px">
+        <div style="position:absolute;left:0;top:0"><textarea id="txtTestValue1" cols="35" rows="5" style="width:385px;height:80px;"><html lang="ko-kr" lang="ko-kr" xml:lang="ko-kr"><head><title>DEXT5 Editor</title><style type="text/css">#dext_body {cursor: text;margin: 10px;font-family: 굴림;font-size: 12pt;}#dext_body p {line-height: 1.2;margin-top: 0px;margin-bottom: 0px;}#dext_body li {line-height: 1.2;margin-top: 0px;margin-bottom: 0px;}</style><meta http-equiv="Content-Type" content="text/html" charset="utf-8"></head><body id="dext_body" spellcheck="false"><p style="line-height: 1.2; font-family: 굴림; font-size: 12pt; margin-top: 0px; margin-bottom: 0px;">setHtmlValueEx API 호출 시 이곳의 내용을 삽입합니다.</p></body></html></textarea></div>
+        <div style="position:absolute;right:0;top:0"><textarea id="txtTestValue2" cols="35" rows="5" style="width:385px;height:80px;"><p>setBodyValue API 호출 시 이곳의 내용을 삽입합니다.</p></textarea></div>
+    </div>
+
+    <!-- 에디터영역 -->
+    <div id="component_holder" style="width: 800px; margin: 0 auto;"></div>
+    <!-- //에디터영역 -->
+
+    <br />
+
+    <!-- 로그영역 -->
+    <textarea id="logBox" class="logBox" style="overflow: auto;height:200px" readonly="true"></textarea>
+    <!-- //로그영역 -->
+</body>
+</html>

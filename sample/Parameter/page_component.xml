@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+	<head>
+	  <w2:type>COMPONENT</w2:type>
+	  <w2:buildDate/>
+	  <w2:MSA/>
+	  <xf:model>
+	    <w2:dataCollection baseNode="map">
+	      <!-- 검색 데이터맵 -->
+	      <w2:dataMap id="dmp_bm_code_grpVo" baseNode="map">
+	        <w2:keyInfo>
+	            <w2:key dataType="text" id="SC_GRP_NM" name="GRP_NM"/>
+	            <w2:key dataType="text" id="SC_SORT_ORDER" name="SORT_ORDER"/>
+	          <w2:key dataType="text" id="pageIndex" name="페이지번호" defaultValue="1"/>
+	          <w2:key dataType="text" id="pageSize" name="페이지사이즈" defaultValue="10"/>
+	          <w2:key dataType="text" id="totalPageCount" name="페이지건수" ></w2:key>
+	        </w2:keyInfo>
+	        <w2:data use="false"/>
+	      </w2:dataMap>
+	
+	      <!-- 목록 데이터 리스트 -->
+	      <w2:dataList id="dlt_bm_code_grpVoList" baseNode="list" repeatNode="map" saveRemovedData="true">
+	        <w2:columnInfo>
+	            <w2:column id="GRP_CD" displayName="GRP_CD" dataType="text"/>
+	            <w2:column id="GRP_NM" displayName="GRP_NM" dataType="text"/>
+	            <w2:column id="SORT_ORDER" displayName="SORT_ORDER" dataType="text"/>
+	            <w2:column id="IS_USE" displayName="IS_USE" dataType="text"/>
+	            <w2:column id="NOTE" displayName="NOTE" dataType="text"/>
+	        </w2:columnInfo>
+	      </w2:dataList>
+	
+	      <!-- 상세 데이터맵 -->
+	      <w2:dataMap id="dmp_bm_code_grpVoDetail" baseNode="map">
+	        <w2:keyInfo>
+	            <w2:key id="GRP_CD" name="GRP_CD" dataType="text"/>
+	            <w2:key id="GRP_NM" name="GRP_NM" dataType="text"/>
+	            <w2:key id="SORT_ORDER" name="SORT_ORDER" dataType="text"/>
+	            <w2:key id="IS_USE" name="IS_USE" dataType="text"/>
+	            <w2:key id="NOTE" name="NOTE" dataType="text"/>
+	        </w2:keyInfo>
+	      </w2:dataMap>
+	    </w2:dataCollection>
+	
+	    <!-- Submission -->
+		<xf:submission id="sbm_selectBm_code_grpVoList" 
+               ref='data:json,{"id":"dmp_bm_code_grpVo","key":"bm_code_grpVo"}'
+               target='data:json,{"id":"dlt_bm_code_grpVoList","key":"elData.bm_code_grpVoList"}' 
+               action="/Bm_code_grpList.pwkjson"
+               method="post" 
+               mediatype="application/json" 
+               encoding="UTF-8"
+               processMsg="BM_CODE_GRP_BASE 리스트를 조회 중입니다."
+               ev:submitdone="scwin.sbm_bm_code_grpList_submitdone">
+		</xf:submission>
+		
+		<xf:submission id="sbm_deleteBm_code_grpVo" 
+		               ref='data:json,{"id":"dmp_bm_code_grpVoDetail","key":"bm_code_grpVo"}' 
+		               action="/Bm_code_grpDel.pwkjson"
+		               method="post"
+		               mediatype="application/json" 
+		               encoding="UTF-8">
+		</xf:submission>
+		
+		<xf:submission id="sbm_updateBm_code_grpVo" 
+		               ref='data:json,["dmp_bm_code_grpVoDetail",{"id":"dmp_bm_code_grpVoDetail","key":"bm_code_grpVo"}]' 
+		               action="/Bm_code_grpUpd.pwkjson"
+		               method="post"
+		               mediatype="application/json" 
+		               encoding="UTF-8">
+		</xf:submission>
+		
+		<xf:submission id="sbm_insertBm_code_grpVo" 
+		               ref='data:json,["dmp_bm_code_grpVoDetail",{"id":"dmp_bm_code_grpVoDetail","key":"bm_code_grpVo"}]' 
+		               action="/Bm_code_grpIns.pwkjson"
+		               method="post"
+		               mediatype="application/json" 
+		               encoding="UTF-8">
+		</xf:submission>
+		
+		<xf:submission id="sbm_selectBm_code_grpVo" 
+		               action="/Bm_code_grpUpdView.pwkjson"
+		               method="post"
+		               mediatype="application/json" 
+		               encoding="UTF-8"
+		               processMsg="BM_CODE_GRP_BASE를 조회 중입니다.">
+		</xf:submission>
+
+	  </xf:model>
+	  <script type="text/javascript"><![CDATA[
+	    scwin.onpageload = function() { 
+	    	btn_save.show(); 
+	    	btn_edit.hide(); 
+	    	btn_delete.hide(); 
+
+	    	scwin.btn_search_onclick();
+	    };
+	    
+		/**
+		 * 조회 버튼 클릭 이벤트
+		 * @date
+		 * @memberOf
+		 * @param 
+		 * @returns
+		 * @author 
+		 * @example
+		 */	
+	    scwin.btn_search_onclick = function(e) { 
+	    	dmp_bm_code_grpVo.set("pageIndex", "1"); 
+	    	pgl_bm_code_grpList.setSelectedIndex(1); 
+	    	
+	    	$c.sbm.execute($p, sbm_selectBm_code_grpVoList);
+	    };
+	    
+	    scwin.sbm_bm_code_grpList_submitdone = function(e) { 
+	    	var elData = e.responseJSON.elData;
+			var elHeader  = e.responseJSON.elHeader;
+			if(elHeader == null || elHeader == "" || elHeader == "undefiend" || elHeader.resSuc == false) {
+				return false;
+			}
+	    	
+	    	dmp_bm_code_grpVoDetail.setEmptyValue(); 
+	    	grp_bm_code_grpInfo.setReadOnly(false); 
+	    	
+	    	// 버튼 숨김
+	    	btn_save.show(); 
+	    	btn_edit.hide(); 
+	    	btn_delete.hide();
+	    	 
+	    	// 총 레코드 수 업데이트
+	    	spn_listCnt.setLabel(elData.totalCount);
+	    	// 데이터를 그리드에 셋팅
+	    	dlt_bm_code_grpVoList.setJSON(elData.bm_code_grpVoList);
+	    	
+	    	// 페이지 네비게이터 업데이트
+	    	var totalPageCount = Math.ceil(elData.totalCount / dmp_bm_code_grpVo.get("pageSize"));
+	        pgl_bm_code_grpList.setCount(totalPageCount);
+	        
+	        spn_registerFlag.setValue("등록");
+	        
+	        // 페이징 정보 업데이트
+	        spn_totalPageCount.setValue(totalPageCount);
+	        spn_pageIndex.setValue(dmp_bm_code_grpVo.get("pageIndex"));
+	        pgl_bm_code_grpList.setSelectedIndex(dmp_bm_code_grpVo.get("pageIndex"));
+	    };
+	    
+		/**
+		 * 페이지 번호 클릭 이벤트
+		 * @date
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */
+	    scwin.pgl_bm_code_grpList_onclick = function(idx) { 
+	    	dmp_bm_code_grpVo.set("pageIndex", idx); 
+	    	
+	    	$c.sbm.execute($p, sbm_selectBm_code_grpVoList); 
+	    };
+	    
+	    // BM_CODE_GRP_BASE clear
+	    scwin.btn_reset_onclick = function(e) { 
+	    	dmp_bm_code_grpVoDetail.setEmptyValue();
+	    	grp_bm_code_grpInfo.setReadOnly(false);
+	    	 
+	    	btn_save.show(""); 
+	    	btn_edit.hide(); 
+	    	btn_delete.hide();
+	    	
+	    	spn_registerFlag.setValue("등록");
+	    };
+	    
+    	/**
+		 * 그리드 셀 클릭 이벤트
+		 * @date
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */
+	    scwin.grd_list_oncellclick = function(row) { 
+	    	dmp_bm_code_grpVoDetail.setJSON(dlt_bm_code_grpVoList.getRowJSON(row));
+	    	 
+	    	btn_save.hide(); 
+	    	btn_edit.show(""); 
+	    	btn_delete.show("");
+	    	
+	    	spn_registerFlag.setValue("수정");
+	    };
+	    
+	    
+    	/**
+		 * 저장 버튼 클릭 이벤트
+		 * @date
+		 * @memberOf
+		 * @param 
+		 * @returns
+		 * @author 
+		 * @example
+		 */	
+	    scwin.btn_save_onclick = function(e) { 
+	    	var valInfo = [ 
+	    		 { 
+	    			id: "detail_GRP_CD", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_GRP_NM", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_SORT_ORDER", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_IS_USE", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_NOTE", mandatory: true }
+	    			 
+	    	];
+	    		 
+	    	if ($c.data.validateGroup(grp_bm_code_grpInfo, valInfo) === true) { 
+	    		var promise = $c.win.confirm("저장하시겠습니까?");
+	    		promise.then(function(result) {  
+					if (result){
+						$c.sbm.execute(sbm_insertBm_code_grpVo);
+					}
+				})
+	    	} 
+	    };
+	    
+    	/**
+		 * 사원정보 등록 콜백
+		 * @date 
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */
+		scwin.sbm_insertBm_code_grpVo_submitdone = function(e) {
+			
+			// error 수신시
+			var elHeader  = e.responseJSON.elHeader;
+			if(elHeader == null || elHeader == "" || elHeader == "undefiend" || elHeader.resSuc == false) {
+				return false;
+			}else{
+				// 등록되었습니다. msg 출력
+				$c.win.alert("등록되었습니다.");
+			}
+			
+			// 재조회
+			scwin.btn_search_onclick();
+		};
+	    
+    	/**
+		 * 수정 버튼 클릭 이벤트
+		 * @date
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */	
+	    scwin.btn_edit_onclick = function(e) { 
+	    	var valInfo = [ 
+	    		 { 
+	    			id: "detail_GRP_CD", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_GRP_NM", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_SORT_ORDER", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_IS_USE", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_NOTE", mandatory: true }
+	    			 
+	    	]; 
+	    		
+	    	if ($c.data.validateGroup(grp_bm_code_grpInfo, valInfo) === true) { 
+	    		var promise = $c.win.confirm("수정하시겠습니까?");
+				promise.then(function(result) {  
+					if (result){
+			    		$c.sbm.execute(sbm_updateBm_code_grpVo); 
+					}
+				})
+	    	} 
+	    }
+	    
+    	/**
+		 * 사원정보 수정 콜백
+		 * @date 
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */
+		scwin.sbm_updateBm_code_grpVo_submitdone = function(e) {
+	
+			// error 수신시
+			var elHeader  = e.responseJSON.elHeader;
+			if(elHeader == null || elHeader == "" || elHeader == "undefiend" || elHeader.resSuc == false) {
+				return false;
+			}else{
+				// 수정되었습니다. msg 출력
+				$c.win.alert("수정되었습니다.");
+			}
+			// 재조회
+			scwin.btn_search_onclick();
+		};
+	    
+		/**
+		 * 삭제 버튼 클릭 이벤트
+		 * @date
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */	
+	    scwin.btn_delete_onclick = function(e) { 
+	    	var valInfo = [ 
+	    		 { 
+	    			id: "detail_GRP_CD", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_GRP_NM", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_SORT_ORDER", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_IS_USE", mandatory: true }
+	    			, 
+ { 
+	    			id: "detail_NOTE", mandatory: true }
+	    			 
+	    	]; 
+	    	
+	    	if ($c.data.validateGroup(grp_bm_code_grpInfo, valInfo) === true) {
+				var promise = $c.win.confirm("삭제하시겠습니까?");
+				promise.then(function(result) {  
+					if (result){
+						$c.sbm.execute(sbm_deleteBm_code_grpVo); 
+					}
+				})
+			}
+	    };
+	    
+    	/**
+		 * 삭제 콜백
+		 * @date 
+		 * @memberOf
+		 * @param 
+		 * @returns 
+		 * @author 
+		 * @example
+		 */
+		scwin.sbm_deleteBm_code_grpVo_submitdone = function(e) {
+		
+			// error 수신시
+			var elHeader  = e.responseJSON.elHeader;
+			if(elHeader == null || elHeader == "" || elHeader == "undefiend" || elHeader.resSuc == false) {
+				return false;
+			}else{
+				// 삭제되었습니다. msg 출력
+				$c.win.alert("삭제되었습니다.");
+			}
+			
+			// 재조회
+			scwin.btn_search_onclick();
+		};
+	  ]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+	  <xf:group class="sub_contents">
+	    <xf:group class="pgtbox">
+	      <w2:textbox class="pgt_tit" label="BM_CODE_GRP_BASE"/>
+	    </xf:group>
+	    <xf:group class="schbox" id="search_box">
+	      <xf:group class="schbox_inner">
+	          <xf:group adaptive="layout" class="w2tb tbl" tagname="table">
+				<w2:attributes>
+					<w2:summary></w2:summary>
+				</w2:attributes>
+				
+	            <xf:group tagname="colgroup">
+	                <xf:group tagname="col" style="width:100"/>
+	                <xf:group tagname="col" style=""></xf:group>
+	                <xf:group tagname="col" style="width:100"/>
+	                <xf:group tagname="col" style=""></xf:group>
+	            </xf:group>
+	          
+	            <xf:group tagname="tr">
+	                <xf:group class="w2tb_th" tagname="th"><w2:textbox label="GRP_NM" localeRef="Bm_code_grp_SEARCH_0001"/></xf:group>
+	                <xf:group class="w2tb_td" tagname="td"><w2:input id="search_GRP_NM" style="width:100%;" ref="data:dmp_bm_code_grpVo.SC_GRP_NM"/></xf:group>
+	                <xf:group class="w2tb_th" tagname="th"><w2:textbox label="SORT_ORDER" localeRef="Bm_code_grp_SEARCH_0002"/></xf:group>
+	                <xf:group class="w2tb_td" tagname="td"><w2:input id="search_SORT_ORDER" style="width:100%;" ref="data:dmp_bm_code_grpVo.SC_SORT_ORDER"/></xf:group>
+	            </xf:group>
+	          </xf:group>
+	      </xf:group>
+	      <xf:group class="btn_schbox">
+	        <xf:trigger id="btn_search" class="btn_cm sch" type="button" ev:onclick="scwin.btn_search_onclick" localeRef="COMMON_BUTTON_00001">
+	          <xf:label><![CDATA[조회]]></xf:label>
+	        </xf:trigger>
+	      </xf:group>
+	    </xf:group>
+	    <xf:group class="titbox">
+	      <xf:group class="count">
+	        <w2:span label="총" localeRef="COMMON_LABEL_00002"/>
+	        <w2:span id="spn_listCnt" class="num" label="0"/>
+	        <w2:span label="건" localeRef="COMMON_LABEL_00003"/>
+	      </xf:group>
+	    </xf:group>
+	    
+	    <xf:group adaptiveThreshold="" class="gvwbox" id="" style="">
+	    	<w2:gridView autoFit="allColumn" checkReadOnlyOnPasteEnable="" class="gvw" dataList="data:dlt_bm_code_grpVoList"
+				defaultCellHeight="26" focusMode="row" id="grd_list" scrollByColumn="false" scrollByColumnAdaptive="false" style="height: 150px;"
+				visibleRowNum="10" ev:oncellclick="scwin.grd_list_oncellclick" readOnly="true">
+		      	<w2:header>
+			        <w2:row>
+			            <w2:column id="header_1" value="GRP_CD" localeRef="Bm_code_grp_COLNAME_0001" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="header_2" value="GRP_NM" localeRef="Bm_code_grp_COLNAME_0002" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="header_3" value="SORT_ORDER" localeRef="Bm_code_grp_COLNAME_0003" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="header_4" value="IS_USE" localeRef="Bm_code_grp_COLNAME_0004" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="header_5" value="NOTE" localeRef="Bm_code_grp_COLNAME_0005" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			        </w2:row>
+		      </w2:header>
+	      	  <w2:gBody>
+			        <w2:row>
+			            <w2:column id="GRP_CD" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="GRP_NM" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="SORT_ORDER" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="IS_USE" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			            <w2:column id="NOTE" width="100" inputType="text" style="font-size:14px" displayMode="label"/>
+			        </w2:row>
+			  </w2:gBody>
+	    	</w2:gridView>
+	    </xf:group>
+	    
+	    <xf:group class="pglbox">
+	    	<w2:pageList class="pgl" id="pgl_bm_code_grpList" pageSize="10" pagingType="0" displayButtonType="display" 
+	    		displayFormat="#" ev:onclick="scwin.pgl_bm_code_grpList_onclick">
+	    	</w2:pageList>
+	    	<xf:group class="pgl_count" id="" style="display: none;">
+				<w2:span class="num" id="spn_pageIndex" label="0" ref="data:dma_bm_code_grpVo.pageIndex" style=""></w2:span>
+				<w2:span id="span1" label="/" style=""></w2:span>
+				<w2:span id="spn_totalPageCount" label="0" ref="data:dma_bm_code_grpVo.totalPageCount" style=""></w2:span>
+				<w2:span id="span2" label="페이지" localeRef="COMMON_LABEL_00005" style=""></w2:span>
+			</xf:group>	
+	    </xf:group>
+	    <xf:group class="titbox">
+	      	 <xf:group id="" tagname="h3" style="">
+				<w2:textbox class="" id="" label="BM_CODE_GRP_BASE" localeRef="" style=""></w2:textbox>
+				<w2:textbox class="" id="" label="(" style=""></w2:textbox>
+				<w2:textbox class="" id="spn_registerFlag" label="등록" localeRef="COMMON_LABEL_00006" style=""></w2:textbox>
+				<w2:textbox class="" id="" label=")" style=""></w2:textbox>
+			</xf:group>
+	        <xf:group class="rt">
+				<xf:trigger class="btn_cm refresh" id="btn_reset" type="button" ev:onclick="scwin.btn_reset_onclick" localeRef="COMMON_BUTTON_00002">
+					<xf:label><![CDATA[초기화]]></xf:label>
+				</xf:trigger>
+				<xf:trigger class="btn_cm save" id="btn_save" type="button" ev:onclick="scwin.btn_save_onclick" localeRef="COMMON_BUTTON_00003">
+					<xf:label><![CDATA[저장]]></xf:label>
+				</xf:trigger>
+				<xf:trigger class="btn_cm save" id="btn_edit" type="button" ev:onclick="scwin.btn_edit_onclick" localeRef="COMMON_BUTTON_00003">
+					<xf:label><![CDATA[수정]]></xf:label>
+				</xf:trigger>
+				<xf:trigger class="btn_cm delete" id="btn_delete" type="button" ev:onclick="scwin.btn_delete_onclick" localeRef="COMMON_BUTTON_00004">
+					<xf:label><![CDATA[삭제]]></xf:label>
+				</xf:trigger>
+	        </xf:group>
+	    </xf:group>
+	    
+	    <xf:group class="tblbox" id="grp_bm_code_grpInfo">
+	      <xf:group adaptive="layout" adaptiveThreshold="600" class="w2tb tbl" tagname="table">
+	        <xf:group tagname="colgroup">
+	          <xf:group tagname="col" style="width:150px;"/>
+	          <xf:group tagname="col"/>
+	          <xf:group tagname="col" style="width:150px;"/>
+	          <xf:group tagname="col"/>
+	        </xf:group>
+	        
+			  <xf:group tagname="tr">
+			    <xf:group class="w2tb_th" tagname="th">
+			      <w2:textbox label="GRP_CD" localeRef="Bm_code_grp_COLNAME_0001"/>
+			    </xf:group>
+			    <xf:group class="w2tb_td" tagname="td">
+			      <w2:input style="width:100%;" id="detail_GRP_CD" ref="data:dmp_bm_code_grpVoDetail.GRP_CD"/>
+			    </xf:group>
+			  
+			      <xf:group class="w2tb_th" tagname="th">
+			        <w2:textbox label="GRP_NM" localeRef="Bm_code_grp_COLNAME_0002"/>
+			      </xf:group>
+			      <xf:group class="w2tb_td" tagname="td">
+			        <w2:input style="width:100%;" id="detail_GRP_NM" ref="data:dmp_bm_code_grpVoDetail.GRP_NM"/>
+			      </xf:group>
+			  </xf:group>
+			  <xf:group tagname="tr">
+			    <xf:group class="w2tb_th" tagname="th">
+			      <w2:textbox label="SORT_ORDER" localeRef="Bm_code_grp_COLNAME_0003"/>
+			    </xf:group>
+			    <xf:group class="w2tb_td" tagname="td">
+			      <w2:input style="width:100%;" id="detail_SORT_ORDER" ref="data:dmp_bm_code_grpVoDetail.SORT_ORDER"/>
+			    </xf:group>
+			  
+			      <xf:group class="w2tb_th" tagname="th">
+			        <w2:textbox label="IS_USE" localeRef="Bm_code_grp_COLNAME_0004"/>
+			      </xf:group>
+			      <xf:group class="w2tb_td" tagname="td">
+			        <w2:input style="width:100%;" id="detail_IS_USE" ref="data:dmp_bm_code_grpVoDetail.IS_USE"/>
+			      </xf:group>
+			  </xf:group>
+			
+	      </xf:group>
+	    </xf:group>
+	  </xf:group>
+	</body>
+</html>

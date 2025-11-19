@@ -1,0 +1,106 @@
+@charset "utf-8"; 
+
+/************** SKT POC **************/
+
+.btnbox.low{margin-top:-10px;}
+.btnbox.low .btn_cm{height:30px;padding:0 8px;}
+
+/* form 높이 조정 */
+.form_low:root {
+   --ws-form-height:26px;
+   --ws-form-font-size:12px;
+   --ws-grid-height:34;
+}
+
+.form_low body,
+.form_low .w2input,
+.form_low .w2selectbox_label,
+.form_low .btn_cm,
+.form_low .w2radio .w2radio_label,
+.form_low .w2checkbox .w2checkbox_label {font-size:12px}
+.form_low .w2upload .w2upload_image {top:1px}
+
+.form_low .w2tb .w2tb_th {height:26px;padding:4px 8px;font-size:12px}
+.form_low .w2tb .w2tb_td {height:26px;padding:4px;font-size:12px}
+.form_low .w2tb.w2tb_adaptive_layout .w2tb_th {min-height:38px}
+.form_low .w2tb.w2tb_adaptive_layout .w2tb_td {height:auto}
+
+.form_low .tbc.w2tabcontrol > .w2tabcontrol_tabhost {height:30px}
+.form_low .tbc.w2tabcontrol > .w2tabcontrol_control {height:30px}
+.form_low .tbc.w2tabcontrol > .w2tabcontrol_control > .btn_scrollLeft {top:3px}
+.form_low .tbc.w2tabcontrol > .w2tabcontrol_control > .btn_scrollRight {top:3px}
+.form_low .tbc.w2tabcontrol > .w2tabcontrol_control > .btn_submenu {top:3px}
+.form_low .w2tabcontrol > .w2tabcontrol_tabhost > .w2tabcontrol_li > .w2tabcontrol_tab_center > a {font-size:12px}
+.form_low .w2tabcontrol > .w2tabcontrol_control > .mask > .scroll > .w2tabcontrol_tabhost > .w2tabcontrol_li > .w2tabcontrol_tab_center > a {font-size:12px}
+
+.form_low .btnbox .btn_cm {padding:0 8px}
+
+.form_low .w2grid th.gridHeaderTDDefault,
+.form_low .w2grid td.gridBodyDefault {height:34px !important;font-size:12px}
+.form_low .gridSubtotalDefault,
+.form_low .gridFooterTDDefault {font-size:12px}
+
+.form_low .pgtbox .pgt_tit {font-size:20px}
+
+.form_low .schbox .btn_schbox .btn_cm.sch {font-size:12px}
+.form_low .titbox h3 {font-size:14px} 
+
+.form_low .btn_fav {height:26px}
+.form_low .btn_cm {line-height:24px}
+.form_low .btnbox .btn_cm {height:26px}
+.form_low .w2table_sb_col {height:26px;line-height:26px}
+
+.tbc.w2tabcontrol > .w2tabcontrol_tabhost > .w2tabcontrol_li,
+.tbc.w2tabcontrol > .w2tabcontrol_control > .mask > .scroll > .w2tabcontrol_tabhost > .w2tabcontrol_li {padding:0 10px}
+
+
+:root .msa_type01 {
+	--ws-primary-50:#F4FAF1;
+    --ws-primary-100:#F0F8EB;
+    --ws-primary-200:#E6F5D6;
+    --ws-primary-300:#C9EE97;
+    --ws-primary-400:#42A800;
+    --ws-primary-500:#42A800;
+    --ws-primary-600:#378800;
+    --ws-primary-700:#378800;
+    --ws-primary-800:#215100;
+    --ws-primary-900:#23330E;
+    
+   	--ws-table-th-bg:var(--ws-primary-100);
+}
+
+
+:root .msa_type02 {
+	--ws-primary-50:#FEF9FC;
+    --ws-primary-100:#FCF1F7;
+    --ws-primary-200:#F5E0ED;
+    --ws-primary-300:#EFB3D5;
+    --ws-primary-400:#C24E91;
+    --ws-primary-500:#AA1D6E;
+    --ws-primary-600:#870E54;
+    --ws-primary-700:#700844;
+    --ws-primary-800:#5E0639;
+    --ws-primary-900:#370321;
+    
+   	--ws-table-th-bg:var(--ws-primary-100);
+}
+
+
+:root .msa_type03 {
+	--ws-primary-50:#FFFAF9;
+    --ws-primary-100:#FEF0E9;
+    --ws-primary-200:#FFDDC9;
+    --ws-primary-300:#FFA875;
+    --ws-primary-400:#F37D39;
+    --ws-primary-500:#EB6619;
+    --ws-primary-600:#E55212;
+    --ws-primary-700:#A9320C;
+    --ws-primary-800:#881F07;
+    --ws-primary-900:#4B0E00;
+    
+   	--ws-table-th-bg:var(--ws-primary-100);
+}
+
+.brokerColor1 {background-color:#E7FED3;}
+.brokerColor2 {background-color:#FFE2D0;}
+.brokerColor3 {background-color:#FEDEED;}

@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="userChipView" meta_screenName="userChipView">
+        <w2:type palette="support">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataList baseNode="list" repeatNode="map" id="dlt_userChipView">
+            		<w2:columnInfo>
+            			<w2:column id="userId" name="ID" dataType="text"></w2:column>
+            			<w2:column id="name" name="이름" dataType="text"></w2:column>
+            			<w2:column id="team" name="팀명" dataType="text"></w2:column>
+            			<w2:column id="pic" name="사진이미지" dataType="text"></w2:column>
+            			<w2:column id="status" name="상태" dataType="text"></w2:column>
+            		</w2:columnInfo>
+            		<w2:data use="false">
+            			<w2:row>
+            				<pic><![CDATA[http://localhost:8081/common/assets/images/product/img_profile.png]]></pic>
+            				<userId><![CDATA[user1]]></userId>
+            				<name><![CDATA[최창현]]></name>
+            				<team><![CDATA[NOVA 추진팀]]></team>
+            			</w2:row>
+            			<w2:row>
+            				<pic><![CDATA[http://localhost:8081/common/assets/images/product/img_profile.png]]></pic>
+            				<userId><![CDATA[user2]]></userId>
+            				<name><![CDATA[김성재]]></name>
+            				<team><![CDATA[IT 기획팀]]></team>
+            			</w2:row>
+            		</w2:data>
+            	</w2:dataList>
+            </w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setReloadData,scwin.getData,scwin.setLoadData"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_userChipView
+ * @pluginName 
+ * @company
+ * @developer
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name noResultMessage
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default 등록된 데이터가 없습니다.
+ * @necessary N
+ * @bindparent
+ * @description 정보가 없을 경우 데이터 없음 표시될 메시지
+ */
+
+scwin.onpageload = function() {
+    const { noResultMessage } = $p.getOptions();
+	noResultTextbox.setLabel(noResultMessage || '등록된 데이터가 없습니다.');
+};
+scwin.setUI = function () {
+    const chipList = dlt_userChipView.getAllJSON();
+    if (chipList.length) {
+        chipList.forEach((list, index) => {
+            userChipView_gen.insertChild(index);
+            const pic = userChipView_gen.getChild(index, "pic");
+            const name = userChipView_gen.getChild(index, "name");
+            const userId = userChipView_gen.getChild(index, "userId");
+            const team = userChipView_gen.getChild(index, "team");
+            const status = userChipView_gen.getChild(index, "status");
+            pic.setSrc(list.pic);
+            name.setLabel(list.name);
+            userId.setLabel(`(${list.userId})`);
+            team.setLabel(list.team);
+            if ($c.util.isEmpty(list.status)) {
+                userChipView_gen.childControlList[index].render.children[4].style.display = "none";
+                userChipView_gen.childControlList[index].render.parentNode.classList.remove('nclistbox');
+            } else {
+                status.setLabel(list.status);
+            }
+        });
+        userChipViewGroup.removeClass('noResult');
+    }
+}
+
+/**
+ * @method
+ * @name setReloadData
+ * @description 데이터를 갱신 시 실행
+ * @param {array} chipList 배열 데이터
+ * * ex) [
+ * * {
+ * * id: 'p204595',
+ * * name: '홍길동',
+ * * pic: 'http://localhost/common/pic/p204595.jpg',
+ * * team: 'NOVA 추진팀',
+ * * }
+ * * ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setReloadData = function (chipList) {
+    dlt_userChipView.setJSON(chipList);
+	scwin.setUI();
+};
+
+/**
+ * @method
+ * @name getData
+ * @description 데이터 반환 (Array)
+ * @param
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.getData = function () {
+    const chatList = dlt_userChipView.getAllJSON();
+    if (!chatList.length) return [];
+    return chatList;		
+};
+
+/**
+ * @method
+ * @name setLoadData
+ * @description 데이터가 있는 상세 화면에서 로드 시 실행
+ * @param {array} chipList 배열 데이터
+ * * ex) [
+ * * {
+ * * id: 'p204595',
+ * * name: '홍길동',
+ * * pic: 'http://localhost/common/pic/p204595.jpg',
+ * * team: 'NOVA 추진팀',
+ * * }
+ * * ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setLoadData = async function (chipList) {
+    await dlt_userChipView.setJSON(chipList);
+	scwin.setUI();
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group style="" id="userChipViewGroup" class="noResult">
+    		<w2:generator tagname="ul" style="" id="userChipView_gen" class="nclistbox">
+    			<xf:group tagname="li" style="" id="" class="name_card card_chip_wrap_group">
+    				<xf:group id="" class="pic">
+    					<xf:image src="/common/assets/images/product/img_profile.png" style="" id="pic" class=""></xf:image>
+    				</xf:group>
+    				<w2:textbox style="" id="name" label="홍길동" class="name"></w2:textbox>
+    				<w2:textbox style="" id="userId" label="(p123456)" class="name"></w2:textbox>
+    				<w2:textbox style="" id="team" label="NOVA추진팀" class="team"></w2:textbox>
+    				<w2:span style="" id="status" label="" class="txt_status"></w2:span>
+    			</xf:group>
+    		</w2:generator>
+    		<w2:textbox style="" id="noResultTextbox" label="등록된 데이터가 없습니다." class="noResultMsg"></w2:textbox>
+    	</xf:group>
+    </body>
+</html>

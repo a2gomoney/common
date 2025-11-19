@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="fileUpDown" meta_screenName="file Upload &amp; Download UDC" meta_author="Inswave" meta_desc="파일 업로드 및 다운로드 UDC 컴포넌트" meta_process="선택된 파일을 업로드 하거나 업로드된 파일을 삭제한다. \n" meta_etc="WebSquare에서 기본으로 제공하는 컴포넌트가 아님.\n">
+        <w2:type palette="support" ttc="">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataList baseNode="list" repeatNode="map" id="dlt_file" saveRemovedData="true">
+            		<w2:columnInfo>
+            			<w2:column dataType="text" id="chk" ignoreStatus="true" name="선택" defaultValue="" encYN="false" importFormatter=""
+            				length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="number" id="seq" name="파일순번" defaultValue="" encYN="false" ignoreStatus="" importFormatter=""
+            				length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="originalFileName" name="원본파일명" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="savedFileName" name="저장파일명" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="contentType" name="파일타입" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="fileSize" name="파일크기" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="uploadTime" name="업로드타임" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="fileType" name="파일타입" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column dataType="text" id="bucketName" name="bucketName" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column id="downYn" name="다운로드여부" dataType="text" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			<w2:column id="saveFolder" name="파일저장경로" dataType="text"></w2:column><w2:column id="status" name="파일전송상태" dataType="text" defaultValue="" encYN="false" ignoreStatus=""
+            				importFormatter="" length="" nullYN="" useFilter="" valueType="">
+            			</w2:column>
+            			
+            		</w2:columnInfo>
+            	</w2:dataList>
+            </w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setFileUpload,scwin.btn_selectFile_onclick,scwin.insertFileInfo,scwin.updateFileInfo,scwin.ibx_file_onclick,scwin.uploadFile,scwin.setSelectButtonDisable,scwin.searchFileList,scwin.getFilesInfo"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_fileUpDown
+ * @pluginName 
+ * @company
+ * @developer P206070
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version 1.0
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description 파일업로드 
+ * @width 100%
+ * @height 100%
+ * @license 
+ * @imagePath 
+ * @homepage 
+ */
+
+
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option 
+ * @default width:100%; height:100%
+ * @necessary N
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option 
+ * @default 
+ * @necessary N
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option 
+ * @default 
+ * @necessary N
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name maxFileCount
+ * @category 01.Basic & ETC
+ * @type number
+ * @option 
+ * @default 10
+ * @necessary N
+ * @description 최대 업로드 파일 개수
+ */
+
+/**
+ * @property
+ * @name maxFileSize
+ * @category 01.Basic & ETC
+ * @type number
+ * @option 
+ * @default 536870912
+ * @necessary N
+ * @description 
+ */
+
+/**
+ * @property
+ * @name totalFileSize
+ * @category 01.Basic & ETC
+ * @type number
+ * @option 
+ * @default 2009715200
+ * @necessary N
+ * @description 업로드할 전체 파일 사이즈
+ */
+
+/**
+ * @property
+ * @name mode
+ * @category 01.Basic & ETC
+ * @type string
+ * @option [download, upload, both]
+ * @default download
+ * @necessary Y
+ * @bindparent
+ * @description download/upload/both
+ */
+
+scwin.onpageload = function() {
+scwin.HOST = "http://localhost:8080";
+scwin.BASE_URL = scwin.HOST + "/api/files";
+scwin.fileType = "host"; // 현재는 host 만, 추후 s3 가능하도록 옵션 추가     
+    const option = $p.getOptions({
+        maxFileCount: 10, // 최대 업로드 파일 개수
+        maxFileSize: 536870912, // 업로드할 개별 파일 사이즈
+        totalFileSize: 2009715200, // 업로드할 전체 파일 사이즈
+        filter: "gif, jpg, bmp, png, zip, txt, ppt, pptx, xls, xlsx, doc, docx, xml, csv, pdf", // 업로드할 파일 확장자 필터 조건
+        fileGrpSeq: 0 // 파일 그룹 관리에서 등록한 파일 그룹 순번
+    });
+
+    scwin.setFileUpload(option);
+    scwin.setFileStatus();
+    //scwin.setDropEventHandler();
+    scwin.emit_onLoadComplete()
+};
+
+
+/**
+ * @method
+ * @name setFileUpload
+ * @description 파일 업로드 옵션을 설정하는 함수
+ * @param {string} option 파일 업로드 옵션 
+ * @returns 
+ * @hidden N
+ * @exception 
+ * @example // 첨부 파일 업로드 모듈 초기 설정 옵션
+// - option.maxFileCount : 업로드 가능한 첨부 파일 개수
+// - option.totalFileSize : 업로드 가능한 전체 첨부 파일 크기 (개별 첨부 파일 크기는 서버 프레임워크에서 세팅함)
+// - option.fileGrpSeq : 파일 그룹 아이디 (신규 등록 화면이면 ""로 세팅하고, 수정 화면이면 기존에 등록된 파일 그룹 아이디를 세팅함)
+var option = {
+    maxFileCount : 3,
+    totalFileSize : 209715200,
+    policy : "templates",
+    fileGrpSeq : "23",
+    filter : "*.jpg,*.png,*.gif"
+};
+
+// 첨부 파일 업로드 모듈 초기 설정
+// - fileUploadFrame File Upload WFrame 객체
+// - option File Upload 옵션 정보
+$c.setFileUpload(option);
+ */
+scwin.setFileUpload = function (option) {
+    scwin.option = {};
+
+    try {
+        scwin.option.maxFileCount = option.maxFileCount;
+        scwin.option.maxFileSize = option.maxFileSize;
+        scwin.option.totalFileSize = option.totalFileSize;
+
+        if ($c.util.isEmpty(option.filter) == false) {
+            scwin.option.filter = option.filter;
+        }
+
+        if(option.mode === "download") {
+            btn_selectFile.hide();
+        } else {
+            btn_selectFile.show();
+        }
+
+        scwin.callbackFileUploadSetting();
+    } catch (ex) {
+        console.error(ex);
+    }
+};
+
+
+
+/**
+ * 파일 업로드 정책 및 기본 세팅이 완료되면 호출되는 콜백 함수
+ */
+scwin.callbackFileUploadSetting = function () {
+    let filter = "";
+    if ($c.util.isEmpty(scwin.option.filter) === false) {
+        const extArr = scwin.option.filter.split(",");
+
+        for (let idx in extArr) {
+            filter += "*." + extArr[idx].trim() + ";";
+        }
+    } else {
+        filter = "*.*";
+    }
+    //필터 
+    //mpd_multiFileUpload.setFilter("Filter", filter);
+
+    dlt_file.removeAll();
+    scwin.setFileStatus();
+};
+
+
+/**
+ * 파일 업로드 상태 정보를 업데이트 한다.
+ */
+scwin.setFileStatus = function () {
+    const fileInfo = scwin.getCurrentFileInfo();
+    //tbx_fileCount.setValue(fileInfo.fileCount + " / " + scwin.option.maxFileCount);
+    //tbx_fileSize.setValue($c.num.formatByte(fileInfo.fileSize) + " / " + $c.num.formatByte(scwin.option.totalFileSize));
+};
+
+/**
+ * 현재 업로드된 파일 정보를 반환한다.
+ */
+scwin.getCurrentFileInfo = function () {
+    const fileInfo = {
+        fileCount: 0,
+        fileSize: 0
+    };
+    const fileList = dlt_file.getAllJSON();
+
+    for (let idx in fileList) {
+        const rowStatus = fileList[idx].rowStatus;
+        if ((rowStatus === "C") || (rowStatus === "U") || (rowStatus === "R")) {
+            fileInfo.fileCount++;
+            fileInfo.fileSize += $c.num.parseInt(fileList[idx].FILE_SIZE);
+        }
+    };
+
+    return fileInfo;
+};
+/**
+ * File Drop Event Handler를 세팅한다.
+ */
+scwin.setDropEventHandler = function () {
+    const fileDragDom = grd_file.render;
+    fileDragDom.addEventListener("dragover", scwin.doHandleDrop, false);
+    fileDragDom.addEventListener("dragenter", scwin.doHandleDrop, false);
+    fileDragDom.addEventListener("dragleave", scwin.doHandleDrop, false);
+    fileDragDom.addEventListener("drop", scwin.doHandleDrop, false);
+};
+
+
+/**
+ * 업로드할 파일 Drop를 업로드할 파일로 등록한다.
+ * TODO
+ */
+scwin.doHandleDrop = function (e) {
+    try {
+        WebSquare.event.stopEvent(e);
+        let fileData = e.dataTransfer.files;
+        const uploadFileData = [];
+        for (let idx = 0; idx < fileData.length; idx++) {
+            let isExisted = false;
+            //for (let fileIdx in fileArray) {
+                //if (fileData[idx].name === mpd_multiFileUpload.fileArray[fileIdx].name) {
+                //    isExisted = true;
+                //}
+            // /}
+
+            if (isExisted === false) {
+                uploadFileData.push(fileData[idx]);
+                //mpd_multiFileUpload.fileArray.push(fileData[idx]);
+                //mpd_multiFileUpload.fileNameArr.push(fileData[idx].name);
+                //mpd_multiFileUpload._inx++;
+            }
+        }
+        //console.table(mpd_multiFileUpload.fileArray);
+    } catch (ex) {
+        console.error(ex);
+    }
+};
+
+/**
+ * 전체 파일 정보를 지운다.
+ */
+scwin.clearFiles = function () {
+    dlt_file.removeAll();
+};
+/**
+ * @method
+ * @name btn_selectFile_onclick
+ * @description 파일 선택 이벤트 
+ * @param {object} e event object
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.btn_selectFile_onclick = function (e) {
+    const el = document.querySelector(`#${ibx_file.getID()}`);
+    el.addEventListener("change", scwin.ibx_file_onclick);	
+    el.click();
+};
+
+/**
+ * @method
+ * @name insertFileInfo
+ * @description 업로드된 파일의 정보 업데이트
+ * @param {object} jsonData desc
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.insertFileInfo = function (jsonData) {
+     let idx = dlt_file.getRowCount();
+    
+    let rowData = {
+        chk : "",
+        seq : idx, 
+        saveFolder : jsonData[0].saveFolder,
+        savedFileName : jsonData[0].saveFile,
+        originalFileName : jsonData[0].originFile, 
+        fileSize : jsonData[0].size,
+        contentType : jsonData[0].contentType,
+        downYn : "N",
+        status : "S"
+    };
+    dlt_file.setRowJSON(idx, rowData, false);
+    scwin.updateFileInfo();
+    scwin.emit_onFileUploadDone();
+};
+
+/**
+ * @method
+ * @name updateFileInfo
+ * @description 업로드된 파일의 정보 업데이트
+ * @param 
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.updateFileInfo = function () {
+    gen_file.removeAll();
+    const data = dlt_file.getAllJSON();
+
+    for (let i = 0; i < data.length; i++) {
+        gen_file.insertChild(i);
+
+        let childName = gen_file.getChild(i, "tbx_fileName");
+        childName.setTitle(data[i].originalFileName);
+        childName.setValue(data[i].originalFileName);
+        let childBtn = gen_file.getChild(i, "btn_type");
+        if(data[i].downYn  === 'Y') {
+            childBtn.addClass('down'); //파일 업로드 진행중 
+        } else {
+            childBtn.addClass('del'); //파일 업로드 진행중 
+        }
+        
+        childBtn.setUserData('seq', data[i].seq);
+    }
+};
+
+/**
+ * @method
+ * @name ibx_file_onclick
+ * @description 파일첨부시 발생하는 이벤트 처리 
+ * @param 
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.ibx_file_onclick = function () {
+    const fileInput = document.querySelector(`#${ibx_file.getID()}`);
+    const files = fileInput.files;
+    const fileListLength = files.length;
+    for (let i = 0; i < fileListLength; i++) {
+        scwin.uploadFile(files[i]);
+        console.log(`${files.item(i).name}`);
+    }
+};
+
+/**
+ * @method
+ * @name uploadFile
+ * @description 파일 업로드 처리 
+ * @param {object} file desc
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.uploadFile = function (file) {
+	//$c.nova.trxFileUpload(file, scwin.cbFunc, scwin.errCallback);
+scwin.HOST = "http://localhost:8080";
+scwin.BASE_URL = scwin.HOST + "/api/files";
+scwin.fileType = "host"; // 현재는 host 만, 추후 s3 가능하도록 옵션 추가 
+
+    const formData = new FormData();
+    formData.append("files", file);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST",  `${scwin.BASE_URL}/${scwin.fileType}/upload`, true);
+    xhr.onload = function(e) {
+        if(xhr.status === 200) {
+            const files = JSON.parse(xhr.response);
+            scwin.insertFileInfo(files);
+        } else {
+            $c.win.alert(xhr.statusText);
+            console.error("업로드 실패:", xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        $c.win.alert("요청 오류 발생");
+        console.error("요청 오류 발생");
+    };
+    xhr.send(formData);	    
+};
+
+
+scwin.cbFunc = function(files) {
+    scwin.updateFileInfo(files);
+};
+
+scwin.errCallback = function(msg) {
+    $c.win.alert(msg);
+};
+
+
+/**
+ * @method
+ * @name setSelectButtonDisable
+ * @description 첨부파일 선택 버튼 활성화/비활성화
+ * @param {boolean} val 활성/비활성화
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setSelectButtonDisable = function (val) {
+    btn_selectFile.setDisabled(val);
+};
+
+/**
+ * @method
+ * @name searchFileList
+ * @description 파일리스트 가져오기
+ * @param {string} key key 정보
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.searchFileList = function (key) {
+    const getFiles = {
+        id: "sbm_getFiles",
+        action: `${scwin.BASE_URL}/meta/all`,
+        method: "GET",
+        submitDoneHandler: scwin.sbm_files_submitdone,
+        isProcessMsg: false
+    };
+    $c.nova.trxDataAsync(getFiles);	
+};
+
+/**
+ * @method
+ * @name getFilesInfo
+ * @description 파일 정보를 return한다. 
+ * @param 
+ * @returns {object} 파일정보를 json 형식으로 리턴한다.
+ * @hidden N
+ * @exception
+ * @example download.getFileInfo()
+ */
+scwin.getFilesInfo = function () {
+    const fileList = dlt_file.getAllJSON();
+    debugger;
+    return fileList;
+};
+
+
+//파일 조회 결과 
+scwin.sbm_files_submitdone = async function (e) {
+    let data = e.responseJSON;
+    console.log(data);
+    dlt_file.setJSON(data);
+    for(let i=0; i< dlt_file.getRowCount(); i++) {
+        dlt_file.setCellAllData(i, "seq", i); //download 
+        dlt_file.setCellAllData(i, "downYn", "Y"); //download 
+    }
+    scwin.updateFileInfo();
+    scwin.emit_onFileSearchDone();
+};
+
+/**
+ * 파일 정보를 DB에 저장한다.
+ */
+scwin.saveFileInfo = function () {
+    $p.emit("onFileUploadDone", true);
+};
+
+scwin.removeFile = async function(jsonData) {
+    let fileName = jsonData.originalFileName;
+    let remoteFileName = jsonData.savedFileName;
+    console.log(`${fileName}`);
+
+    const deleteFile = {
+        id: "sbm_deleteFile",
+        action: `${scwin.BASE_URL}/${scwin.fileType}/${fileName}`,
+        method: "DELETE",
+        isProcessMsg: true
+    };
+    let res =  await $c.nova.trxDataSync(deleteFile);
+    console.log(res.responseText);
+    let idx = dlt_file.getMatchedIndex('savedFileName', remoteFileName, true);
+    
+    if(!$c.util.isEmpty(idx)) {
+        dlt_file.removeRow(idx);
+        scwin.updateFileInfo();
+    }
+};
+
+scwin.btn_type_onclick = function (e) {
+    let seq = this.getUserData('seq');
+    let jsonData = dlt_file.getMatchedJSON('seq', seq, true);
+    let idx = dlt_file.getMatchedIndex('seq', seq, true);
+    if(!$c.util.isEmpty(jsonData)) {
+        if(jsonData[0].downYn === 'Y') {
+           scwin.downloadFile(jsonData[0]);
+        } else{
+            scwin.removeFile(jsonData[0]);
+        }
+    }
+};
+
+// 파일 다운로드 api 호출
+scwin.downloadFile = function (jsonData) {
+    const originalFileName = jsonData.originalFileName;
+    let contentType = null;
+    const fileList = dlt_file.getAllJSON();
+    const action = `${scwin.BASE_URL}/${scwin.fileType}/download/${originalFileName}`;
+    fileList.filter(f=> {
+        if (f.originalFileName === originalFileName) {
+            contentType = f.contentType;
+        }
+    });
+
+    fetch(action)
+        .then(function(respones) {
+            if (!respones.ok) throw new Error("네트워크 오류");
+            return respones.blob();
+        })
+        .then(function(blob) {
+            const fileBlob = new Blob([blob], {type: contentType});
+            const link = document.createElement("a");
+            link.href = window.URL.createObjectURL(fileBlob);
+            link.download = jsonData.originalFileName;
+            document.body.appendChild(link);
+            link.click();
+            setTimeout(function() {
+                document.body.removeChild(link);
+            }, 100)
+        })
+
+        .catch(function(error) {
+            $c.win.alert("다운로드 에러: " + error.message)
+        })
+};
+
+/**
+ * 파일업로드 및 성공하는 경우 파일정보 업데이트 
+ * @date 2025. 09. 08
+ * @memberOf 
+ * @param 
+ * @returns  
+ * @author P206070
+ * @example
+ * @since
+*/ 
+scwin.fileUpload = function(file) {
+    const formData = new FormData();
+    formData.append("files", file);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST",  `${scwin.BASE_URL}/${scwin.fileType}/upload`, true);
+    xhr.onload = function(e) {
+        if(xhr.status === 200) {
+            const files = JSON.parse(xhr.response);
+            scwin.updateFileInfo(files);
+        } else {
+            console.error("업로드 실패:", xhr.statusText);
+        }
+    };
+    xhr.onerror = function() {
+        console.error("요청 오류 발생");
+    };
+    xhr.send(formData);
+};
+
+/**
+ * @event
+ * @name onFileUploadDone
+ * @description 파일 업로드 완료 시 발생하는 이벤트 함수
+ * @param {boolean} isSuccess 파일 전송 성공 여부 (1개라도 업로드에 실패한 파일이 있으면 false를 반환함) 
+ * @example 
+ */
+scwin.emit_onFileUploadDone = function (isSuccess) {
+	$p.emit("onFileUploadDone", isSuccess);
+};
+
+/**
+ * @event
+ * @name onFileSearchDone
+ * @description 파일 조회 완료 
+ * @param {string} msg desc
+ * @example
+ */
+scwin.emit_onFileSearchDone = function (msg) {
+	$p.emit("onFileSearchDone", msg);
+};
+
+/**
+ * @event
+ * @name onLoadComplete
+ * @description udc 초기화 완료
+ * @param
+ * @example
+ */
+scwin.emit_onLoadComplete = function () {
+	$p.emit("onLoadComplete");
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group class="multi_upload" id="" style="">
+    		<w2:generator class="filelist" id="gen_file" style="" tagname="ul">
+    			<xf:group class="file" id="" tagname="li">
+    				<w2:textbox id="tbx_fileName" label="" style=""></w2:textbox>
+    				<xf:trigger class="" id="btn_type" meta_snippetCategory="10_입력폼" meta_snippetName="10_10 InputBox_조회버튼" style=""
+    					type="button" ev:onclick="scwin.btn_type_onclick">
+    					<xf:label><![CDATA[ ]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+    		</w2:generator>
+    		<xf:input id="ibx_file" style="display:none;" type="file">
+    			<w2:attributes>
+    				<w2:multiple>multiple</w2:multiple>
+    			</w2:attributes>
+    		</xf:input>
+    		<xf:trigger class="btn_cm" ev:onclick="scwin.btn_selectFile_onclick" id="btn_selectFile" meta_snippetCategory="10_입력폼"
+    			meta_snippetName="10_10 InputBox_조회버튼" style="display:none;" type="button">
+    			<xf:label><![CDATA[파일선택]]></xf:label>
+    		</xf:trigger>
+    	</xf:group>
+    </body>
+</html>

@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<title>DEXT5 Developer Manual</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<link href="../../css/sdkContents.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div class="dext5help_content_right">
+<div class="right_con">
+    <h3 class="title nline">DEXT5 Editor :: dext_editor_before_add_file_event</h3>
+    <p class="ttl">boolean dext_editor_before_add_file_event(fileInfo, pageKind, editorId)</p>
+    <p class="txt">
+        다이얼로그에서 파일 추가 시 발생합니다.
+    </p>
+    <p class="mttl01">return value</p>
+    <p class="txt">
+        true를 리턴할 경우 파일이 추가되고, false를 리턴할 경우 파일이 추가되지 않습니다.
+    </p>            
+    <p class="mttl01">parameters</p>
+    <p class="txt">
+        <span class="firebrick">fileInfo</span>&nbsp;&nbsp;추가된 파일의 정보가 들어있는 오브젝트 입니다.<br />
+        <span class="firebrick">pageKind</span>&nbsp;&nbsp;이벤트가 발생한 다이얼로그의 종류 입니다.<br />
+        <span class="firebrick">editorId</span>&nbsp;&nbsp;이벤트가 발생한 에디터 id입니다.
+    </p>
+    <p class="mttl01">remarks</p>               
+    <p class="txt">
+        해당 이벤트에서 추가된 파일 정보 또는 다이얼로그 종류를 바탕으로<br />
+        파일 추가여부의 분기처리등이 가능합니다.<br />
+        <br />
+        <b>pageKind 종류는 아래와 같습니다.</b> <br />
+        <span class="firebrick">image</span>&nbsp;&nbsp;이미지 삽입/수정(PC)<br />
+        <span class="firebrick">m_image</span>&nbsp;&nbsp;이미지 삽입/수정(모바일)<br />
+        <span class="firebrick">doc_bg_image</span>&nbsp;&nbsp;문서 배경 이미지<br />
+        <span class="firebrick">table_bg_image</span>&nbsp;&nbsp;표 삽입 배경 이미지<br />
+        <span class="firebrick">p_table_bg_image</span>&nbsp;&nbsp;표 속성 배경 이미지<br />
+        <span class="firebrick">cell_bg_image</span>&nbsp;&nbsp;셀 속성 배경 이미지<br />
+        <span class="firebrick">hyperlink_image</span>&nbsp;&nbsp;하이퍼링크 이미지<br />
+        <span class="firebrick">input_image</span>&nbsp;&nbsp;이미지 버튼<br />
+        <span class="firebrick">media</span>&nbsp;&nbsp;영상 삽입<br />
+        <span class="firebrick">flash</span>&nbsp;&nbsp;플래시 삽입<br />
+        <span class="firebrick">video_media</span>&nbsp;&nbsp;비디오 태그 삽입 (PC/모바일 동일)<br />
+        <span class="firebrick">insert_file</span>&nbsp;&nbsp;파일 삽입<br />
+        <span class="firebrick">file_open</span>&nbsp;&nbsp;파일 열기<br />
+    </p>    
+    <p class="mttl01">sample code</p>             
+    <div class="cord">
+        <pre class="pre">
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;script type="text/javascript" src="dext5editor/js/dext5editor.js"&#62;&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+
+    function dext_editor_before_add_file_event(fileInfo, pageKind, editorId) {
+        // work something ...
+        // fileInfo.nFileSize (추가된 파일의 사이즈를 의미합니다.) ※HTML5를 지원하지 않을경우 값은 0입니다.
+        // fileInfo.objFile (추가된 파일의 파일오브젝트를 의미합니다.) ※HTML5를 지원하지 않을경우 값은 null입니다.
+        // fileInfo.strFileName (추가된 파일의 파일명을 의미합니다.)
+
+        return true or false;
+    }
+
+&#60;/script&#62; 	
+&#60;/head&#62;
+&#60;body&#62;
+
+&#60;!-- ..... 생략 ..... --&#62;
+
+&#60;div style="width:900px;height:550px"&#62;  
+
+    &#60;script type="text/javascript"&#62;
+        new Dext5editor("editor1");
+    &#60;/script&#62;        
+
+&#60;/div&#62;
+        </pre>  
+    </div>                   
+    </div>
+</div>
+</body>
+</html>
+

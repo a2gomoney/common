@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_screenId="contentHeader" meta_screenName="공통 화면 헤더 영역 프레임" meta_screenDesc="화면 제목, 공통 버튼을 표시합니다.">
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns="" />
+			</xf:instance>
+			<w2:dataCollection baseNode="map"></w2:dataCollection>
+		</xf:model>
+		<w2:layoutInfo></w2:layoutInfo>
+		<w2:publicInfo
+			method="scwin.wfTitleFavInit,scwin.setMenuNavi,scwin.generator_insertMenu,scwin.setFavStatus,scwin.showScreenInfo,scwin.reload"></w2:publicInfo>
+		<script type="text/javascript" lazy="false"><![CDATA[
+scwin.onpageload = function () {
+    scwin.wfTitleFavInit();
+};
+
+/**
+ * @method
+ * @name wfTitleFavInit
+ * @description contentHeader의 초기화 로직, 메뉴 정보를 셋팅한다.
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.wfTitleFavInit = function () {
+    const param = $c.data.getParameter("menuInfo", $p.parent().$p);
+    const menuInfoArr = [];
+    try {
+        let favStatus = "F";
+
+        // 샘플 화면의 메뉴인 경우 즐겨찾기 버튼 비활성화
+
+        if (param.menuType == "sample") {
+            btn_fav.hide()
+        }
+
+        if ($p.main().pfm_side.getWindow().scwin.hasFavCode(param.menuCode) > 0) {
+            favStatus = "T";
+        }
+
+        scwin.setFavStatus(param.menuCode, favStatus);
+        scwin.setMenuNavi(param.menuCode, param.menuNm, param.menuType);
+    } catch (ex) {
+        grp_main.hide();
+    }
+};
+
+/**
+ * @method
+ * @name setMenuNavi
+ * @description 상단 메뉴 Navi를 구성한다.
+ * @param {string} menuCode 메뉴코드
+ * @param {string} menuName 메뉴이름
+ * @param {string} menuType 메뉴타입
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.setMenuNavi = function (menuCode, menuName, menuType) {
+    let naviArr, naviArrLen, naviStr, menuNm;
+    try {
+        if ((typeof menuType !== "undefined") && (menuType === "SP")) {
+            menuNm = menuName;
+            naviArr = ["샘플화면", menuName];
+        } else if(typeof menuType === "undefined" && menuName === "Home") {
+            menuNm = menuName;
+        } else {
+            naviArr = ($p.main().pfm_side.getWindow().scwin.getMenuNavigation(menuCode)).split("%|%");
+            naviArr = naviArr.filter(item => item != null && item !== "");
+            naviArrLen = parseInt(naviArr.length / 2);
+            naviStr = "";
+            menuNm = naviArr[naviArr.length -2];
+        }
+    } catch (ex) {
+        naviStr = "";
+        menuNm = menuName;
+    } finally {
+        scwin.insertMenu(naviArr);
+        txt_h1.setValue(menuNm);
+    }
+};
+
+/**
+ * @method
+ * @name insertMenu
+ * @description 메뉴가 가진 depth별 정보를 나열한다.
+ * @param {string} naviArr 메뉴 정보가 담긴 배열
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.insertMenu = function (naviArr) {
+    let arr = [];
+
+    // 배열 거꾸로 풀기
+    if (naviArr.length > 2) {
+        /*
+        for (let i = naviArr.length - 1; i >= 0; i--) {
+            if (i % 2 === 0 && naviArr[i] != "") {
+                arr.push(naviArr[i]);
+            }
+        };
+        */
+        for (let i = 0; i <= naviArr.length; i++) {
+            if (i % 2 === 0 && !$c.util.isEmpty(naviArr[i])) {
+                arr.push(naviArr[i]);
+            }
+        }     
+    } else {
+        arr = naviArr;
+    }
+
+    // home
+    grp_home.addClass('home');
+    
+    // draw
+    anc_depth1.setValue(arr[0]);
+    if(arr.length > 2) {
+        grp_depth2.show("");   
+        anc_depth2.setValue(arr[1]);
+    }
+    spn_menuName.setValue(arr[arr.length -1]);
+};
+
+/**
+ * @method
+ * @name generator_insertMenu
+ * @description 메뉴가 가진 depth별 정보를 나열한다.
+ * @param {string} naviArr 메뉴 정보가 담긴 배열
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.generator_insertMenu = function (naviArr) {
+    let genChildren;
+    let arr = [];
+
+    // 배열 거꾸로 풀기
+    if (naviArr.length > 2) {
+        for (let i = naviArr.length - 1; i >= 0; i--) {
+            if (i % 2 === 0 && naviArr[i] != "") {
+                arr.push(naviArr[i]);
+            }
+        };
+    } else {
+        arr = naviArr;
+    };
+
+    // home
+    const homeIdx = gen_navi.insertChild();
+    const home = gen_navi.getChild(homeIdx, 'grp_li');
+    home.addClass('home');
+    home.getChildren()[0].bind('onclick', function (e) {
+        $c.win.goHome();
+    });
+
+    // draw
+    for (let num = 0; num < (arr.length); num++) {
+        gen_navi.insertChild(num + 1);
+        genChildren = gen_navi.getChild(num + 1, "spn_menu");
+        genChildren.setValue(arr[num]);
+    };
+};
+
+
+/**
+ * @method
+ * @name setFavStatus
+ * @description 즐겨찾기 상태를 설정한다
+ * @param {string} menuCode 즐겨찾기 설정의 메뉴 코드
+ * @param {string} favStatus 즐겨찾기 상태코드
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.setFavStatus = function (menuCode, favStatus) {
+    btn_fav.setUserData("t_menuCode", menuCode);
+    btn_fav.setUserData("t_favStatus", favStatus);
+
+    if (favStatus == "T") {
+        btn_fav.addClass("on");
+    } else {
+        btn_fav.removeClass("on");
+    }
+};
+
+/**
+ * @event
+ * @name btn_fav_onclick
+ * @description 즐겨찾기 버튼 클릭 시 이벤트
+ */
+scwin.btn_fav_onclick = function () {
+    const menuCode = btn_fav.getUserData("t_menuCode");
+    let favStatus = btn_fav.getUserData("t_favStatus");
+
+    $p.main().pfm_side.getWindow().scwin.updateFav(menuCode, favStatus);
+
+    if (favStatus == "T") {
+        favStatus = "F";
+    } else {
+        favStatus = "T";
+    }
+    scwin.setFavStatus(menuCode, favStatus);
+};
+
+/**
+ * @method
+ * @name showScreenInfo
+ * @description 화면정보 버튼을 누른 경우 현재 페이지의 경로를 알려준다.
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.showScreenInfo = function () {
+    const pageUrl = $p.parent().$p.getFrame().getSrc();
+    $c.win.alert("[" + txt_h1.getValue() + "] 페이지의 파일 경로는 다음과 같습니다.\n" + pageUrl);
+};
+
+/**
+ * @method
+ * @name reload
+ * @description 화면을 갱신한다.
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */
+scwin.reload = function () {
+    $p.parent().$p.reinitialize();
+};
+
+/**
+ * @event
+ * @name udc_qrCode_ongenerateCode
+ * @description QRCode 생성을 위한 이벤트 함수.
+ */
+scwin.udc_qrCode_ongenerateCode = function () {
+    const param = $c.data.getParameter("menuInfo", $p.parent().$p);
+    const url = window.location.href.split("?")[0] + "?menuCd=" + param.menuCode;
+    udc_qrCode.urlToQrCode(url);
+};
+
+//home으로 이동 
+scwin.anc_home_onclick = function () {
+    $c.win.goHome();
+};
+
+scwin.btn_refresh_onclick = function (e) {
+    $p.parent().$p.reinitialize();
+};
+
+scwin.anc_depth1_onclick = function () {
+
+};
+
+scwin.anc_depth2_onclick = function () {
+
+};
+
+scwin.createButton = function(jsonData) {
+    /*
+    {
+    id : 'btn_search',
+    type : 'button',
+    class : 'btn_cm search pt',
+    title : 'search'
+    func : { onclick : 'scwin.btn_search_onclick'}
+    }
+*/
+};]]></script>
+		<w2:require as="udc_qrCode" type="page" variableClone="" src="/common/udc/qrCode.xml"></w2:require>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+		<xf:group meta_snippetCategory="02_타이틀" meta_snippetName="2_01 페이지타이틀" meta_snippetKeyComponent="true" style="" id="grp_main"
+			class="pgtbox">
+			<w2:textbox tagname="" style="" id="txt_h1" label="" class="pgt_tit"></w2:textbox>
+			<xf:trigger style="" id="btn_fav" type="button" class="btn_fav" ev:onclick="scwin.btn_fav_onclick">
+				<xf:label><![CDATA[즐겨찾기]]></xf:label>
+			</xf:trigger>
+			<xf:trigger style="" id="btn_refresh" type="button" class="btn_refresh" ev:onclick="scwin.btn_refresh_onclick">
+				<xf:label><![CDATA[새로고침]]></xf:label>
+			</xf:trigger>
+			<xf:group style="" id="" class="breadcrumb">
+				<xf:group tagname="ul" style="" id="">
+					<xf:group tagname="li" style="" id="grp_home" class="home">
+						<w2:anchor outerDiv="false" style="" id="anc_home" ev:onclick="scwin.anc_home_onclick">
+							<xf:label><![CDATA[Home]]></xf:label>
+						</w2:anchor>
+					</xf:group>
+					<xf:group tagname="li" style="" id="grp_depth1">
+						<w2:anchor outerDiv="false" style="" id="anc_depth1" ev:onclick="scwin.anc_depth1_onclick">
+							<xf:label><![CDATA[1Depth Menu]]></xf:label>
+						</w2:anchor>
+					</xf:group>
+					<xf:group tagname="li" style="display:none;" id="grp_depth2">
+						<w2:anchor outerDiv="false" style="" id="anc_depth2" ev:onclick="scwin.anc_depth2_onclick">
+							<xf:label><![CDATA[2Depth Menu]]></xf:label>
+						</w2:anchor>
+					</xf:group>
+					<xf:group tagname="li" style="" id="grp_menu">
+						<w2:span style="" id="spn_menuName" label=""></w2:span>
+					</xf:group>
+				</xf:group>
+			</xf:group>
+			<xf:group style="" id="" class="rt">
+				<xf:trigger style="" id="" type="button" class="btn_cm ">
+					<xf:label><![CDATA[업무버튼]]></xf:label>
+				</xf:trigger>
+			</xf:group>
+		</xf:group>
+		<xf:group class="hide" id="" style="">
+
+
+
+		</xf:group>
+
+	</body>
+</html>

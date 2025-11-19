@@ -1,0 +1,909 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:ev="http://www.w3.org/2001/xml-events"
+xmlns:w2="http://www.inswave.com/websquare"
+xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_screenId="$c.nova" meta_screenName="AI NOVA DevOps 함수">
+		<w2:type>COMMON</w2:type>
+		<w2:buildDate/>
+		<w2:MSA/>
+		<xf:model>
+			<w2:dataCollection baseNode="map">
+				<w2:dataList baseNode="list" repeatNode="map" id="dlt_path">
+					<w2:columnInfo>
+						<w2:column id="code" name="코드명" dataType="text"></w2:column>
+						<w2:column id="path" name="경로" dataType="text"></w2:column>
+						<w2:column id="desc" name="설명" dataType="text"></w2:column>
+					</w2:columnInfo>
+					<w2:data use="true">
+						<w2:row>
+							<code><![CDATA[G01]]></code>
+							<path><![CDATA[code/grp-mst]]></path>
+							<desc><![CDATA[공통그룹코드]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[C01]]></code>
+							<path><![CDATA[code/dtl]]></path>
+							<desc><![CDATA[공통상세코드]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[GT1]]></code>
+							<path><![CDATA[code/composite/grp-mst/tree]]></path>
+							<desc><![CDATA[공통그룹코드 트리]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[M01]]></code>
+							<path><![CDATA[menu/mgmt/menu]]></path>
+							<desc><![CDATA[menu-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[M02]]></code>
+							<path><![CDATA[menu/mgmt/menu-screen]]></path>
+							<desc><![CDATA[menu-screen-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[M03]]></code>
+							<path><![CDATA[menu/mgmt/menu-auth]]></path>
+							<desc><![CDATA[menu-auth-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[M04]]></code>
+							<path><![CDATA[menu/mgmt/composite/menu/ahtorized-tree]]></path>
+							<desc><![CDATA[menu-composite-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[M05]]></code>
+							<path><![CDATA[menu/mgmt/composite/menu-screen]]></path>
+							<desc><![CDATA[menu-screen-composite-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[M06]]></code>
+							<path><![CDATA[menu/mgmt/composite/menu-auth]]></path>
+							<desc><![CDATA[menu-auth-composite-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[S01]]></code>
+							<path><![CDATA[menu/mgmt/screen-item/mst]]></path>
+							<desc><![CDATA[screen-itemlm-mst-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[S02]]></code>
+							<path><![CDATA[menu/mgmt/screen-item/dtl]]></path>
+							<desc><![CDATA[screen-itemlm-dtl-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<path><![CDATA[menu/mgmt/composite/screen-item]]></path>
+							<code><![CDATA[S03]]></code>
+							<desc><![CDATA[screen-item-composite-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[R01]]></code>
+							<path><![CDATA[menu/mgmt/role-group]]></path>
+							<desc><![CDATA[role-group-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[R02]]></code>
+							<path><![CDATA[menu/mgmt/role-group-comp]]></path>
+							<desc><![CDATA[role-group-comp-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[R03]]></code>
+							<path><![CDATA[menu/mgmt/composite/role-group-comp]]></path>
+							<desc><![CDATA[auth-alloc-composite-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[P01]]></code>
+							<path><![CDATA[menu/mgmt/program]]></path>
+							<desc><![CDATA[program-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[A01]]></code>
+							<path><![CDATA[menu/mgmt/auth-group]]></path>
+							<desc><![CDATA[auth-group-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[A02]]></code>
+							<path><![CDATA[menu/mgmt/auth]]></path>
+							<desc><![CDATA[auth-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[A03]]></code>
+							<path><![CDATA[menu/mgmt/auth-aloc]]></path>
+							<desc><![CDATA[auth-aloc-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[A04]]></code>
+							<path><![CDATA[menu/mgmt/composite/auth]]></path>
+							<desc><![CDATA[auth-composite-controller]]></desc>
+						</w2:row>
+						<w2:row>
+							<code><![CDATA[A05]]></code>
+							<path><![CDATA[menu/mgmt/composite/auth-grp-comp]]></path>
+							<desc><![CDATA[auth-grp-comp-composite-controller]]></desc>
+						</w2:row>
+					</w2:data>
+				</w2:dataList>
+			</w2:dataCollection>
+			<w2:workflowCollection>
+			</w2:workflowCollection>
+		</xf:model>
+		<w2:layoutInfo>
+		</w2:layoutInfo>
+		<w2:publicInfo method="scwin.trxDataAsync,scwin.trxDataSync,scwin.create,scwin.read,scwin.update,scwin.delete,scwin.list,scwin.search,scwin.jsonToQueryString,scwin.readTree,scwin.validateData,scwin.processResponse,scwin.getCommonCodeUrl ,scwin.setCommonCode,scwin.getBaseUrl"/>
+		<script type="text/javascript" lazy="false"><![CDATA[
+/**
+ * @component
+ * @componentName udc_nova
+ * @pluginName
+ * @company
+ * @developer
+ * @category /common/gcc
+ * @notSupportBrowser
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+//Local Server 
+scwin.baseLocal = "http://localhost:8080";
+
+
+
+
+// 공통 코드 저장을 위한 DataList 속성 정보
+scwin.DATA_PREFIX = "dlt_commonCode";
+
+scwin.COMMON_CODE_INFO = {
+    LABEL: "commonCdNm",
+    VALUE: "commonCd",
+    FILED_ARR: ["commonCdGroupId", "commonCd", "commonCdNm", "commonCdEnglishNm", "commonCdDesc", "ouputSeq", "usageYn"]
+}
+
+scwin.commonCodeList = {};
+
+scwin.onpageload = function() {
+
+};
+
+/**
+ * @method
+ * @name trxDataAsync
+ * @description openApi 비동기 통신을 통해 데이터를 처리하기 위한 request 함수 
+ * @param {Object} options Submission 생성 옵션 JSON 객체
+ * @param {String} options.id submission 객체의 ID. 통신 모듈 실행 시 필요.
+ * @param {String} options.ref 서버로 보낼(request) DataCollection의 조건 표현식.(조건에 때라 표현식이 복잡하다) 또는 Instance Data의 XPath.
+ * @param {String} options.target 서버로 응답(response) 받은 데이터가 위치 할 DataCollection의 조건 표현식. 또는 Instance Data의 XPath.
+ * @param {String} options.action 통신 할 서버 측 URI.(브라우저 보안 정책으로 crossDomain은 지원되지 않는다.)
+ * @param {String} options.method [default: get, post, urlencoded-post]
+ * - get : 파라메타를 url에 붙이는 방식 (HTML과 동일).
+ * - post : 파라메타를 body 구간에 담는 방식 (HTML과 동일)
+ * - urlencoded-post : urlencoded-post.
+ * @param {String} options.mediatype [default: application/xml, text/xml, application/json, application/x-www-form-urlencoded]
+ * application/x-www-form-urlencoded 웹 form 방식(HTML방식). application/json : json 방식. application/xml : XML 방식. text/xml : xml방식
+ * (두 개 차이는 http://stackoverflow._com/questions/4832357 참조)
+ * @param {String} options.mode [default: synchronous, synchronous] 서버와의 통신 방식.  asynchronous:비동기식.  synchronous:동기식
+ * @param {String} options.encoding [default: utf-8, euc-kr, utf-16] 서버 측 encoding 타입 설정 (euc-kr/utf-16/utf-8)
+ * @param {String} options.replace [default: none, all, instance] action으로부터 받은 response data를 적용 구분 값.
+ *   - all : 문서 전체를 서버로부터 온 응답데이터로 교체.
+ *   - instance : 해당되는 데이터 구간.
+ *   - none : 교체안함.
+ * @param {String} options.processMsg submission 통신 중 보여줄 메세지.
+ * @param {String} options.errorHandler submission오류 발생 시 실행 할 함수명.
+ * @param {String} options.customHandler submssion호출 시 실행 할 함수명.
+ * @param {requestCallback} options.submitHandler {script type="javascript" ev:event="xforms-submit"} 에 대응하는 함수.
+ * @param {requestCallback} options.submitDoneHandler {script type="javascript" ev:event="xforms-submit-done"} 에 대응하는 함수
+ * @param {requestCallback} options.submitErrorHandler {script type="javascript" ev:event="xforms-submit-error"} 에 대응하는 함수 
+ * @param {Object} requestData 요청 데이터 
+ * @param {Object} obj 전송중 disable시킬 컴퍼넌트
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ *  
+        const option = {
+                id: "sbm_call_rest_api",
+                action : url, 
+                method : method.toUpperCase(),
+                //target : 'data:json,{"id":"dlt_codeGrp","key":"data"}',
+                submitDoneHandler: "scwin.callbackDomain",
+                submitFailHandler: "scwin.callbackDomainFail",
+                submitErrorHandler: "scwin.callbackDomainError",
+                isProcessMsg: false
+            };        
+        $c.nova.trxDataAsync(option, data);  
+    
+        scwin.callbackDomain과 같이 callback 함수 작성 필요함 
+ */
+scwin.trxDataAsync = function (options, requestData, obj) {
+    /*
+    if(window.location.host === '127.0.0.1' || window.location.host === 'local') {
+        options.action =  scwin.baseLocal + scwin.baseUrl + options.action;
+    }
+    */
+    $c.sbm.executeDynamic(options, requestData, obj);
+};
+
+/**
+ * @method
+ * @name trxDataSync
+ * @description openApi 동기 통신을 통해 데이터를 처리하기 위한 request 함수 
+ * @param {Object} options Submission 생성 옵션 JSON 객체
+ * @param {String} options.id submission 객체의 ID. 통신 모듈 실행 시 필요.
+ * @param {String} options.ref 서버로 보낼(request) DataCollection의 조건 표현식.(조건에 때라 표현식이 복잡하다) 또는 Instance Data의 XPath.
+ * @param {String} options.target 서버로 응답(response) 받은 데이터가 위치 할 DataCollection의 조건 표현식. 또는 Instance Data의 XPath.
+ * @param {String} options.action 통신 할 서버 측 URI.(브라우저 보안 정책으로 crossDomain은 지원되지 않는다.)
+ * @param {String} options.method [default: get, post, urlencoded-post]
+ * - get : 파라메타를 url에 붙이는 방식 (HTML과 동일).
+ * - post : 파라메타를 body 구간에 담는 방식 (HTML과 동일)
+ * - urlencoded-post : urlencoded-post.
+ * @param {String} options.mediatype [default: application/xml, text/xml, application/json, application/x-www-form-urlencoded]
+ * application/x-www-form-urlencoded 웹 form 방식(HTML방식). application/json : json 방식. application/xml : XML 방식. text/xml : xml방식
+ * (두 개 차이는 http://stackoverflow._com/questions/4832357 참조)
+ * @param {String} options.mode [default: synchronous, synchronous] 서버와의 통신 방식.  asynchronous:비동기식.  synchronous:동기식
+ * @param {String} options.encoding [default: utf-8, euc-kr, utf-16] 서버 측 encoding 타입 설정 (euc-kr/utf-16/utf-8)
+ * @param {String} options.replace [default: none, all, instance] action으로부터 받은 response data를 적용 구분 값.
+ *   - all : 문서 전체를 서버로부터 온 응답데이터로 교체.
+ *   - instance : 해당되는 데이터 구간.
+ *   - none : 교체안함.
+ * @param {String} options.processMsg submission 통신 중 보여줄 메세지.
+ * @param {String} options.errorHandler submission오류 발생 시 실행 할 함수명.
+ * @param {String} options.customHandler submssion호출 시 실행 할 함수명.
+ * @param {requestCallback} options.submitHandler {script type="javascript" ev:event="xforms-submit"} 에 대응하는 함수.
+ * @param {requestCallback} options.submitDoneHandler {script type="javascript" ev:event="xforms-submit-done"} 에 대응하는 함수
+ * @param {requestCallback} options.submitErrorHandler {script type="javascript" ev:event="xforms-submit-error"} 에 대응하는 함수 
+ * @param {Object} requestData 요청 데이터
+ * @param {Object} obj 전송중 disable시킬 컴퍼넌트
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ *      
+ *      scwin.callRestApi = async function( ... ) {  
+ *          const option = {
+                id: "sbm_call_open_api",
+                action : url, 
+                method : method.toUpperCase(),
+                //target : 'data:json,{"id":"dlt","key":"data"}', 
+                isProcessMsg: false
+            };
+
+            let resData = await $c.nova.trxDataSync(option, data);    
+        }
+ */
+scwin.trxDataSync = async function (options, requestData, obj) {
+    /*
+    if(window.location.hostname === '127.0.0.1' || window.location.hostname === 'local') {
+        options.action =  scwin.baseLocal + scwin.baseUrl + options.action;
+    }
+    */
+    const rtn = await $c.sbm.executeDynamic(options, requestData, obj);	
+    return rtn;
+};
+
+/**
+ * @method
+ * @name apiDispatcher
+ * @description API 호출을 위한 내부 디스패처 함수. HTTP 메서드, URL, 옵션을 받아 적절한 submission 옵션을 생성하고 `_call` 함수를 호출합니다.
+ * @param {string} method - HTTP 메서드
+ * @param {string} url - API URL
+ * @param {Object} opt - API 호출 옵션
+ * @returns {Promise|undefined} 동기 호출 시 Promise 반환
+ * @hidden Y
+ * @exception
+ * @example
+ */
+scwin.apiDispatcher = async function(method, url, opt) {
+    if (!opt || !opt.id) {
+        console.error(`API call requires an 'opt' object with an 'id'. URL: ${url}`);
+        return;
+    }
+    const options = scwin.createApiOptions(
+        method, `sbm_${method.toLowerCase()}_${opt.id}`, url, !!opt.bProcess
+    );
+    return scwin.call(options, opt);
+};
+
+/**
+ * @method
+ * @name createApiOptions
+ * @description API submission 옵션 객체를 생성하는 헬퍼 함수입니다.
+ * @param {string} method - HTTP 메서드
+ * @param {string} id - 고유 ID
+ * @param {string} action - API 엔드포인트
+ * @param {boolean} isProcessMsg - 처리 메시지 표시 여부
+ * @returns {Object} API 옵션 객체
+ * @hidden Y
+ * @exception
+ * @example
+ */
+scwin.createApiOptions = function(method, id, action, isProcessMsg = false) {
+    return {
+        id,
+        isProcessMsg,
+        method,
+        action
+    };
+};
+
+/**
+ * @method
+ * @name __buildFullUrl
+ * @description API 호출을 위한 전체 URL을 생성합니다.
+ * @param {string} baseUrl - 기본 API URL
+ * @param {string|object} [pathVar] - URL 경로에 추가될 변수
+ * @param {object} [queryParams] - URL 쿼리 파라미터
+ * @returns {string} 완성된 API URL
+ * @hidden Y
+ * @exception
+ * @example
+ */
+scwin.__buildFullUrl = function(baseUrl, pathVar, queryParams) {
+    const url = pathVar ? `${baseUrl}/${encodeURIComponent(pathVar)}` : baseUrl;
+    const qs = (queryParams && Object.keys(queryParams).length > 0) ? `?${scwin.jsonToQueryString(queryParams)}` : "";
+    return `${url}${qs}`;
+};
+
+/**
+ * @method
+ * @name create
+ * @description  코드를 생성합니다. (POST)
+ * @param {string} apiUrl
+ * @param {object} opt - API 호출 옵션
+ * @hidden N
+ * @exception
+ * @example
+    let status = dlt_codeGrp.getRowStatus(idx);
+    if (status === 'C') {
+        let opt = {};
+        opt.id = 'btn_save';
+        opt.bSync = true;
+        opt.data = data;
+        opt.bProcess = true;
+        
+        let res = await $c.nova.create(apiUrl, opt) 
+        scwin.cudCallback(res);
+    }
+ */
+scwin.create = async function(apiUrl, opt) {
+    const url = scwin.__buildFullUrl(apiUrl, '', opt.param);
+    return scwin.apiDispatcher('POST', url, opt);
+};
+
+/**
+ * @method
+ * @name read
+ * @description  코드를 조회합니다. (GET)
+ * @param {string} apiUrl 
+ * @param {object} opt - API 호출 옵션
+ * @param {object} param - 페이지 정보 
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+   let data = {};
+    data.id = "39a23feb-86ec-4266-afb7-e83058a4d89c";
+
+    const opt = {
+        id: btn_getId.getID(),
+        bSync: isSync,
+        bProcess: false,
+        cbFunc: scwin.handleApiResponse,
+        data: data
+    };
+    const res = await $c.nova.get(apiUrl, opt);
+ */
+scwin.read = async function(apiUrl, opt, param) {
+    let url;
+    if($c.util.isEmpty(param)) {
+        url = scwin.__buildFullUrl(apiUrl, opt.data.id);
+        opt.data = {};//초기화 
+    } else {
+        url = scwin.__buildFullUrl(apiUrl, '', param);
+    }
+
+    return scwin.apiDispatcher('GET', url, opt);
+};
+
+/**
+ * @method
+ * @name update
+ * @description  코드를 수정합니다. (PUT)
+ * @param {string} apiUrl
+ * @param {object} opt - API 호출 옵션
+ * @param {string} id - 수정할 엔티티의 ID
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+    let status = dlt_codeGrp.getRowStatus(idx);
+    if (status === 'U') {
+        let opt = {};
+        opt.id = 'btn_save';
+        opt.bSync = false;
+        opt.data = data;
+        opt.bProcess = true;
+        opt.cbFunc = scwin.cudCallback;
+        $c.nova.update(apiUrl, opt);
+    }
+ */
+scwin.update = async function(apiUrl, opt, id='') {
+    
+    if(id) {
+        const url = scwin.__buildFullUrl(apiUrl, `${id}`, opt.param);
+        return scwin.apiDispatcher('PUT', url, opt);
+    } 
+    
+    const url = scwin.__buildFullUrl(apiUrl, '', opt.param);
+    return scwin.apiDispatcher('PUT', url, opt);  
+};
+
+/**
+ * @method
+ * @name delete
+ * @description  코드를 삭제합니다. (DELETE)
+ * @param {string} apiUrl
+ * @param {object} opt - API 호출 옵션
+ * @param {string} id - 수정할 엔티티의 ID
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+    data = dlt_code.getDeletedJSON();
+    if(data && data.length > 0) {   
+        for (item of data) {
+            const opt = {
+                id: 'btn_saveCode',
+                bSync: false,
+                bProcess: true,
+                cbFunc: scwin.cudCallback
+            };
+            $c.nova.delete(apiUrl, opt, item.id);
+        }
+    }    
+ */
+scwin.delete = async function(apiUrl, opt, id='') {
+   if(id) {
+        const url = scwin.__buildFullUrl(apiUrl, `${id}`, opt.param);
+        return scwin.apiDispatcher('DELETE', url, opt);
+    }     
+    const url = scwin.__buildFullUrl(apiUrl, '', opt.param);
+    return scwin.apiDispatcher('DELETE', url, opt);
+};
+
+/**
+ * @method
+ * @name list
+ * @description  코드 리스트를 조회합니다. (POST)
+ * @param {string} apiUrl
+ * @param {object} opt - API 호출 옵션
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ * 
+ *  let data = {};
+    data.commonCdGroupId = searchValue;
+    data.useYn = useYn;
+    
+    let param = {};
+        param.commonCdGroupId = searchValue;
+        param.useYn = useYn;
+   
+    if(data && data.length > 0) {   
+        const opt = {
+            id: 'btn_search',
+            bSync: false,
+            bProcess: true,
+            data : data,
+            param : param,
+            cbFunc: scwin.callback
+        };
+        $c.nova.list(apiUrl, opt, data.id);
+        }
+    }    
+ */
+scwin.list = async function(apiUrl, opt) {
+    const url = scwin.__buildFullUrl(apiUrl, 'list', opt.param);
+    return scwin.apiDispatcher('POST', url, opt);
+};
+
+/**
+ * @method
+ * @name search
+ * @description 페이지를 포함한 코드를 검색합니다.  (POST)
+ * @param {string} apiUrl
+ * @param {object} opt - API 호출 옵션
+ * @param
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+  *  let data = {};
+    data.commonCdGroupId = searchValue;
+    data.useYn = useYn;
+    
+    let param = {};
+        param.commonCdGroupId = searchValue;
+        param.useYn = useYn;
+        param.page = 0;
+        param.size = selPage;
+
+    if(data && data.length > 0) {   
+        const opt = {
+            id: 'btn_search',
+            bSync: false,
+            bProcess: true,
+            data : data,
+            param : param,
+            cbFunc: scwin.callback
+        };
+        $c.nova.search(apiUrl, opt);
+        }
+    }    
+ */
+scwin.search = async function(apiUrl, opt) {
+    const url = scwin.__buildFullUrl(apiUrl, 'search', opt.param);
+    return scwin.apiDispatcher('POST', url, opt);
+};
+
+
+/**
+ * @method
+ * @name call
+ * @description 동기/비동기 API 호출을 실행하고 콜백을 처리하는 내부 함수입니다.
+ * @param {Object} options - API 호출 옵션
+ * @param {Object} opt - 사용자 옵션
+ * @param {Function} defaultCallback - 기본 콜백 함수
+ * @returns {Promise|undefined} 동기 호출 시 Promise를, 비동기 호출 시 undefined를 반환합니다.
+ * @hidden Y
+ * @exception API 호출 중 발생한 에러를 콘솔에 출력합니다.
+ */ 
+scwin.call = async function(options, opt, defaultCallback) {
+    try {
+        if (opt?.bSync) {
+            return await scwin.trxDataSync(options, opt.data || null, opt.obj);
+        } else {
+            if(Array.isArray(opt.cbFunc)) {
+                options.submitDoneHandler =  opt.cbFunc[0];
+                options.submitFailHandler = opt.cbFunc[1];
+                options.submitErrorHandler = opt.cbFunc[2];
+            } else {
+                const callback = opt.cbFunc || defaultCallback || scwin.defaultCallback;
+                options.submitDoneHandler = callback;
+                options.submitFailHandler = callback;
+                options.submitErrorHandler = callback;
+            }
+
+            scwin.trxDataAsync(options, opt.data || null, opt.obj);
+        }
+    } catch (error) {
+        console.error('scwin.call error:', error);
+        if (!opt.bSync && opt.cbFunc) {
+            if(Array.isArray(opt.cbFunc)) {
+                opt.cbFunc[2] && opt.cbFunc[2]({ error: error.message });
+            } else {
+                opt.cbFunc({ error: error.message });
+            }
+        } else {
+            $c.win.alert(JSON.parse(error.responseBody).message);
+        }
+    }
+};
+
+/**
+ * @method
+ * @name jsonToQueryString
+ * @description JSON 객체를 URL 쿼리스트링으로 변환합니다. null, undefined, 빈 문자열 값은 제외됩니다.
+ * @param {Object} query - 쿼리 객체
+ * @returns {string} 쿼리스트링
+ * @example
+ * const params = { page: 1, size: 10, keyword: "test" };
+ * const qs = scwin.jsonToQueryString(params); // "page=1&size=10&keyword=test"
+ */
+scwin.jsonToQueryString = function(query) {
+    if (!query || typeof query !== 'object') {
+        return '';
+    }
+    
+    return Object.keys(query)
+        .filter(key => query[key] !== null && query[key] !== undefined && query[key] !== '')
+        .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(query[key])}`)
+        .join('&');
+};
+
+/**
+ * @method
+ * @name __handleError
+ * @description API 호출 에러를 처리하는 헬퍼 함수입니다. 콘솔에 에러를 기록하고, 가능한 경우 화면에 메시지를 표시합니다.
+ * @param {string} method - 메서드명
+ * @hidden Y
+ * @param {Error} error - 에러 객체
+ */
+scwin._handleError = function(method, error) {
+    console.error(`scwin.${method} error:`, error);
+    if ($c.sbm && $c.sbm.resultMsg) {
+        $c.sbm.resultMsg(`오류가 발생했습니다: ${error.message}`);
+    }
+};
+
+/**
+ * @callback scwin.defaultCallback
+ * @description 비동기 API 호출에 대한 기본 콜백 함수입니다.
+ *              응답을 콘솔에 기록하고, 응답에 메시지가 포함된 경우 화면에 표시합니다.
+ * @param {object} res - API 응답 객체.
+ */
+scwin.defaultCallback = function(res) {
+    console.log('scwin.defaultCallback:', res);
+   try {
+        if (res && res.responseJSON && res.responseJSON.rsMsg) {
+            $c.sbm.resultMsg && $c.sbm.resultMsg(res.responseJSON.rsMsg);
+        }
+    } catch (error) {
+        console.error('scwin.defaultCallback error:', error);
+    }    
+};
+
+/**
+ * @method
+ * @name readTree
+ * @description treeView에 표시할 수 있도록 level 정보를 포함하여 제공한다
+ * @param {string} apiUrl
+ * @param {object} opt 통신에 필요한 정보
+          {string} id - 고유 ID
+          {string} action - API 엔드포인트
+          {boolean} isProcessMsg - 처리 메시지 표시 여부
+ * @param {object} query url query 정보로 전송한 json 객체
+ * @returns {object} json 응답
+ * @hidden N
+ * @exception
+ * @example 동기호출
+ *     let opt = {};
+ *     opt.bSync = true;
+ *     const query = {"holdSysCd": "01"};
+ *     let res = await $c.nova.getTree(apiUrl, opt, query);
+ *     const data = (res && res.responseJSON) ? res.responseJSON : [];
+ *     if (data && data.length > 0) {
+ *         dlt_codeGrp.removeAll();
+ *         dlt_codeGrp.setJSON(data);
+ *     } else {
+ *         dlt_codeGrp.removeAll();
+ *     }
+ * 
+ * 비동기식 호출
+ *     let opt = {};
+ *     opt.cbFunc = [];
+ *     
+ *     opt.cbFunc[0] = scwin.getAllDoneGrpCallback; // 성공 : submitDoneHandler 에 해당 
+ *     opt.cbFunc[1] = scwin.getAllFailGrpCallback; // 실패 : submitFailHandler 에 해당
+ *     opt.cbFunc[2] = scwin.getAllErrorGrpCallback; // 에러 : submitErrorHandler 에 해당 
+ *     
+ *     const query = {"holdSysCd": "01"};
+ *     $c.nova.getTree(apiUrl, opt, query);
+ */
+scwin.readTree = function (apiUrl, opt, query) {
+    const url = scwin.__buildFullUrl(apiUrl, '', opt.param);
+    return scwin.apiDispatcher('POST', url, opt);
+};
+
+/**
+ * @method
+ * @name validateData
+ * @description 데이터 객체의 필수 필드 존재 여부를 검증하는 헬퍼 함수입니다.
+ * @param {Object} data - 검증할 데이터
+ * @param {Array} requiredFields - 필수 필드 배열
+ * @returns {boolean} 검증 결과
+ */
+scwin.validateData = function(data, requiredFields = []) {
+    if (!data || typeof data !== 'object') {
+        return false;
+    }
+    
+    return requiredFields.every(field => {
+        const value = data[field];
+        return value !== null && value !== undefined && value !== '';
+    });
+};
+
+/**
+ * @method
+ * @name processResponse
+ * @description API 응답 객체에서 실제 데이터를 안전하게 추출하는 헬퍼 함수입니다.
+ * @param {Object} res - API 응답
+ * @returns {Array|Object} 추출된 데이터. 데이터가 없거나 오류 발생 시 빈 배열을 반환합니다.
+ */
+scwin.processResponse = function(res) {
+    try {
+        if (res && res.responseJSON) {
+            return res.responseJSON;
+        }
+        return res || [];
+    } catch (error) {
+        console.error('scwin.processResponse error:', error);
+        return [];
+    }
+};
+
+/**
+ * @method
+ * @name getCommonCodeUrl 
+ * @description 공통 상세코드 URL을 생성합니다.
+ * @returns {string} 완성된 URL
+ * @hidden N
+ * @exception 
+ * @example ${example}
+ */ 
+scwin.getCommonCodeUrl = function() {
+    return scwin.getBaseUrl() + 'code/dtl';
+};
+
+/**
+ * @method
+ * @name setCommonCode
+ * @description 코드성 데이터와 컴포넌트의 nodeSet(아이템 리스트) 연동 기능을 제공합니다.
+ * 내부적으로 $c.nova.getCodeList를 사용하여 비동기로 공통 코드를 조회하고,
+ * UI 컴포넌트에 데이터를 바인딩합니다.
+ * @param {String} codeOptions[].code - 공통 코드 그룹 ID.
+ * @param {String} codeOptions[].compID - 코드를 바인딩할 컴포넌트 ID. 여러 개인 경우 콤마(,)로 구분.
+ *                                       (예: "sbx_comp1,grd_comp1:COLUMN_ID")
+ * @param {Boolean} [codeOptions.useLocalCache=true] - 로컬 캐시 사용 여부.
+ * @param {function} cbFunc - 모든 코드 조회가 완료된 후 실행될 콜백 함수.
+ * @returns  
+ * @hidden N
+ * @exception
+ * @example 
+    const codeOption =[{ code : "PART_C_USEYN", compID : "grd_code:usageYn", useLocalCache : false}];
+    $c.nova.setCommonCode(codeOption, function() {
+        console.log("공통코드 set");
+    });
+ */
+scwin.setCommonCode = function (codeOptions, cbFunc) {
+    if (!codeOptions || !Array.isArray(codeOptions) || codeOptions.length === 0) {
+        console.error("Invalid 'codeOptions' parameter. It must be a non-empty array.");
+        return;
+    }
+
+    const dataListOption = _getCodeDataListOptions(scwin.COMMON_CODE_INFO.FILED_ARR);
+    const codesToFetch = [];
+
+    // 1. DataList 생성 및 컴포넌트 바인딩, 조회할 코드 목록 준비
+    codeOptions.forEach(codeObj => {
+        try {
+            const dltId = scwin.DATA_PREFIX + codeObj.code;
+            const useLocalCache = codeObj.useLocalCache !== false;
+
+            // DataList가 없거나 캐시를 사용하지 않는 경우 새로 생성
+            if (!$c.util.getComponent(dltId) || !useLocalCache) {
+                if ($c.util.getComponent(dltId)) {
+                    $p.data.remove(dltId);
+                }
+                dataListOption.id = dltId;
+                $p.data.create(dataListOption);
+            }
+
+            // 컴포넌트 바인딩
+            if (codeObj.compID) {
+                const compArr = codeObj.compID.replaceAll(" ", "").split(",");
+                compArr.forEach(compStr => {
+                    const tmpIdArr = compStr.split(":");
+                    if (tmpIdArr.length === 1) {
+                        const comp = $c.util.getComponent(tmpIdArr[0]);
+                        if (comp) {
+                            comp.setNodeSet("data:" + dltId, scwin.COMMON_CODE_INFO.LABEL, scwin.COMMON_CODE_INFO.VALUE);
+                        } else {
+                            console.warn(`[setCommonCode] Component not found: ${tmpIdArr[0]}`);
+                        }
+                    } else {
+                        const gridObj = $c.util.getComponent(tmpIdArr[0]);
+                        if (gridObj) {
+                            gridObj.setColumnNodeSet(tmpIdArr[1], "data:" + dltId, scwin.COMMON_CODE_INFO.LABEL, scwin.COMMON_CODE_INFO.VALUE);
+                        } else {
+                            console.warn(`[setCommonCode] GridView not found: ${tmpIdArr[0]}`);
+                        }
+                    }
+                });
+            }
+
+            // 캐시 확인 및 조회 목록 추가
+            if (useLocalCache && scwin.commonCodeList[dltId]) {
+                const dataListObj = $c.util.getComponent(dltId);
+                dataListObj.setJSON(scwin.commonCodeList[dltId]);
+            } else {
+                if (!codesToFetch.includes(codeObj.code)) {
+                    codesToFetch.push(codeObj.code);
+                }
+            }
+        } catch (ex) {
+            console.error(`[setCommonCode] Error processing code '${codeObj.code}':`, ex);
+        }
+    });
+
+    // 2. 서버에서 코드 데이터 조회
+    if (codesToFetch.length > 0) {
+        for(item of codesToFetch) {
+            const opt = {
+                id: "getCommonCodeList",
+                //data: { commonCdGroupId: item },
+                cbFunc: function(res) {
+                    const data = scwin.processResponse(res);
+
+                    if(data.content && data.content.length > 0 && data.content[0].commonCdGroupId === item) {
+                        const dltId = scwin.DATA_PREFIX + item;
+                        const dataListObj = $c.util.getComponent(dltId);
+                        if (dataListObj) {
+                            dataListObj.setJSON(data.content);
+                            scwin.commonCodeList[dltId] = item;
+                        }
+                    }
+                                       
+                    if (typeof cbFunc === "function") cbFunc();
+                }
+            };
+            const param = { commonCdGroupId: item};
+            const url = scwin.getCommonCodeUrl();
+            scwin.read(url, opt, param);
+        };
+    } else {
+        if (typeof cbFunc === "function") cbFunc();
+    }
+
+    // DataList 생성을 위한 옵션 객체를 반환하는 내부 함수
+    function _getCodeDataListOptions(infoArr) {
+        const option = {
+            type: "dataList",
+            option: { baseNode: "list", repeatNode: "map" },
+            columnInfo: infoArr.map(id => ({ id }))
+        };
+        return option;
+    }
+};
+
+
+/**
+ * @method
+ * @name getApiUrl
+ * @description 엔티티 타입에 따라 API 기본 URL을 반환합니다.
+ * @param {string} entityType - 'G01' 그룹 또는 'C01' 코드
+ * @returns {string} API 기본 URL
+ * @hidden Y
+ * @exception
+ * @example
+ */
+scwin.getApiUrl = function(entityType) {
+
+    //const apiRoutes = dlt_path.getAllJSON();
+    //const route = apiRoutes.find(item => item.code === entityType);
+    //route ? route.path : 'default/path';
+    const route = dlt_path.getMatchedJSON('code', entityType, true);
+    if(route && route.length > 0) {
+        return `${scwin.baseLocal}/v1/core/func/${route[0].path}`;
+    } 
+    return `${scwin.baseLocal}/error`;
+};
+
+/**
+ * @method
+ * @name getBaseUrl
+ * @description base url 경로 
+ * @param {string} ver 버전정보
+ * @returns {string} 공통으로 이용되는 base url 경로를 리턴합니다.
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.getBaseUrl = function(ver='v1') {
+    return `${scwin.baseLocal}/${ver}/core/func/`;
+};
+
+
+]]></script>
+	</head>
+	<body ev:onpageload="scwin.onpageload">
+	</body>
+</html>

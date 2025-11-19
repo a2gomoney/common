@@ -1,0 +1,1 @@
+(function(){var a={title:"\ud655\ub300 \ucd95\uc18c",icon:{p_zoomslider:"\ud655\ub300 \ucd95\uc18c"}};try{G_DEPlugin&&(G_DEPlugin.zoomslider.lang=a,dext5_lang.plugins.zoomslider=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&RAONWIZDLW&&RAONWIZDLW()}})();

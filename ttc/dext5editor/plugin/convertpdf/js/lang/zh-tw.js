@@ -1,0 +1,1 @@
+(function(){var a={icon:{p_convertpdf:"\u53e6\u5b58\u70baPDF"},topmenu:{p_convertpdf:"\u53e6\u5b58\u70baPDF"},message:{empty:"\u4ec0\u9ebc\u90fd\u6c92\u6709\u5beb\u3002",error:"\u8f49\u63db PDF \u6642\u51fa\u932f\u3002"}};try{G_DEPlugin&&(G_DEPlugin.convertpdf.lang=a,dext5_lang.plugins.convertpdf=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&RAONWIZDLW&&RAONWIZDLW()}})();

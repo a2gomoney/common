@@ -1,0 +1,58 @@
+#dext_zoom_slider {
+    margin-bottom: 3px;
+}
+
+#dext_zoom_slider:focus {
+    outline: none;
+}
+
+#dext_zoomslider_reset {
+    border: 1px solid #cccccc;
+    font-size: 12px;
+    height: 19px;
+    background-image: url(../../../images/editor/icon/icon.gif);
+    background-position: -80px -300px;
+    margin-left: 3px;
+    border-radius: 3px;
+    height: 20px;
+    width: 23px;
+    float: left
+}
+
+#dext_zoomslider_decrease {
+    border: 1px solid #cccccc;
+    border-radius: 3px 0 0 3px;
+    color: transparent;
+    background-image: url(../../../images/editor/icon/icon.gif);
+    background-position: -60px -281px;
+    width: 23px;
+    height: 20px;
+    float: left
+}
+
+#dext_zoomslider_increase {
+    border: 1px solid #cccccc;
+    border-radius: 0 3px 3px 0;
+    border-left: 0;
+    background-image: url(../../../images/editor/icon/icon.gif);
+    color: transparent;
+    background-position: -78px -281px;
+    width: 23px;
+    height: 20px;
+    float: left;
+}
+
+#dext_zoom_percent {
+    text-align: right;
+    font-size: 12px;
+    font-style: normal;
+    float: right;
+    line-height: 20px;
+}
+
+
+#dext_zoomslider_decrease:hover,
+#dext_zoomslider_increase:hover,
+#dext_zoomslider_reset:hover {
+    background-color: #dbdbdb
+}

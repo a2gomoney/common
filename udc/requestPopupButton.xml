@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="requestPopupButton" meta_screenName="requestPopupButton">
+        <w2:type palette="">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map"/>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setRequestPopupData"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_requestPopupButton
+ * @pluginName 
+ * @company
+ * @developer
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+scwin.popupName = null;
+scwin.userInfo = [];
+scwin.onpageload = function() {
+    if (scwin.popupName === null) btn_requestPublishing.setValue('XXX 요청');
+};
+
+scwin.btn_requestPublishing_onclick = function (e) {
+    e.preventDefault();
+
+    const winWid = $(window).width();
+    const winHei = $(window).height();
+    const popWid = 600;
+    const popHei = 280;
+    const sumLeft = (winWid - popWid) / 2;
+    const sumTop = (winHei - popHei) / 2;
+    const popupName = scwin.popupName;
+    // console.log(popupName);
+    // console.log(scwin.userInfo);
+    const jsonPopupData = {
+        "name" : "popup_requestConfirm",  // 데이터를 가져오기 위한 파라미터 이름으로 팝업 화면에서 $p.getParameter("popup_requestConfirm")로 추출할 수 있음
+        "data" : { 
+            popupName,
+            userInfo: scwin.userInfo
+        } // 실제 전달할 데이터
+    };
+    const opts = {
+        id : "request_popup_window_wframe",
+        type : "litewindow",
+        width : popWid + "px",
+        height : popHei + "px",
+        top : sumTop, 
+        left : sumLeft,
+        popupName : popupName,
+        modal : true, 
+        useIFrame : false,
+        useATagBtn : true,
+        frameMode : "wframe",
+        closeAction : "scwin.request_popup_closeAction", // [선택] 팝업의 닫기 버튼을 클릭했을 때 실행할 함수명
+        dataObject : jsonPopupData
+    };
+    $p.openPopup("/ui/devOps/cmPopup/requestConfirm.xml", opts);
+};
+scwin.request_popup_closeAction = function (argRuntimeID, argJsnInfo) {
+    // argRuntimeID : 팝업의 실행 시점 아이디
+    // argJsnInfo : 팝업의 부가 정보를 담은 JSON 객체
+    // argJsnInfo.isCloseButtonClick : [true, false] 팝업의 닫기 버튼을 클릭해서 호출되었는지의 여부
+    return true; //팝업 닫기 (반환 값이 true인 경우만 팝업이 닫힘)
+};
+
+/**
+ * @method
+ * @name setRequestPopupData
+ * @description 팝업에 전달할 데이터를 지정
+ * @param {string} popupName 팝업 타이틀
+ * @param {array} userInfo 담당자 정보 (복수 가능)
+ * ex)
+ * [
+ *   {
+ *     id: 'p204595',
+ *     name: '최창현',
+ *     pic: 'http://localhost:8081/common/assets/images/product/img_profile.png',
+ *     team: 'NOVA 추진팀',
+ *   },
+ * ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setRequestPopupData = function (popupName, userInfo) {
+    scwin.popupName = popupName;
+    scwin.userInfo = userInfo;
+    btn_requestPublishing.setValue(popupName || '요청');
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:trigger class="btn_cm pt" ev:onclick="scwin.btn_requestPublishing_onclick" id="btn_requestPublishing" style="min-width: 70px;" type="button">
+    		<xf:label><![CDATA[]]></xf:label>
+    	</xf:trigger>
+    </body>
+</html>

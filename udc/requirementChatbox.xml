@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenId="requirementChatbox" meta_screenName="요구사항 상세 (chat-box)">
+        <w2:type palette="">COMPONENT</w2:type>
+        <w2:buildDate/>
+        <w2:MSA/>
+        <xf:model>
+            <w2:dataCollection baseNode="map">
+            	<w2:dataList baseNode="list" repeatNode="map" id="dlt_chatbox">
+            		<w2:columnInfo>
+            			<w2:column id="userId" name="ID" dataType="text"></w2:column>
+            			<w2:column id="pic" name="사진이미지" dataType="text"></w2:column>
+            			<w2:column id="team" name="팀명" dataType="text"></w2:column>
+            			<w2:column id="name" name="이름" dataType="text"></w2:column>
+            			<w2:column id="date" name="등록일" dataType="text"></w2:column>
+            			<w2:column id="comment" name="댓글내용" dataType="text"></w2:column>
+            			<w2:column id="isOwn" name="본인댓글유무" dataType="text"></w2:column>
+            			<w2:column id="status" name="업무단계" dataType="text"></w2:column>
+            			<w2:column id="isEnd" name="완료 여부" dataType="text"></w2:column>
+            		</w2:columnInfo>
+            		<w2:data use="false"></w2:data>
+            	</w2:dataList></w2:dataCollection>
+            <w2:workflowCollection/>
+        </xf:model>
+        <w2:layoutInfo/>
+        <w2:publicInfo method="scwin.setReloadData,scwin.getData,scwin.addData,scwin.setLoadData"/>
+        <script lazy="false" type="text/javascript"><![CDATA[
+/**
+ * @component
+ * @componentName udc_requirement-chatbox
+ * @pluginName 
+ * @company
+ * @developer
+ * @category /common/udc
+ * @notSupportBrowser 
+ * @version
+ * @htmlRender
+ * @icon
+ * @disableIcon
+ * @description
+ * @width
+ * @height
+ * @license
+ * @imagePath
+ * @homepage
+ */
+
+/**
+ * @property
+ * @name id
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name class
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+/**
+ * @property
+ * @name style
+ * @category 01.Basic & ETC
+ * @type string
+ * @option
+ * @default
+ * @necessary N
+ * @bindparent
+ * @description desc
+ */
+
+scwin.onpageload = function() {
+	
+    // 삭제 기능 추가 시 필요
+    scwin.keyCount = 0;
+    scwin.groupClass = '.chatbox_wrap_group'; // group class명
+    scwin.dataKey = 'data-key'; // 가변 input index를 확인 할 key
+
+    scwin.setUI();
+    
+};
+scwin.setUI = function () {
+    const chatboxList = dlt_chatbox.getAllJSON();
+    if (chatboxList.length) {
+        chatboxList.forEach((list, index) => {
+            rqm_chatbox_gen.insertChild(index);
+            const pic = rqm_chatbox_gen.getChild(index, "pic");
+            const name = rqm_chatbox_gen.getChild(index, "name");
+            const team = rqm_chatbox_gen.getChild(index, "team");
+            const date = rqm_chatbox_gen.getChild(index, "date");
+            const comment = rqm_chatbox_gen.getChild(index, "comment");
+            const endLineText = rqm_chatbox_gen.getChild(index, "endLineText");
+            
+            pic.setSrc(list.pic);
+            name.setLabel(list.name);
+            team.setLabel(list.team);
+            date.setLabel(list.date);
+            comment.setLabel(list.comment);
+            if (list.isOwn === 'Y') {
+                rqm_chatbox_gen.childControlList[index].render.children[0].classList.add("me");
+                rqm_chatbox_gen.childControlList[index].render.children[0].children[0].children[0].style.display = "none";
+            }
+            if (list.isEnd === 'Y') {
+                endLineText.setLabel(`[${list.status}]의 승인이 완료되었습니다.`);
+                rqm_chatbox_gen.childControlList[index].render.children[1].style.display = '';
+            }
+        });
+        scwin.setGroupAttrDataKey();
+    }
+}
+scwin.setGroupAttrDataKey = function () {
+    const groupList = document.querySelectorAll(scwin.groupClass);
+    let c = 0;
+    groupList.forEach((gl) => {
+        gl.setAttribute(scwin.dataKey, c);
+        c++;
+    })
+}
+
+scwin.chatbox_del_onclick = function (e) {
+    // 퍼블리싱에 따라 parentNode 부분이 변경 될 수 있음
+    const childIndex = parseInt(e.target.parentNode.parentNode.getAttribute(scwin.dataKey));
+    const chatboxList = scwin.getData();
+	rqm_chatbox_gen.removeChild(childIndex);
+    chatboxList.splice(childIndex, 1);
+    dlt_chatbox.setJSON(chatboxList);
+    scwin.setGroupAttrDataKey();
+};
+
+/**
+ * @method
+ * @name setReloadData
+ * @description 데이터가 있는 화면(수정, 상세)에서 Data를 주입 시
+ * @param {array} chatList chatbox의 배열 데이터
+ * ex) [
+ * {
+ * id: 'p204595',
+ * name: '홍길동',
+ * pic: 'http://localhost/common/pic/p204595.jpg',
+ * team: 'NOVA 추진팀',
+ * comment: 'PR 요청 드립니다.',
+ * date: '9월 10일 오후 5시',
+ * status: '프로세스 기획',
+ * isEnd: 'N'
+ * }
+ * ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setReloadData = function (chatList) {
+    dlt_chatbox.setJSON(chatList);
+    scwin.setUI();
+};
+
+/**
+ * @method
+ * @name getData
+ * @description chatbox 데이터 반환 (Array)
+ * @param
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.getData = function () {
+    const chatList = dlt_chatbox.getAllJSON();
+    if (!chatList.length) return [];
+    return chatList;
+};
+
+/**
+ * @method
+ * @name addData
+ * @description 댓글 입력 시 데이터를 추가
+ * @param {object} chat 단건 chatbox의 Object 데이터
+ * * ex)
+ * * {
+ * *   id: 'p204595',
+ * *   name: '홍길동',
+ * *   pic: 'http://localhost/common/pic/p204595.jpg',
+ * *   team: 'NOVA 추진팀',
+ * *   comment: 'PR 요청 드립니다.',
+ * *   date: '9월 10일 오후 5시',
+ * *   status: '프로세스 기획',
+ * *   isEnd: 'N'
+ * * }
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.addData = function (chat) {
+	const chatList = scwin.getData();
+    rqm_chatbox_gen.removeAll();
+    dlt_chatbox.setJSON([...chatList, chat]);
+    scwin.setUI();
+};
+
+/**
+ * @method
+ * @name setLoadData
+ * @description 최초 접속 시 DataCollection setting
+ * @param {array} chatList chatbox의 배열 데이터
+ *  * ex) [
+ *  * {
+ *  * id: 'p204595',
+ *  * name: '홍길동',
+ *  * pic: 'http://localhost/common/pic/p204595.jpg',
+ *  * team: 'NOVA 추진팀',
+ *  * comment: 'PR 요청 드립니다.',
+ *  * date: '9월 10일 오후 5시',
+ *  * status: '프로세스 기획',
+ *  * isEnd: 'N'
+ *  * }
+ *  * ]
+ * @returns
+ * @hidden N
+ * @exception
+ * @example
+ */
+scwin.setLoadData = function (chatList) {
+    dlt_chatbox.setJSON(chatList);
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<w2:generator style="" id="rqm_chatbox_gen">
+    		<xf:group style="" id="" class="chatbox_wrap_group">
+    			<xf:group id="" class="row chatbox_group">
+    				<xf:group style="" id="" class="item">
+    					<xf:group style="" id="" class="name_card">
+    						<xf:group id="" class="pic">
+    							<xf:image src="eed" style="" id="pic" class=""></xf:image>
+    						</xf:group>
+    						<w2:textbox style="" id="name" label="" class="name"></w2:textbox>
+    						<w2:textbox style="" id="team" label="" class="team"></w2:textbox>
+    					</xf:group>
+    					<xf:group id="" class="baloon">
+    						<w2:textbox style="" id="comment" label="" class=""></w2:textbox>
+    					</xf:group>
+    					<w2:textbox style="" id="date" label="" class="date"></w2:textbox>
+    				</xf:group>
+    			</xf:group>
+    			<xf:group class="chat_endline" id="" style="display: none;">
+    				<w2:textbox id="endLineText" label="" style=""></w2:textbox>
+    			</xf:group>
+    		</xf:group>
+    	</w2:generator>
+    </body>
+</html>

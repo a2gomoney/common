@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="/common/ttc/bpmn/css/bpmn.css" type="text/css"?>
+<?xml-stylesheet href="/common/ttc/bpmn/css/bpmn-js.css" type="text/css"?>
+<?xml-stylesheet href="/common/ttc/bpmn/css/diagram-js.css" type="text/css"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head meta_screenName="BPMN_SAMPLE">
+    	<w2:type>COMPONENT</w2:type>
+    	<w2:buildDate />
+    	<w2:MSA />
+    	<xf:model>
+    		<w2:dataCollection baseNode="map">
+    		</w2:dataCollection>
+    		<w2:workflowCollection />
+    	</xf:model>
+    	<w2:layoutInfo />
+    	<w2:publicInfo method="" />
+    	<script type="text/javascript" src="/common/ttc/bpmn/js/bpmn-modeler.development.js"></script>
+    	<script lazy="false" type="text/javascript"><![CDATA[
+scwin.diagramUrl = '/common/ttc/bpmn/example-data/diagram_sample01.bpmn';
+scwin.defaultDiagram = '/common/ttc/bpmn/example-data/diagram_default.bpmn';
+scwin.bpmnModeler = null;
+
+scwin.onpageload = function() {
+    // modeler instance
+    scwin.bpmnModeler = new BpmnJS({
+	    container: `#${txtCanvas.getID()}`,
+    });
+
+};
+
+// init diagram
+scwin.createNewDiagram = async function () { 
+    try {
+        // load external diagram file via AJAX and open it
+        fetch(scwin.defaultDiagram).then(response => {
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
+            }
+            
+            return response.text(); // MIME 타입이 'text'이므로 text() 사용
+        }).then(response => {
+            scwin.bpmnModeler.importXML(response); 
+            scwin.bpmnModeler.get('canvas').zoom('fit-viewport'); 
+        }).catch(error => {
+            console.error("Fetch error:", error);
+        });
+    } catch (err) { 
+        console.error('다이어그램 로딩 에러:', err); 
+    } 
+};
+
+// load BPMN file
+scwin.openDiagramFile = async function () {
+    const file = document.querySelector(`#${iptFile.getID()}`).files[0];
+    
+    if (!file) { 
+        alert('먼저 .vpd 또는 .bpmn 파일을 선택하세요.'); 
+        return; 
+    } 
+    
+    try { 
+        const xml = await scwin.readFileContents(file); 
+        await scwin.importDiagram(xml); 
+    } catch (err) { 
+        alert('파일 읽기 실패!'); 
+        console.error(err); 
+    } 
+};
+
+// read file
+scwin.readFileContents = function (file) { 
+    return new Promise((resolve, reject) => { 
+        const reader = new FileReader(); 
+        reader.onload = (e) => resolve(e.target.result); 
+        reader.onerror = reject; 
+        reader.readAsText(file); 
+    }); 
+};
+    
+// loading BPMN XML 
+scwin.importDiagram = async function(xml) { 
+    try { 
+        await scwin.bpmnModeler.importXML(xml); 
+        scwin.bpmnModeler.get('canvas').zoom('fit-viewport'); 
+        console.log('다이어그램 성공적으로 불러옴'); 
+    } catch (error) { 
+        console.error('불러오기 실패:', error); 
+        alert('다이어그램 로딩 중 오류 발생'); 
+    } 
+};
+
+// download bpmn file
+scwin.downloadBPMN = async function () { 
+    try { 
+        const { xml } = await scwin.bpmnModeler.saveXML({ format: true, keyboard: { bindTo: document } }); 
+        areaBpmnXml.setValue(xml); 
+
+        const blob = new Blob([xml], { type: 'application/xml' }); 
+        const a = document.createElement('a'); 
+        a.href = URL.createObjectURL(blob); 
+        a.download = 'diagram.bpmn'; 
+        a.click();
+    } catch (err) { 
+        console.error('BPMN XML 저장 실패:', err); 
+    } 
+};
+
+// save SVG 
+scwin.saveAsSVG = async function () { 
+    try { 
+        const { svg } = await scwin.bpmnModeler.saveSVG(); 
+        const blob = new Blob([svg], { type: 'image/svg+xml' }); 
+        const url = window.URL.createObjectURL(blob); 
+        const a = document.createElement('a'); 
+        a.href = url; 
+        a.download = 'diagram.svg'; 
+        a.click(); 
+        
+        window.URL.revokeObjectURL(url); 
+    } catch (err) { 
+        console.error(err); alert('SVG 저장 실패'); 
+    } 
+};
+
+// Save diagram contents and print them to the console.
+scwin.exportDiagram = async function () {
+    try {
+        const result = await scwin.bpmnModeler.saveXML({ format: true });
+        alert('Diagram exported. Check the developer tools!');
+        console.log('DIAGRAM', result.xml);
+
+        areaBpmnXml.setValue(result.xml);
+    } catch (err) {
+        console.error('could not save BPMN 2.0 diagram', err);
+    }
+};
+
+// 새 다이어그램
+scwin.btnNewDiagram_onclick = function (e) {
+    scwin.createNewDiagram();
+};
+
+// VPD 파일 열기
+scwin.btnLoadButton_onclick = function (e) {
+    scwin.openDiagramFile();
+};
+
+// BPMN 다운로드
+scwin.btnDownloadDiagram_onclick = function (e) {
+    scwin.downloadBPMN();
+};
+
+// SVG 저장
+scwin.btnDownloadSvgButton_onclick = function (e) {
+    scwin.saveAsSVG();
+};
+
+// print to console
+scwin.btnPrintButton_onclick = function (e) {
+    scwin.exportDiagram();
+};
+
+// bpmnModeler destroy
+scwin.onbeforepageunload = function () {
+    if (scwin.bpmnModeler) { 
+        scwin.bpmnModeler.destroy();
+    }
+};
+]]></script>
+    </head><body ev:onpageload="scwin.onpageload" ev:onbeforepageunload="scwin.onbeforepageunload">
+    	<xf:group class="sub_contents" id="" meta_snippetCategory="00_화면시작" meta_snippetKeyComponent="true" meta_snippetName="0_01 페이지시작"
+    		style="">
+    		<w2:pageFrame src="/common/xml/contentHeader.xml" style="" id="pfm_contentHeader"></w2:pageFrame>
+
+            <xf:group class="titbox" id="" style="padding: 10px;">
+                <xf:group id="" style="width: 100%;" class="lt">
+                    <xf:trigger style="" id="btnNewDiagram" type="button" class="btn_cm" ev:onclick="scwin.btnNewDiagram_onclick">
+                        <xf:label><![CDATA[새 다이어그램]]></xf:label>
+                    </xf:trigger>
+                    <xf:input id="iptFile" style="" type="file"></xf:input>
+                    <xf:trigger style="" id="btnLoadButton" type="button" class="btn_cm" ev:onclick="scwin.btnLoadButton_onclick">
+                        <xf:label><![CDATA[VPD 파일 열기]]></xf:label>
+                    </xf:trigger>
+                    <xf:trigger style="" id="btnDownloadDiagram" type="button" class="btn_cm" ev:onclick="scwin.btnDownloadDiagram_onclick">
+                        <xf:label><![CDATA[BPMN 다운로드]]></xf:label>
+                    </xf:trigger>
+                    <xf:trigger style="" id="btnDownloadSvgButton" type="button" class="btn_cm" ev:onclick="scwin.btnDownloadSvgButton_onclick">
+                        <xf:label><![CDATA[SVG 저장]]></xf:label>
+                    </xf:trigger>
+                    <xf:trigger style="" id="btnPrintButton" type="button" class="btn_cm" ev:onclick="scwin.btnPrintButton_onclick">
+                        <xf:label><![CDATA[print to console]]></xf:label>
+                    </xf:trigger>
+                </xf:group>
+            </xf:group>
+            <xf:group class="titbox" id="grpCanvas" style="padding: 10px; height: 300px;">
+                <w2:textbox id="txtCanvas" label="" style="width: calc(100% - 20px);height: 100%;"></w2:textbox>
+            </xf:group>
+            <xf:group class="titbox" id="grpConsole" style="padding: 10px;">
+                <xf:textarea id="areaBpmnXml" style="width: calc(100% - 20px); height: 200px;"></xf:textarea>
+            </xf:group>
+        </xf:group>    
+    </body>
+</html>

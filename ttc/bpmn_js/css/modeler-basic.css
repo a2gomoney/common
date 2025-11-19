@@ -1,0 +1,230 @@
+:root {
+  --menu-bg: #ffffff;
+  --menu-border: #e6e8eb;
+  --menu-shadow: 0 10px 30px rgba(22, 30, 50, 0.12), 0 2px 8px rgba(22, 30, 50, 0.06);
+  --header-bg: #f6f7f9;
+  --header-fg: #6b7785;
+  --item-fg: #1f2a37;
+  --item-hover: #f3f5f7;
+  --chevron: #97a0aa;
+  --dot: #667084; /* 회색 점 */
+  --unread: #3b82f6; /* 파란 점 (미확인 표시용) */
+  --radius: 10px;
+}
+* {
+  box-sizing: border-box;
+}
+/* djs-cursor-grab */
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+}
+.app {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  grid-template-rows: auto 1fr;
+  grid-template-areas:
+    'toolbar toolbar'
+    'canvas  props';
+  height: 100vh;
+}
+.toolbar {
+  grid-area: toolbar;
+  padding: 8px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+#canvas {
+  grid-area: canvas;
+}
+#properties {
+  grid-area: props;
+  border-left: 1px solid #e5e7eb;
+}
+.btn {
+  padding: 6px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
+  cursor: pointer;
+}
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.overlay-btn {
+  background-color: rgb(94, 248, 77);
+  user-select: none;
+  cursor: pointer;
+}
+.bjs-powered-by {
+  display: none;
+}
+
+.hidden {
+  display: none;
+}
+
+.panel {
+  background-color: #fafafa;
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: 'Arial', sans-serif;
+  padding: 10px;
+}
+
+.djs-label {
+  font-family: 'Arial', sans-serif;
+}
+
+.bpmn-icon-task.red {
+  color: #cc0000 !important;
+}
+
+.bpmn-icon-task.yellow {
+  color: #ffc800 !important;
+}
+
+.bpmn-icon-task.green {
+  color: #52b415 !important;
+}
+.detailPopup {
+  font-family: 'Arial', sans-serif;
+  font-size: 11px;
+}
+
+.detailPopup input[type='button'] {
+  background-color: #bfbad6;
+  color: #111;
+}
+
+.commnentPopup .form input,
+textarea {
+  border: solid 1px #ccc;
+  border-radius: 2px;
+  font-family: 'Arial', sans-serif;
+  padding: 10px;
+}
+
+.commnentPopup .form input[type='text'],
+textarea {
+  width: 100%;
+}
+
+.commnentPopup .form #warning {
+  background-color: rgba(255, 0, 0, 0.25);
+  border-radius: 2px;
+  padding: 10px;
+}
+
+.commnentPopup .form input[type='submit'],
+input[type='button'] {
+  background-color: #bfbad6;
+  color: #111;
+}
+
+.hint {
+  bottom: 20px;
+  left: 20px;
+  position: absolute;
+}
+
+/* 컨텍스트 메뉴(레이어 팝업) */
+.commnentPopup,
+.detailPopup,
+.collabMenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300px;
+  background: var(--menu-bg);
+  border: 1px solid var(--menu-border);
+  border-radius: var(--radius);
+  box-shadow: var(--menu-shadow);
+  overflow: hidden;
+  animation: fadeIn 0.08s ease-out;
+  z-index: 1000;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-2px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.menu-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--menu-border);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--header-fg);
+  text-transform: uppercase;
+}
+
+.menu-header svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+}
+
+.menu-list {
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  color: var(--item-fg);
+  font-size: 14px;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.menu-item:hover {
+  background: var(--item-hover);
+}
+.menu-item:active {
+  background: #e9edf2;
+}
+.menu-item + .menu-item {
+  border-top: 1px solid #f0f2f4;
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* 비활성 항목 스타일 */
+.menu-item.is-disabled {
+  color: #9aa4b2; /* 흐린 글자색 */
+  cursor: not-allowed; /* 금지 커서 */
+  opacity: 0.6;
+}
+.menu-item.is-disabled:hover {
+  background: transparent;
+} /* 호버 배경 제거 */
+.menu-item.is-disabled .chev {
+  opacity: 0.4;
+} /* > 아이콘도 흐리게 */

@@ -1,0 +1,1 @@
+(function(){var a={icon:{p_convertpdf:"Save as PDF"},topmenu:{p_convertpdf:"Save as PDF"},message:{empty:"There is nothing written.",error:"An error occurred while converting PDF."}};try{G_DEPlugin&&(G_DEPlugin.convertpdf.lang=a,dext5_lang.plugins.convertpdf=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&RAONWIZDLW&&RAONWIZDLW()}})();

@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:w2="http://www.inswave.com/websquare"
+	xmlns:xf="http://www.w3.org/2002/xforms">
+	<head meta_screenId="index_pageFrame" meta_screenName="Single View 레이아웃" meta_screenDesc="PageFrame을 이용해서 업무 화면을 로딩하는 레이아웃">
+		<w2:type>COMPONENT</w2:type>
+		<w2:buildDate />
+		<xf:model>
+			<xf:instance>
+				<data xmlns=""></data>
+			</xf:instance>
+		</xf:model>
+		<w2:layoutInfo></w2:layoutInfo>
+		<w2:publicInfo method="scwin.settingBox_handlerEvent,scwin.ajax_callback,scwin.confirmCallback,scwin.scrollToBottom"></w2:publicInfo>
+
+		<meta name="viewport" content="width=device-width, user-scalable=no"></meta>
+		<w2:common src="../../common/pcc/main.xml"  id="main" msaName="CM"></w2:common>
+		<script type="text/javascript" lazy="false"><![CDATA[scwin.onpageload = function () {
+
+    // Mobile일때 메뉴 동작	
+    if (WebSquare.util.isMobile()) {
+        grp_wrap.removeClass("show_menu");
+
+        pfm_header.getWindow().btn_toggle_menu.bind(
+            'onclick', function (e) {
+                pfm_header.getWindow().btn_toggle_menu.toggleClass("on");
+                grp_wrap.toggleClass("show_menu");
+                $p.$('.dim').toggleClass("on");
+            });
+    } else {
+        pfm_header.getWindow().btn_toggle_menu.bind(
+            'onclick', function (e) {
+                pfm_header.getWindow().btn_toggle_menu.toggleClass("on");
+                grp_wrap.toggleClass("show_menu");
+            });
+    }
+
+    main.initMainLoad();
+};
+
+/**
+ * @method
+ * @name settingBox_handlerEvent
+ * @description layout을 선택하는 창에서 이벤트를 제어한다.
+ * @param {string} e 이벤트 객체
+ * @hidden N
+ * @exception 
+ */
+scwin.settingBox_handlerEvent = function (e) {
+    if (e.keyCode == 27 || e.type == "click") {
+        pfm_header.getWindow().grp_setting.removeClass("on");
+    }
+};]]></script>
+		<style type="text/css"><![CDATA[ 
+			.container:before {background:#fff}
+		]]></style>
+	
+	</head>
+	<body ev:onpageload="scwin.onpageload" ev:onkeydown="scwin.settingBox_handlerEvent" ev:onclick="scwin.settingBox_handlerEvent" class="wrm">
+		<xf:group style="" id="grp_dimLayer" class="dim"></xf:group>
+		<xf:group class="wrap show_menu" id="grp_wrap" style="">
+			<w2:pageFrame style="" id="pfm_header" class="header" src="/common/xml/header.xml"></w2:pageFrame>
+
+			<xf:group class="container" id="" style="">
+				<xf:group style="" id="" class="contents">
+					<w2:pageFrame style="height:100%;" id="pfm_layout"></w2:pageFrame>
+					<xf:group id="grpMsg" style="position: absolute;bottom:40px;left:10px;min-width:calc( 98% - 20px );z-index: 9980;">
+
+						<xf:group style="display:none;" id="msg_success" class="msg_box success">
+							<w2:textbox tagname="" style="min-height:20px" id="txt_success" label="정상 처리 되었습니다." class="txt_msg"></w2:textbox>
+						</xf:group>
+						<xf:group style="display:none;" id="msg_info" class="msg_box info">
+							<w2:textbox tagname="" style="" id="txt_info" label="정상 처리 되었습니다." class="txt_msg"></w2:textbox>
+						</xf:group>
+						<xf:group style="display:none;" id="msg_warning" class="msg_box warning">
+							<xf:group style="" id="">
+								<w2:textbox tagname="" style="" id="txt_warning" label="처리 도중 오류가 발생하였습니다." class="txt_msg"></w2:textbox>
+								<xf:trigger ev:onclick="scwin.removeWarnMsg" disabled="" style="" id="btn_warnig" type="button"
+									class="btn_close">
+									<xf:label><![CDATA[테이블버튼]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+							<xf:textarea style="min-height: 100px;" id="textarea_warning" placeholder=""></xf:textarea>
+						</xf:group>
+						<xf:group style="display:none;" id="msg_error" class="msg_box error">
+							<xf:group style="" id="">
+								<w2:textbox tagname="" style="" id="txt_error" label="처리 도중 오류가 발생하였습니다." class="txt_msg"></w2:textbox>
+								<xf:trigger ev:onclick="scwin.removeErrorMsg" disabled="" style="" id="btn_error" type="button"
+									class="btn_close">
+									<xf:label><![CDATA[테이블버튼]]></xf:label>
+								</xf:trigger>
+							</xf:group>
+							<xf:textarea style="min-height: 100px;" id="textarea_error" placeholder=""></xf:textarea>
+						</xf:group>
+					</xf:group>
+
+				</xf:group>
+				<!-- <xf:group class="chat_wrap" id="" style="">
+					<xf:group class="chat_close" id="">
+					<xf:trigger class="btn_close" ev:onclick="scwin.btn_chatClose_onclick" id="btn_chatClose" style="" type="button">
+					<xf:label></xf:label>
+					</xf:trigger>
+					</xf:group>
+					<xf:group class="chat_contents" id="" style="">
+					<xf:group class="chat_list" id="">
+					<w2:textbox class="date" escape="false" id="chat_date" label="01. 25 &lt;span&gt;(목)&lt;/span&gt;" style=""></w2:textbox>
+					</xf:group>
+					<w2:generator class="chat_list" id="gen_chat" style="">
+					<xf:group class="grp_message user" id="grp_userMsg" style="">
+					<w2:textbox class="bubble" id="user_chat" label="" style=""></w2:textbox>
+					<w2:textbox class="time" id="user_time" label="" style=""></w2:textbox>
+					</xf:group>
+					<xf:group class="grp_message bot" id="grp_botMsg" style="">
+					<w2:textbox class="title" id="bot_title" label="WebSquare" style=""></w2:textbox>
+					<w2:textbox class="bubble" id="bot_msg1" label="" style=""></w2:textbox>
+					<w2:textbox class="bubble" id="bot_msg2" label="" style="" escape="false"></w2:textbox>
+					<w2:textbox class="time" id="" label="" style=""></w2:textbox>
+					<xf:group class="bubble loading" id="bot_pen" style="">
+					<xf:group class="dot" id="" style=""></xf:group>
+					<xf:group class="dot" id="" style=""></xf:group>
+					<xf:group class="dot" id="" style=""></xf:group>
+					</xf:group>
+					</xf:group>
+					</w2:generator>
+					</xf:group>
+					<xf:group class="chat_footer" id="">
+					<xf:group class="chat_input_group" id="">
+					<xf:group class="chat_input" id="">
+					<xf:textarea ev:onkeydown="scwin.txt_chat_onkeydown" id="txt_chat" placeholder="내용을 입력하세요." style=""
+					title="내용을 입력하세요.">
+					</xf:textarea>
+					<xf:trigger class="btn_file" id="" style="" type="button">
+					<xf:label></xf:label>
+					</xf:trigger>
+					</xf:group>
+					<xf:trigger class="btn_send" ev:onclick="scwin.btn_chat_onclick" id="btn_chat" style="" title="전송"
+					type="button">
+					<xf:label></xf:label>
+					</xf:trigger>
+					</xf:group>
+					</xf:group>
+					</xf:group> -->
+				<w2:pageFrame style="" id="pfm_wtalk" src="/common/xml/wtalk.xml"></w2:pageFrame>
+			</xf:group>
+			<w2:pageFrame style="" id="pfm_side" class="side" src="/common/xml/side.xml"></w2:pageFrame>
+			<w2:pageFrame style="" id="pfm_footer" src="/common/xml/footer.xml"></w2:pageFrame>
+			<xf:group style="" id="" class="dim"></xf:group>
+		</xf:group>
+	</body>
+</html>

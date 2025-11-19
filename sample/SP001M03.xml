@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ev="http://www.w3.org/2001/xml-events"
+    xmlns:w2="http://www.inswave.com/websquare" xmlns:xf="http://www.w3.org/2002/xforms">
+    <head>
+    	<w2:type>COMPONENT</w2:type>
+    	<w2:buildDate />
+    	<w2:MSA />
+    	<xf:model>
+    		<w2:dataCollection baseNode="map" />
+    		<w2:workflowCollection />
+    	</xf:model>
+    	<w2:layoutInfo />
+    	<w2:publicInfo method="" />
+    	<script lazy="false" type="text/javascript"><![CDATA[
+scwin.onpageload = function() {
+	// Editor 컴포넌트의 HTML 문자열을 할당합니다.
+    edt_editor.setHTML("CKEditor입니다.<br/>이곳에 글을 입력하세요.");
+
+};
+
+//파일 업로드 후 처리(db upate 등)
+scwin.udc_fileMultiUpload_onFileUploadDone = function (isSuccess) {
+    if (isSuccess) {
+        console.log("success");
+    }
+};
+
+scwin.btn_save_onclick = async function (e) {
+    
+    const fileModifiedCount = udc_fileMultiUpload.getUpdatedFile().length;
+
+    if (fileModifiedCount == 0) {
+        $c.win.alert($c.data.getMessage("MSG_CM_00032"));
+    } else {
+        if (await $c.win.confirm($c.data.getMessage("MSG_CM_00031"))) {
+            // 선택한 파일의 업로드를 시작한다.
+            
+            udc_fileMultiUpload.startFileUpload();
+        }
+    }
+    /*
+    debugger;
+        const fileModifiedCount = udc_fileMultiUpload.getUpdatedFile().length;
+
+        if (fileModifiedCount == 0) {
+            $c.win.alert($c.data.getMessage("MSG_CM_00032"));
+            return;
+        }
+        let comp = $p.getComponentById('udc_fileMutliUpload');
+        let inputEl = comp.getElement && comp.getElement("file");
+        debugger;
+        const fileInput = document.getElementById("fileInput");
+        if(fileInput.files.length === 0) {
+            $c.win.alert("업로드할 파일을 선택하세요");
+            return;
+        }
+        
+        const formData = new FormData();
+        formData.append("files", fileInput.files[0]);
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "http://localhost:8080/api/files/host/upload", true);
+        xhr.onload = function() {
+            if(xhr.status === 200) {
+                console.log("업로드 성공:", xhr.responseText);
+            } else {
+                console.error("업로드 실패:", xhr.statusText);
+            }
+        };
+        xhr.onerror = function() {
+            console.error("요청 오류 발생");
+        };
+        xhr.send(formData);
+*/
+};
+
+
+scwin.btn_getAllMeta_onclick = function (e) {
+    debugger;
+    const option = {
+            id: "sbm_call_rest_api",
+            action : "http://localhost:8080/api/files/meta/all", 
+            method : "GET",
+
+            submitDoneHandler: "scwin.callbackDomain",
+            submitFailHandler: "scwin.callbackDomainFail",
+            submitErrorHandler: "scwin.callbackDomainError",
+            isProcessMsg: false
+        };        
+    $c.nova.getHostFileInfo(option);    
+};
+
+scwin.btn_attach_onclick = function (e) {
+       const option = {
+            id: "sbm_upload",
+            action : "http://localhost:8080/api/files/host/upload", 
+            mediatype : "multipart/form-data",
+            method : "POST",
+            //ref="",
+            submitDoneHandler: "scwin.callbackDomain",
+            submitFailHandler: "scwin.callbackDomainFail",
+            submitErrorHandler: "scwin.callbackDomainError",
+            isProcessMsg: false
+        };        
+    $c.nova.getHostFileInfo(option);    
+};
+
+scwin.btn_hostDownload_onclick = function (e) {
+    //curl -X GET http://localhost:8080/api/files/host/download/sample.txt \
+    //-o downloaded_sample.txt
+
+};
+
+scwin.btn_send_onclick = function (e) {
+  
+    const fileInput = document.getElementById(ibx_file.getID());
+    if (fileInput.files.length === 0) {
+      alert("업로드할 파일을 선택하세요.");
+      return;
+    }
+        
+    const formData = new FormData();
+    formData.append("files", fileInput.files[0]);
+    fetch("http://localhost:8080/api/files/host/upload", {
+        method: "POST",
+        body: formData,
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        console.log("success", data);
+    })
+    .catch((error) => {
+        console.error("failed", error);
+    })
+};
+
+scwin.btn_send1_onclick = function (e) {
+  
+    const fileInput = document.getElementById(ibx_file.getID());
+    if (fileInput.files.length === 0) {
+      alert("업로드할 파일을 선택하세요.");
+      return;
+    }
+    debugger;
+  
+    console.log(fileInput.files[0]);
+    const formData = new FormData();
+    formData.append("files", fileInput.files[0]);
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/api/files/host/upload", true);
+    // 응답 처리
+    xhr.onload = function () {
+      if (xhr.status === 200) {
+        console.log("업로드 성공:", xhr.responseText);
+        alert("업로드 성공!");
+      } else {
+        console.error("업로드 실패:", xhr.statusText);
+        alert("업로드 실패!");
+      }
+    };
+    // 에러 처리
+    xhr.onerror = function () {
+      console.error("요청 오류 발생");
+      alert("네트워크 오류가 발생했습니다.");
+    };
+    // 업로드 시작
+    xhr.send(formData);
+};
+]]></script>
+    </head>
+    <body ev:onpageload="scwin.onpageload">
+    	<xf:group class="sub_contents" id="" meta_snippetCategory="00_화면시작" meta_snippetKeyComponent="true" meta_snippetName="0_01 페이지시작"
+    		style="">
+    		<w2:pageFrame id="pfm_contentHeader" src="/common/xml/contentHeader.xml" style=""></w2:pageFrame>
+    		<xf:group class="titbox" id="" style=";text-align:left;">
+    			<w2:textbox class="" id="" label="첨부파일 " style="" tagname="h3"></w2:textbox>
+    			<xf:group class="rt" id="" style="">
+    				<xf:trigger class="btn_cm" disabled="" id="btn_getAllMeta" style="" toolTip="Biz 요구사항을 한 건 추가한다." type="button"
+    					ev:onclick="scwin.btn_getAllMeta_onclick">
+    					<xf:label><![CDATA[getAllMeta]]></xf:label>
+    				</xf:trigger>
+    				<xf:trigger class="btn_cm" disabled="" ev:onclick="scwin.btn_del_onclick" id="btn_trigger2" style=""
+    					toolTip="Biz 요구사항을 한 건 추가한다." type="button">
+    					<xf:label><![CDATA[삭제]]></xf:label>
+    				</xf:trigger>
+    				<xf:trigger class="btn_cm" disabled="" id="btn_hostDownload" style="" toolTip="Biz 요구사항을 한 건 추가한다." type="button"
+    					ev:onclick="scwin.btn_hostDownload_onclick">
+    					<xf:label><![CDATA[download Host]]></xf:label>
+    				</xf:trigger>
+    			</xf:group>
+    		</xf:group>
+    		<w2:editor style="height:300px;" id="edt_editor"></w2:editor>
+
+    		<xf:group class="tblbox" id="" meta_snippetCategory="05_입출력테이블" meta_snippetKeyComponent="true" meta_snippetName="5_01 1단테이블"
+    			style="">
+    			<xf:group adaptive="layout" adaptiveThreshold="768" class="w2tb tbl" id="" style="" tagname="table">
+    				<w2:attributes>
+    					<w2:summary></w2:summary>
+    				</w2:attributes>
+    				<xf:group tagname="colgroup">
+    					<xf:group style="width:150px;" tagname="col"></xf:group>
+    					<xf:group style="" tagname="col"></xf:group>
+    				</xf:group>
+    				<xf:group style="" tagname="tr">
+    					<xf:group class="w2tb_th" style="" tagname="th">
+    						<w2:textbox class="" id="" label="파일첨부" ref="" style="" userData2=""></w2:textbox>
+    					</xf:group>
+    					<xf:group class="w2tb_td" style="" tagname="td">
+    						<xf:input id="ibx_file" type="file" style="width: 300px;"></xf:input>
+    						<xf:trigger class="btn_cm" disabled="" id="btn_send" style=""
+    							toolTip="Biz 요구사항을 한 건 추가한다." type="button" ev:onclick="scwin.btn_send_onclick">
+    							<xf:label><![CDATA[첨부]]></xf:label>
+    						</xf:trigger>
+    					</xf:group>
+    				</xf:group>
+    			</xf:group>
+    		</xf:group>
+    	</xf:group>
+    	<xf:group class="btnbox" id="" style="">
+    		<xf:group class="rt" id="" style="">
+    			<xf:trigger class="btn_cm pt" ev:onclick="scwin.btn_save_onclick" id="btn_save" nextTabID="" style="" type="button">
+    				<xf:label><![CDATA[저장]]></xf:label>
+    			</xf:trigger>
+    		</xf:group>
+
+    	</xf:group>
+    </body>
+</html>

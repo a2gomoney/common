@@ -1,0 +1,1 @@
+(function(){var a={title:"\u56fe\u50cf\u6ed1\u5757",icon:{p_zoomslider:"\u56fe\u50cf\u6ed1\u5757"}};try{G_DEPlugin&&(G_DEPlugin.zoomslider.lang=a,dext5_lang.plugins.zoomslider=a)}catch(b){"undefined"!=typeof RAONWIZDLW&&RAONWIZDLW&&RAONWIZDLW()}})();
