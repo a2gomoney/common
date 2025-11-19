@@ -8,10 +8,10 @@
  */
 // =============================================================================
 
-var DEBUG_MODE = false; 
+var DEBUG_MODE = false
 
 
-//웹스퀘어 엔진이 디버그 모드가 아닐 경우 경우 console 로그가 출력되지 않도록 한다.
+//웹스퀘어 엔진이 디버그 모드가 아닐 경우 경우 console 로그가 출력되지 않도록 한다.!!!!
 if (WebSquare.core.getConfiguration("debug") === "false") {
 	
 	// 운영 환경(DEBUG_MODE = false)에서 디버깅을 위해서 Console 로그 출력이 필요한 경우에 
